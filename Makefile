@@ -4,6 +4,7 @@ LDFLAGS = -lGL -lGLEW -lglfw -lassimp -ldraco
 SRC = $(wildcard src/*.cpp) $(wildcard thirdparty/imgui/*.cpp) thirdparty/imgui/imgui_impl_glfw.cpp thirdparty/imgui/imgui_impl_opengl3.cpp
 OBJ_DIR = obj
 OBJ = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
+TARGET_DIR = bin
 TARGET = bin/mine
 
 .PHONY: all clean run run_asan
@@ -11,6 +12,7 @@ TARGET = bin/mine
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
+	mkdir -p $(TARGET_DIR)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: %.cpp
