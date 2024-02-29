@@ -28,3 +28,9 @@ shared_ptr<Node> Scene::add_node(const vec3 &pos, const quat &rot,
   new_node_queue.push_back(node);
   return node;
 }
+
+void Scene::on_gui() {
+  for (auto &node : nodes) {
+    node->on_gui();
+  }
+}

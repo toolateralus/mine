@@ -45,14 +45,14 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath) {
               << infoLog << std::endl;
   }
   
-  programID = glCreateProgram();
-  glAttachShader(programID, vertexShader);
-  glAttachShader(programID, fragmentShader);
-  glLinkProgram(programID);
+  program_id = glCreateProgram();
+  glAttachShader(program_id, vertexShader);
+  glAttachShader(program_id, fragmentShader);
+  glLinkProgram(program_id);
   
-  glGetProgramiv(programID, GL_LINK_STATUS, &success);
+  glGetProgramiv(program_id, GL_LINK_STATUS, &success);
   if (!success) {
-    glGetProgramInfoLog(programID, 512, NULL, infoLog);
+    glGetProgramInfoLog(program_id, 512, NULL, infoLog);
     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
               << infoLog << std::endl;
   }
@@ -65,30 +65,34 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath) {
   static const auto uniforms = std::vector<std::string>{
       "viewProjectionMatrix", "modelMatrix", "color", "lightPosition",
       "lightColor", "lightRadius", "lightIntensity", "castShadows", "hasTexture", "textureSampler"};
-  
+  glUseProgram(program_id);
   for (auto i = 0; i < uniforms.size(); i++) {
-    const auto location = glGetUniformLocation(programID, uniforms[i].c_str());
+    const auto uniform_path = uniforms[i].c_str();
+    const auto location = glGetUniformLocation(program_id, uniform_path);
     if (location != -1)
-      uniformLocations[uniforms[i]] = location;
+      uniform_locations[uniforms[i]] = location;
+    else {
+      //std::cout << "shader " << fragmentPath << " failed to bind uniform: " << uniforms[i] << std::endl;
+    }
   }
 }
 
 auto Gizmo::shader = make_shared<Shader>(std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.hlsl"), std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.hlsl"));
 
-Shader::~Shader() { glDeleteProgram(programID); }
+Shader::~Shader() { glDeleteProgram(program_id); }
 
 // VertexBuffer
 void MeshBuffer::update_data() {
-  modelMatrices.clear();
+  model_matrices.clear();
   vertices.clear();
   texcoords.clear();
   normals.clear();
   indices.clear();
-  interleavedData.clear();
+  interleaved_data.clear();
   
   for (auto mr : this->meshes) {
     auto mesh = mr->mesh;
-    modelMatrices.insert(modelMatrices.end(), mr->node.lock()->get_transform());
+    model_matrices.insert(model_matrices.end(), mr->node.lock()->get_transform());
     vertices.insert(vertices.end(), mesh->vertices.begin(), mesh->vertices.end());
     texcoords.insert(texcoords.end(), mesh->texcoords.begin(), mesh->texcoords.end());
     normals.insert(normals.end(), mesh->normals.begin(), mesh->normals.end());
@@ -97,26 +101,26 @@ void MeshBuffer::update_data() {
   
   // Interleave vertices, texcoords, and normals
   for (size_t i = 0; i < vertices.size() / 3; ++i) {
-    interleavedData.push_back(vertices[i*3]);
-    interleavedData.push_back(vertices[i*3 + 1]);
-    interleavedData.push_back(vertices[i*3 + 2]);
+    interleaved_data.push_back(vertices[i*3]);
+    interleaved_data.push_back(vertices[i*3 + 1]);
+    interleaved_data.push_back(vertices[i*3 + 2]);
     
-    interleavedData.push_back(texcoords[i*2]);
-    interleavedData.push_back(texcoords[i*2 + 1]);
+    interleaved_data.push_back(texcoords[i*2]);
+    interleaved_data.push_back(texcoords[i*2 + 1]);
     
-    interleavedData.push_back(normals[i*3]);
-    interleavedData.push_back(normals[i*3 + 1]);
-    interleavedData.push_back(normals[i*3 + 2]);
+    interleaved_data.push_back(normals[i*3]);
+    interleaved_data.push_back(normals[i*3 + 1]);
+    interleaved_data.push_back(normals[i*3 + 2]);
   }
   
-  glBindVertexArray(VAO);
+  glBindVertexArray(vao);
   
   // Buffer the interleaved data
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, interleavedData.size() * sizeof(float), interleavedData.data(), GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, vbo);
+  glBufferData(GL_ARRAY_BUFFER, interleaved_data.size() * sizeof(float), interleaved_data.data(), GL_STATIC_DRAW);
   
   // Buffer the indices
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
   
   // Set the vertex attributes pointers
@@ -133,16 +137,16 @@ void MeshBuffer::update_data() {
   glBindVertexArray(0);
 }
 MeshBuffer::MeshBuffer() {
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &modelVBO);
-  glGenBuffers(1, &VBO);
-  glGenBuffers(1, &EBO);
+  glGenVertexArrays(1, &vao);
+  glGenBuffers(1, &model_vbo);
+  glGenBuffers(1, &vbo);
+  glGenBuffers(1, &ebo);
 }
 MeshBuffer::~MeshBuffer() {
-  glDeleteVertexArrays(1, &VAO);
-  glDeleteBuffers(1, &VBO);
-  glDeleteBuffers(1, &VBO);
-  glDeleteBuffers(1, &EBO);
+  glDeleteVertexArrays(1, &vao);
+  glDeleteBuffers(1, &vbo);
+  glDeleteBuffers(1, &vbo);
+  glDeleteBuffers(1, &ebo);
   this->meshes.clear();
 }
 // Renderer
@@ -239,29 +243,29 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader, const G
   const auto light_intensity = light->intensity;
   const auto cast_shadows = light->cast_shadows;
   
-  const auto lightPositionLocation = shader->uniformLocations.find("lightPosition");
-  const auto lightColorLocation = shader->uniformLocations.find("lightColor");
-  const auto lightRadiusLocation = shader->uniformLocations.find("lightRadius");
-  const auto lightIntensityLocation = shader->uniformLocations.find("lightIntensity");
-  const auto castShadowsLocation = shader->uniformLocations.find("castShadows");
+  const auto lightPositionLocation = shader->uniform_locations.find("lightPosition");
+  const auto lightColorLocation = shader->uniform_locations.find("lightColor");
+  const auto lightRadiusLocation = shader->uniform_locations.find("lightRadius");
+  const auto lightIntensityLocation = shader->uniform_locations.find("lightIntensity");
+  const auto castShadowsLocation = shader->uniform_locations.find("castShadows");
     
-  if (lightPositionLocation != shader->uniformLocations.end()) {
+  if (lightPositionLocation != shader->uniform_locations.end()) {
     glUniform3fv(lightPositionLocation->second, 1, glm::value_ptr(light_position));
   }
   
-  if (lightColorLocation != shader->uniformLocations.end()) {
+  if (lightColorLocation != shader->uniform_locations.end()) {
     glUniform3fv(lightColorLocation->second, 1, glm::value_ptr(light_color));
   }
   
-  if (lightRadiusLocation != shader->uniformLocations.end()) {
+  if (lightRadiusLocation != shader->uniform_locations.end()) {
     glUniform1f(lightRadiusLocation->second, light_radius);
   }
   
-  if (lightIntensityLocation != shader->uniformLocations.end()) {
+  if (lightIntensityLocation != shader->uniform_locations.end()) {
     glUniform1f(lightIntensityLocation->second, light_intensity);
   }
   
-  if (castShadowsLocation != shader->uniformLocations.end()) {
+  if (castShadowsLocation != shader->uniform_locations.end()) {
     glUniform1i(castShadowsLocation->second, cast_shadows);
   }
 }
@@ -271,8 +275,8 @@ void Renderer::set_uniforms(
       
   const auto material = mesh_renderer->material;
   const auto shader_struct = material->shader;
-  const auto shader = shader_struct->programID;
-  const auto uniforms = shader_struct->uniformLocations;
+  const auto shader = shader_struct->program_id;
+  const auto uniforms = shader_struct->uniform_locations;
   const auto texture = material->texture;
   const auto node = mesh_renderer->node.lock();
   const auto transform_matrix = node->get_transform();
@@ -322,7 +326,7 @@ void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
   glEnable(GL_DEPTH_TEST);
   glPolygonMode(GL_FRONT, GL_FILL_NV);
   void *indexOffset = 0;
-  glBindVertexArray(mesh_buffer->VAO);
+  glBindVertexArray(mesh_buffer->vao);
   for (auto &mesh_renderer : mesh_buffer->meshes) {
     
     const auto indexCount = mesh_renderer->mesh->indices.size();
@@ -340,7 +344,7 @@ void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
   glPolygonMode(GL_FRONT, GL_LINE);
   //std::cout << "drawing " << gizmo_buffer->gizmos.size() << " gizmos" << std::endl;
   glBindVertexArray(gizmo_buffer->VAO);
-  const auto shader = Gizmo::shader->programID;
+  const auto shader = Gizmo::shader->program_id;
   glUseProgram(shader);
   
   const auto colorLocation = glGetUniformLocation(shader, "color");
@@ -375,7 +379,7 @@ Texture::Texture(const std::string path) {
   glBindTexture(GL_TEXTURE_2D, texture);
   
   stbi_set_flip_vertically_on_load(true);
-  data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
+  data = stbi_load(path.c_str(), &width, &height, &channel_count, 0);
   
   if (data) {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
@@ -420,11 +424,8 @@ void Renderer::draw_IMGUI() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
-
-  // Create ImGui widgets
-  ImGui::Text("Hello, world!");
-
-  // Render ImGui frame
+  auto &engine = Engine::current();
+  engine.on_gui();
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

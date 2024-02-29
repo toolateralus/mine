@@ -19,6 +19,7 @@
 
 #include "node.hpp"
 
+#define IMGUI_HAS_DOCK
 #include "../thirdparty/imgui/imgui.h"
 #include "../thirdparty/imgui/imgui_impl_glfw.h"
 #include "../thirdparty/imgui/imgui_impl_opengl3.h"
@@ -33,16 +34,16 @@ struct MeshRenderer;
 
 class Shader {
 public:
-  GLuint programID;
-  std::unordered_map<std::string, GLuint> uniformLocations = {};
-
+  GLuint program_id;
+  std::unordered_map<std::string, GLuint> uniform_locations = {};
+  
   Shader(const std::string vertex_path, const std::string frag_path);
   ~Shader();
 };
 class Texture {
 public:
   GLuint texture;
-  int width, height, nrChannels;
+  int width, height, channel_count;
   unsigned char *data;
   Texture(const std::string path);
   ~Texture();
@@ -65,13 +66,13 @@ public:
 
 class MeshBuffer {
 public:
-  GLuint modelVBO, VBO, VAO, EBO;
+  GLuint model_vbo, vbo, vao, ebo;
   vector<float> vertices = {};
   vector<float> texcoords = {};
   vector<float> normals = {};
   vector<unsigned int> indices = {};
-  vector<glm::mat4> modelMatrices = {};
-  vector<float> interleavedData = {};
+  vector<glm::mat4> model_matrices = {};
+  vector<float> interleaved_data = {};
   vector<shared_ptr<MeshRenderer>> meshes = {};
   MeshBuffer();
   ~MeshBuffer();

@@ -25,7 +25,7 @@ public:
   void awake();
   void update(float dt);
   void on_collision(const physics::Collision &collision);
-  
+  void on_gui();
   // for some reason these seem to be backwards.
   vec3 fwd() const;
   vec3 left() const;
@@ -68,3 +68,4 @@ public:
     return nullptr;
   }
 };
+

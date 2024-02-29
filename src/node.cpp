@@ -104,3 +104,8 @@ void Node::on_collision(const physics::Collision &collision) {
     component->on_collision(collision);
   }
 }
+void Node::on_gui() {
+    for (auto &component : components) {
+      component->on_gui();
+    }
+}

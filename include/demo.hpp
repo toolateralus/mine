@@ -33,6 +33,7 @@ public:
     
   }
   ~Player() override {}
+  void on_gui() override;
   void awake() override {}
   void update(const float &dt) override;
 };

@@ -14,4 +14,5 @@ public:
                             const quat &rot = {1, 0, 0, 0},
                             const vec3 &scale = {1, 1, 1});
   void update(const float &dt);
+  void on_gui();
 };

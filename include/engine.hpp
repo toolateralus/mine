@@ -28,6 +28,9 @@ struct Engine {
   static Engine &current();
   Engine(const Engine&) = delete;
   Engine& operator=(const Engine&) = delete;
+  void on_gui() {
+    m_scene->on_gui();
+  }
 private:
   static void update_loop(const float &dt);
   Engine();

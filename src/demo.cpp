@@ -1,4 +1,5 @@
 #include "../include/demo.hpp"
+#include "../thirdparty/imgui/imgui.h"
 
 void BlockPlacer::update(const float &dt) {
     auto node = this->node.lock();
@@ -37,6 +38,12 @@ void BlockPlacer::awake() {
     
     textured_material =
         make_shared<Material>(engine.m_shader, engine.m_texture);
+}
+void Player::on_gui() {
+  ImGui::Begin("Player");
+  auto fps = Engine::current().m_renderer->framerate;  
+  ImGui::Text("FPS: %f", fps);
+  ImGui::End();
 }
 void Player::update(const float &dt) {
     shared_ptr<Node> node = this->node.lock();
