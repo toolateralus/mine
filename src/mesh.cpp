@@ -27,11 +27,13 @@ void Mesh::load(const std::string &path) {
     throw std::runtime_error("ERROR::ASSIMP::" +
                              std::string(importer.GetErrorString()));
   }
-  processNode(scene->mRootNode, scene);
+  process_node(scene->mRootNode, scene);
   auto unique_mesh = make_shared<Mesh>(*this);
   cache[path] = unique_mesh;
 }
-void Mesh::processMesh(aiMesh *mesh, const aiScene *scene) {
+void Mesh::process_mesh(aiMesh *mesh, const aiScene *scene) {
+  unsigned int vertexOffset = vertices.size() / 3; // Each vertex has 3 components (x, y, z)
+
   for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
     aiVector3D vertex = mesh->mVertices[i];
     vertices.push_back(vertex.x / 2.0);
@@ -52,16 +54,16 @@ void Mesh::processMesh(aiMesh *mesh, const aiScene *scene) {
   for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
     aiFace face = mesh->mFaces[i];
     for (unsigned int j = 0; j < face.mNumIndices; j++) {
-      indices.push_back(face.mIndices[j]);
+      indices.push_back(face.mIndices[j] + vertexOffset);
     }
   }
 }
-void Mesh::processNode(aiNode *node, const aiScene *scene) {
+void Mesh::process_node(aiNode *node, const aiScene *scene) {
   for (unsigned int i = 0; i < node->mNumMeshes; i++) {
     aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-    processMesh(mesh, scene);
+    process_mesh(mesh, scene);
   }
   for (unsigned int i = 0; i < node->mNumChildren; i++) {
-    processNode(node->mChildren[i], scene);
+    process_node(node->mChildren[i], scene);
   }
 }

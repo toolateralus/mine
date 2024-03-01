@@ -23,8 +23,8 @@ struct Mesh : public std::enable_shared_from_this<Mesh> {
   void load(const std::string &path);
 
 private:
-  void processNode(aiNode *node, const aiScene *scene);
-  void processMesh(aiMesh *mesh, const aiScene *scene);
+  void process_node(aiNode *node, const aiScene *scene);
+  void process_mesh(aiMesh *mesh, const aiScene *scene);
 };
 
 class MeshRenderer : public Component {
