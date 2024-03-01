@@ -29,6 +29,8 @@ struct Rigidbody : public Component {
   void on_collision(const physics::Collision &collision) override {
     //std::cout << "collision at : " << vec3_to_string(collision.point) << std::endl;
   }
+  void serialize(YAML::Emitter &out) override;
+  void deserialize(const YAML::Node &in) override;
 };
 
 struct Octree {

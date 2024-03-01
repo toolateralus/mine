@@ -1,7 +1,7 @@
 #pragma once
 #include "usings.hpp"
-#include "yaml-cpp/yaml.h"
-#include <yaml-cpp/emitter.h>
+
+#include <yaml-cpp/yaml.h>
 
 struct Node;
 class Scene {
@@ -18,5 +18,6 @@ public:
                             const vec3 &scale = {1, 1, 1});
   void update(const float &dt);
   void on_gui();
- 
+  void serialize(YAML::Emitter &out);
+  void deserialize(const YAML::Node &in);
 };

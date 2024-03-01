@@ -164,3 +164,16 @@ vec3 physics::Collider::get_closest_point_to(const vec3 &point) {
 void Collider::on_collision(const Collision &collision) {
   
 }
+void physics::Collider::serialize(YAML::Emitter &out) {
+  out << YAML::BeginMap;
+  out << YAML::Key << "type" << YAML::Value << "Collider";
+  out << YAML::Key << "center" << YAML::Value << YAML::Flow
+      << vec3_to_string(center);
+  out << YAML::Key << "size" << YAML::Value << YAML::Flow
+      << vec3_to_string(size);
+  out << YAML::EndMap;
+}
+void physics::Collider::deserialize(const YAML::Node &in) {
+  center = string_to_vec3(in["center"].as<std::string>());
+  size = string_to_vec3(in["size"].as<std::string>());
+}

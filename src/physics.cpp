@@ -282,7 +282,7 @@ void Rigidbody::integrate(const float &dt) {
     }
   }
 }
-shared_ptr<Rigidbody> physics::Physics::add_rigidbody(shared_ptr<Node> &node,
+shared_ptr<Rigidbody> Physics::add_rigidbody(shared_ptr<Node> &node,
                                                       const float mass,
                                                       const float drag) {
   auto rb = node->add_component<Rigidbody>(mass, drag);
@@ -290,6 +290,17 @@ shared_ptr<Rigidbody> physics::Physics::add_rigidbody(shared_ptr<Node> &node,
   return rb;
 }
 
+void Rigidbody::deserialize(const YAML::Node &in)  {
+  mass = in["mass"].as<float>();
+  drag = in["drag"].as<float>();
+}
+void Rigidbody::serialize(YAML::Emitter &out) {
+  out << YAML::BeginMap;
+  out << YAML::Key << "type" << YAML::Value << "Rigidbody";
+  out << YAML::Key << "mass" << YAML::Value << mass;
+  out << YAML::Key << "drag" << YAML::Value << drag;
+  out << YAML::EndMap;
+}
 // static bool test_collider_and_mtv() const {
 //   auto m_physics = Engine::current().m_physics;
 //   auto node_a = make_shared<Node>();
@@ -335,3 +346,5 @@ shared_ptr<Rigidbody> physics::Physics::add_rigidbody(shared_ptr<Node> &node,
 
 //   return 0;
 // }
+
+

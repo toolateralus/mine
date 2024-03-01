@@ -24,6 +24,7 @@
 #include "../thirdparty/imgui/imgui_impl_glfw.h"
 #include "../thirdparty/imgui/imgui_impl_opengl3.h"
 
+#include <yaml-cpp/yaml.h>
 
 static int EXIT_CODE = 0;
 constexpr int SCREEN_W = 640;
@@ -39,6 +40,7 @@ public:
   std::string vertex_path, frag_path;
   Shader(const std::string vertex_path, const std::string frag_path);
   ~Shader();
+  YAML::Node serialize();
 };
 class Texture {
 public:
@@ -48,12 +50,14 @@ public:
   std::string path;
   Texture(const std::string path);
   ~Texture();
+  YAML::Node serialize();
 };
 
 class Material {
 public:
   shared_ptr<Shader> shader;
   std::optional<shared_ptr<Texture>> texture;
+  Material(); // This should only be used when deserializing.
   Material(shared_ptr<Shader> shader,
            std::optional<shared_ptr<Texture>> texture = std::nullopt)
       : shader(shader), texture(texture) {}
@@ -63,6 +67,8 @@ public:
       this->texture.value().reset();
     }
   }
+  YAML::Node serialize();
+  void deserialize(const YAML::Node &in);
 };
 
 class MeshBuffer {

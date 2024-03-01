@@ -26,4 +26,4 @@ run_asan: $(TARGET)
 	ASAN_OPTIONS=detect_leaks=1 ./$(TARGET)
 
 clean:
-	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -rf $(OBJ_DIR/src) $(TARGET)

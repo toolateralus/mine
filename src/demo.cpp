@@ -101,3 +101,6 @@ void Player::update(const float &dt) {
     node->translate(move_vec * dt);
 }
 
+void BlockPlacer::serialize(YAML::Emitter &out) {
+    out << YAML::Key << "type" << YAML::Value << "BlockPlacer";
+}

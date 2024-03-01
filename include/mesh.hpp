@@ -36,4 +36,6 @@ public:
   ~MeshRenderer() override;
   void awake() override {}
   void update(const float &dt) override {}
+  void serialize(YAML::Emitter &out) override;
+  void deserialize(const YAML::Node &in) override;
 };

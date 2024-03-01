@@ -435,3 +435,31 @@ void Renderer::draw_imgui() {
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+YAML::Node Material::serialize() {
+  YAML::Node out;
+  out["shader"] = this->shader->vertex_path + " " + this->shader->frag_path;
+  if (this->texture.has_value()) {
+    out["texture"] = this->texture.value()->path;
+  }
+  return out;
+}
+YAML::Node Texture::serialize() {
+  YAML::Node out;
+  out["path"] = this->path;
+  return out;
+}
+YAML::Node Shader::serialize() {
+  YAML::Node out;
+  out["vertex_path"] = this->vertex_path;
+  out["frag_path"] = this->frag_path;
+  return out;
+}
+void Material::deserialize(const YAML::Node &in) {
+  this->shader =
+      make_shared<Shader>(in["shader"]["vertex"].as<std::string>(),
+                          in["shader"]["fragment"].as<std::string>());
+  if (in["texture"]) {
+    this->texture = make_shared<Texture>(in["texture"].as<std::string>());
+  }
+}
+Material::Material() {}

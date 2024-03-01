@@ -24,6 +24,10 @@ struct BlockPlacer : public Component {
   shared_ptr<Material> textured_material;
   void awake() override;
   void update(const float &dt) override;
+  void serialize(YAML::Emitter &out) override;
+  void deserialize(const YAML::Node &in) override {
+    
+  }
 };
 
 // this file is used for testing components, making temporary classes etc.

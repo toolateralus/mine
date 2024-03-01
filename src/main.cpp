@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <memory>
+#include <yaml-cpp/emitter.h>
 
 using namespace physics;
 
@@ -88,4 +89,8 @@ int main(int argc, char **argv) {
   }
   
   m_renderer->run();
+  YAML::Emitter out;
+  m_scene->serialize(out);
+  
+  std::cout << out.c_str() << std::endl;
 }

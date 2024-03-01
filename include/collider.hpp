@@ -1,5 +1,6 @@
 #pragma once
 #include "bbox.hpp"
+#include "tostring.hpp"
 #include "usings.hpp"
 #include "component.hpp"
 #include "node.hpp"
@@ -45,7 +46,9 @@ namespace physics {
     void awake() override {}
     void update(const float &dt) override;
     void on_collision(const physics::Collision &collision) override;
-    
+
+    void serialize(YAML::Emitter &out) override;
+    void deserialize(const YAML::Node &in) override;
     void transform_collider();
     void project(const vec3 &axis, float &min, float &max);
     vec3 get_closest_point_to(const vec3 &point);

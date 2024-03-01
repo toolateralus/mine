@@ -34,3 +34,22 @@ void Scene::on_gui() {
     node->on_gui();
   }
 }
+
+void Scene::serialize(YAML::Emitter &out) {
+  out << YAML::BeginMap;
+  out << YAML::Key << "nodes";
+  out << YAML::Value << YAML::BeginSeq;
+  for (auto &node : nodes) {
+    node->serialize(out);
+  }
+  out << YAML::EndSeq;
+  out << YAML::EndMap;
+}
+
+void Scene::deserialize(const YAML::Node &in) {
+  auto nodes = in["nodes"].as<std::vector<YAML::Node>>();
+  for (auto node : nodes) {
+    auto new_node = add_node();
+    new_node->deserialize(node);
+  }
+}
