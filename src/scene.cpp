@@ -8,14 +8,7 @@ void Scene::update(const float &dt) {
   new_node_queue.clear();
   
   for (auto node : this->nodes) {
-
-    // lazy awaken components after they're already added to scene graph/ node
-    node->awake();
-
-    // update all nodes.
-    for (auto component : node->components) {
-      component->update(dt);
-    }
+    node->update(dt);
   }
 }
 

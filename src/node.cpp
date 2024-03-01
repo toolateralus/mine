@@ -101,10 +101,6 @@ void Node::set_scale(const vec3 &scale) {
 }
 void Node::awake() {
   for (auto component : components) {
-    if (!component) {
-      std::cerr << "Component is null" << std::endl;
-      continue;
-    }
     if (!component->is_awake) {
       component->is_awake = true;
       component->awake();
@@ -113,6 +109,7 @@ void Node::awake() {
 }
 void Node::update(float dt) {
   for (auto component : components) {
+    component->awake();
     component->update(dt);
   }
 }
@@ -129,7 +126,6 @@ void Node::on_gui() {
 void Node::deserialize(const YAML::Node &in) {
     auto &engine = Engine::current();
     auto scene = engine.m_scene;
-    
     
     this->name = in["name"].as<std::string>();
     
