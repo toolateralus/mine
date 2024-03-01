@@ -20,7 +20,7 @@ void BlockPlacer::update(const float &dt) {
           engine.m_renderer->add_mesh(new_node, textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
         }
         else {
-          engine.m_renderer->add_mesh(new_node, textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cylinder.obj");
+          engine.m_renderer->add_mesh(new_node, textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
         }
         engine.m_physics->add_rigidbody(new_node);
         engine.m_physics->add_collider(new_node)->draw_collider = true;
@@ -48,12 +48,13 @@ void Player::on_gui() {
 void Player::update(const float &dt) {
     shared_ptr<Node> node = this->node.lock();
     vec3 move_vec = vec3(0);
+    Input &input = Input::current();
     // up/down
     {
-      if (Input::current().key_down(Key::C)) {
+      if (input.key_down(Key::C)) {
         move_vec += vec3(0, -1.0, 0);
       }
-      if (Input::current().key_down(Key::V)) {
+      if (input.key_down(Key::V)) {
         move_vec += vec3(0, 1.0, 0);
       }
     }
@@ -64,9 +65,9 @@ void Player::update(const float &dt) {
     {
       const float rotationSens = 0.01f;
       const float panSens = 0.1f;
-      const glm::vec2 delta = Input::current().mouse_delta();
+      const glm::vec2 delta = input.mouse_delta();
       
-      if (Input::current().mouse_button_down(MouseButton::Right)) {
+      if (input.mouse_button_down(MouseButton::Right)) {
         float pitch = -delta.y * rotationSens;
         float yaw = -delta.x * rotationSens;
         auto rotation = glm::angleAxis(yaw, vec3(0, 1, 0)) *
@@ -75,7 +76,7 @@ void Player::update(const float &dt) {
         node->set_rotation(glm::normalize(rotation));
       }
       
-      if (Input::current().mouse_button_down(MouseButton::Left)) {
+      if (input.mouse_button_down(MouseButton::Left)) {
         vec3 panDirection =
             (-node->left() * delta.x + node->up() * delta.y) * panSens;
         move_vec += panDirection;
@@ -83,20 +84,20 @@ void Player::update(const float &dt) {
     }
     // forward/backward/left/right
     {
-      if (Input::current().key_down(Key::W)) {
+      if (input.key_down(Key::W)) {
         move_vec += -node->fwd();
       }
-      if (Input::current().key_down(Key::A)) {
+      if (input.key_down(Key::A)) {
         move_vec += -node->left();
       }
-      if (Input::current().key_down(Key::S)) {
+      if (input.key_down(Key::S)) {
         move_vec += node->fwd();
       }
-      if (Input::current().key_down(Key::D)) {
+      if (input.key_down(Key::D)) {
         move_vec += node->left();
       }
     }
-    move_vec *= Input::current().key_down(Key::LeftShift) ? 10.0f : 5.0f;
+    move_vec *= input.key_down(Key::LeftShift) ? 10.0f : 5.0f;
     node->translate(move_vec * dt);
 }
 

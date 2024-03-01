@@ -71,7 +71,6 @@ public:
   vector<float> texcoords = {};
   vector<float> normals = {};
   vector<unsigned int> indices = {};
-  vector<glm::mat4> model_matrices = {};
   vector<float> interleaved_data = {};
   vector<shared_ptr<MeshRenderer>> meshes = {};
   MeshBuffer();
@@ -218,16 +217,20 @@ public:
                                     const std::string &path);
   void add_gizmo(const Gizmo &gizmo);
   int run();
-  void initGl();
-  void initIMGUI();
-  void draw_IMGUI();
+  void init_opengl();
+  void init_imgui();
+  
   void draw_meshes(const mat4 &viewProjectionMatrix) const;
   void draw_gizmos(const mat4 &viewProjectionMatrix) const;
+  void draw_imgui();
+  
   static void resizeCallback(GLFWwindow *window, int width, int height);
-  void poll_metrics(
-      const std::chrono::time_point<std::chrono::high_resolution_clock> &start);
+  
+  void poll_metrics(const std::chrono::time_point<std::chrono::high_resolution_clock> &start);
+      
   void apply_lighting_uniforms(const shared_ptr<Shader> &shader,
                                const GLuint &program_id) const;
-  void set_uniforms(const mat4 &viewProjectionMatrix,
+                               
+  void apply_uniforms(const mat4 &viewProjectionMatrix,
                     std::shared_ptr<MeshRenderer> &mesh_renderer) const;
 };

@@ -179,6 +179,8 @@ shared_ptr<Collider> Physics::add_collider(shared_ptr<Node> &node,
   colliders.push_back(collider);
   return collider;
 }
+// TODO: optimize memory allocations here : 
+//    we could avoid recursion and use a more efficient structure for the octree child octree container.
 
 Octree::Octree(const int level, const BoundingBox bounds)
     : level(level), bounds(bounds) {}

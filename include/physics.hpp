@@ -44,11 +44,9 @@ struct Octree {
   vector<shared_ptr<Node>> query(const BoundingBox &query_boundary) const;
 };
 
-
-
 struct Physics {
   Octree root =
-      Octree(PHYSICS_OCTREE_MAX_LEVELS, BoundingBox(vec3(-1000), vec3(1000)));
+      Octree(PHYSICS_OCTREE_MAX_LEVELS, BoundingBox(vec3(-1000.0f), vec3(1000.0f)));
   vector<shared_ptr<Collider>> colliders;
   vector<shared_ptr<Rigidbody>> rigidbodies;
   Physics();

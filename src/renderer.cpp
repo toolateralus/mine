@@ -83,7 +83,6 @@ Shader::~Shader() { glDeleteProgram(program_id); }
 
 // VertexBuffer
 void MeshBuffer::update_data() {
-  model_matrices.clear();
   vertices.clear();
   texcoords.clear();
   normals.clear();
@@ -92,7 +91,6 @@ void MeshBuffer::update_data() {
   
   for (auto mr : this->meshes) {
     auto mesh = mr->mesh;
-    model_matrices.insert(model_matrices.end(), mr->node.lock()->get_transform());
     vertices.insert(vertices.end(), mesh->vertices.begin(), mesh->vertices.end());
     texcoords.insert(texcoords.end(), mesh->texcoords.begin(), mesh->texcoords.end());
     normals.insert(normals.end(), mesh->normals.begin(), mesh->normals.end());
@@ -113,6 +111,12 @@ void MeshBuffer::update_data() {
     interleaved_data.push_back(normals[i*3 + 2]);
   }
   
+  // save some memory by dumping this off early
+  // probably a negligble performance gain. (if any)
+  normals.clear();
+  vertices.clear();
+  texcoords.clear();
+  
   glBindVertexArray(vao);
   
   // Buffer the interleaved data
@@ -122,15 +126,18 @@ void MeshBuffer::update_data() {
   // Buffer the indices
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+  indices.clear();
   
   // Set the vertex attributes pointers
   size_t stride = (3 + 2 + 3) * sizeof(float);
+  
+  // vertex position
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
   glEnableVertexAttribArray(0);
-  
+  // texture coordinates
   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
   glEnableVertexAttribArray(1);
-  
+  // normals
   glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (void*)(5 * sizeof(float)));
   glEnableVertexAttribArray(2);
   
@@ -153,13 +160,13 @@ MeshBuffer::~MeshBuffer() {
 Renderer::Renderer(const char *title, const int h, const int w,
                    void (*update_loop)(const float &dt))
     : update_loop(update_loop), screenWidth(w), screenHeight(h), title(title) {
-  initGl();
-  initIMGUI();
+  init_opengl();
+  init_imgui();
   // the vertex buffer can only be instantiated after GL context is initialized.
   mesh_buffer = make_shared<MeshBuffer>();
   gizmo_buffer = make_shared<GizmoBuffer>();
 }
-void Renderer::initGl() {
+void Renderer::init_opengl() {
   glfwInit();
   window = glfwCreateWindow(screenWidth, screenHeight, title, nullptr, nullptr);
   glfwMakeContextCurrent(window);
@@ -214,7 +221,7 @@ int Renderer::run() {
     const auto viewProjectionMatrix = cam->get_view_projection();
     draw_meshes(viewProjectionMatrix);
     draw_gizmos(viewProjectionMatrix);
-    draw_IMGUI();
+    draw_imgui();
     
     glfwSwapBuffers(window);
     poll_metrics(start);
@@ -269,7 +276,7 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader, const G
     glUniform1i(castShadowsLocation->second, cast_shadows);
   }
 }
-void Renderer::set_uniforms(
+void Renderer::apply_uniforms(
     const mat4 &viewProjectionMatrix,
     std::shared_ptr<MeshRenderer> &mesh_renderer) const {
       
@@ -320,7 +327,6 @@ void Renderer::set_uniforms(
   }
   
   apply_lighting_uniforms(mesh_renderer->material->shader, shader);
-  
 }
 void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
   glEnable(GL_DEPTH_TEST);
@@ -331,7 +337,7 @@ void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
     
     const auto indexCount = mesh_renderer->mesh->indices.size();
     
-    set_uniforms(viewProjectionMatrix, mesh_renderer);
+    apply_uniforms(viewProjectionMatrix, mesh_renderer);
 
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
     
@@ -404,7 +410,7 @@ Renderer::add_mesh(shared_ptr<Node> &node, const shared_ptr<Material> &material,
 void Renderer::add_gizmo(const Gizmo &gizmo) {
   gizmo_buffer->gizmos.push_back(gizmo);
 }
-void Renderer::initIMGUI() {
+void Renderer::init_imgui() {
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
@@ -419,7 +425,7 @@ void Renderer::initIMGUI() {
   const char *glsl_version = "#version 130";
   ImGui_ImplOpenGL3_Init(glsl_version);
 }
-void Renderer::draw_IMGUI() {
+void Renderer::draw_imgui() {
   // Start the Dear ImGui frame
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
