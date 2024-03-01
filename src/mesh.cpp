@@ -7,12 +7,20 @@
 #include <yaml-cpp/yaml.h>
 
 MeshRenderer::~MeshRenderer() {}
+
+// TODO: implement instanced rendering and use unqiue mesh/material buffers
+// this will allow us to avoid redundant data and reduce the number of draw calls.
+
 MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
                            const std::string &mesh_path)
     : material(material), mesh() {
-      shared_ptr<Mesh> mesh = make_shared<Mesh>(mesh_path);
-      Mesh::load_into(mesh, mesh_path);
-    }
+  if (Mesh::cache.find(mesh_path) == Mesh::cache.end()) {
+    mesh = make_shared<Mesh>(mesh_path);
+    Mesh::load_into(mesh, mesh_path);
+  } else {
+    mesh = Mesh::cache[mesh_path];
+  }
+}
 
 std::unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
 
@@ -33,8 +41,9 @@ void Mesh::load_into(shared_ptr<Mesh> &mesh, const std::string &path) {
     throw std::runtime_error("ERROR::ASSIMP::" +
                              std::string(importer.GetErrorString()));
   }
-  
-  Mesh::process_node(mesh->vertices, mesh->texcoords, mesh->normals, mesh->indices, scene->mRootNode, scene);
+
+  Mesh::process_node(mesh->vertices, mesh->texcoords, mesh->normals,
+                     mesh->indices, scene->mRootNode, scene);
   cache[path] = mesh;
 }
 void Mesh::process_mesh(vector<float> &vertices, vector<float> &texcoords,
@@ -68,13 +77,15 @@ void Mesh::process_mesh(vector<float> &vertices, vector<float> &texcoords,
   }
 }
 void Mesh::process_node(vector<float> &vertices, vector<float> &texcoords,
-                        vector<float> &normals, vector<unsigned int> &indices, const aiNode *node, const aiScene *scene) {
+                        vector<float> &normals, vector<unsigned int> &indices,
+                        const aiNode *node, const aiScene *scene) {
   for (unsigned int i = 0; i < node->mNumMeshes; i++) {
     aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
     Mesh::process_mesh(vertices, texcoords, normals, indices, mesh, scene);
   }
   for (unsigned int i = 0; i < node->mNumChildren; i++) {
-    Mesh::process_node(vertices, texcoords ,normals, indices, node->mChildren[i], scene);
+    Mesh::process_node(vertices, texcoords, normals, indices,
+                       node->mChildren[i], scene);
   }
 }
 void MeshRenderer::deserialize(const YAML::Node &in) {
@@ -97,11 +108,10 @@ void MeshRenderer::awake() {
   auto &meshes = engine.m_renderer->mesh_buffer->meshes;
   auto shared_of_this = shared_from_this();
   auto it = std::find(meshes.begin(), meshes.end(), shared_of_this);
-  auto exists = it == meshes.end();
+  auto exists = it != meshes.end();
   if (exists) {
-    std::cout << "MeshRenderer already exists in mesh buffer" << std::endl;
+
   } else {
-    std::cout << "MeshRenderer does not exist in mesh buffer" << std::endl;
     meshes.push_back(shared_of_this);
   }
 }

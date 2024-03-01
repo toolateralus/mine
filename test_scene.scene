@@ -1,5 +1,5 @@
 nodes:
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -23,7 +23,7 @@ nodes:
         intensity: 1
         range: 1
         cast_shadows: true
-  - name: ""
+  - name: Node
     transform:
       - 10
       - 0
@@ -45,29 +45,23 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
-  - name: ""
+  - name: Node
     transform:
-      - 0.52532196
+      - -0.685057759
+      - 1.79558992e-06
+      - -0.728489101
       - 0
-      - 0.850903571
+      - -0.249798357
+      - 0.939371586
+      - 0.234908044
       - 0
+      - 0.684322417
+      - 0.342900872
+      - -0.643523335
       - 0
-      - 1
-      - -0
-      - 0
-      - -0.850903571
-      - 0
-      - 0.52532196
-      - 0
-      - -0.0571991503
-      - 3.50837564
-      - 14.9073505
+      - 0.0420531183
+      - 3.49852467
+      - 15.1358624
       - 1
     components:
       - type: BlockPlacer
@@ -77,19 +71,14 @@ nodes:
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
           texture:
             path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+      - type: Player
       - type: Camera
         fov: 60
         aspect: 1.33333337
         near: 0.100000001
         far: 10000
         sky_color: (0.100000, 0.300000, 0.800000)
-      - type: Camera
-        fov: 60
-        aspect: 1.33333337
-        near: 0.100000001
-        far: 10000
-        sky_color: (0.100000, 0.300000, 0.800000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -104,7 +93,7 @@ nodes:
       - 1
       - 0
       - 12.7635536
-      - -0.594665885
+      - -7.27307749
       - 7.12017059
       - 1
     components:
@@ -122,7 +111,7 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -136,9 +125,9 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7063541
-      - -7.8357563
-      - 7.02752113
+      - 0.0442925803
+      - -84.4581299
+      - 15.1387768
       - 1
     components:
       - type: MeshRenderer
@@ -155,7 +144,7 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -169,9 +158,9 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7063541
-      - -16.3418465
-      - 7.02752113
+      - 8.16184235
+      - -64.2281418
+      - 19.6606903
       - 1
     components:
       - type: MeshRenderer
@@ -188,7 +177,7 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -202,9 +191,9 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7063541
-      - -2.3093009
-      - 7.02752113
+      - 12.0415316
+      - -46.8191795
+      - 23.3233109
       - 1
     components:
       - type: MeshRenderer
@@ -221,7 +210,7 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -235,9 +224,9 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7063541
-      - -31.6724777
-      - 7.02752113
+      - 9.29476357
+      - -42.8857307
+      - 24.306015
       - 1
     components:
       - type: MeshRenderer
@@ -254,7 +243,7 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -268,9 +257,9 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7063541
-      - -22.2103939
-      - 7.02752113
+      - -1.08189797
+      - -34.2537956
+      - 28.056778
       - 1
     components:
       - type: MeshRenderer
@@ -287,7 +276,7 @@ nodes:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
-  - name: ""
+  - name: Node
     transform:
       - 1
       - 0
@@ -301,9 +290,42 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7063541
-      - -52.0994301
-      - 7.02752113
+      - -4.11879635
+      - -24.6727314
+      - 28.4588394
+      - 1
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - -10.0648098
+      - -9.8446207
+      - 24.9525833
       - 1
     components:
       - type: MeshRenderer

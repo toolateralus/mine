@@ -111,7 +111,7 @@ void Node::update(float dt) {
   for (auto component : components) {
     // skip uninitialized components? why do we need this.
     if (component) {
-      component->awake();
+      awake();
       component->update(dt);
     } else {
       std::cout << "Component is null" << std::endl;
@@ -175,6 +175,10 @@ void Node::deserialize(const YAML::Node &in) {
       if (type == "BlockPlacer") {
         auto block_placer = this->add_component<BlockPlacer>();
         block_placer->deserialize(component);
+      }
+      if (type == "Player") {
+        auto player = this->add_component<Player>();
+        player->deserialize(component);
       }
     }
 }

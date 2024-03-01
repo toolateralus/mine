@@ -79,6 +79,7 @@ void setup_default_scene() {
     player_node->add_component<BlockPlacer>();
     m_scene->camera = player_node;
     player_node->add_component<Player>();
+    player_node->add_component<Camera>();
     player_node->rotate(vec3(0, -45, 0));
   }
   
