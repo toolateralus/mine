@@ -1,6 +1,6 @@
-#include "../include/renderer.hpp"
 #include "../include/mesh.hpp"
 #include "../include/engine.hpp"
+#include "../include/renderer.hpp"
 #include <assimp/matrix4x4.h>
 #include <iostream>
 #include <stdexcept>
@@ -9,19 +9,20 @@
 MeshRenderer::~MeshRenderer() {}
 MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
                            const std::string &mesh_path)
-    : material(material), mesh(make_shared<Mesh>(mesh_path)) {
-      
+    : material(material), mesh() {
+      shared_ptr<Mesh> mesh = make_shared<Mesh>(mesh_path);
+      Mesh::load_into(mesh, mesh_path);
     }
-    
+
 std::unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
-    
-void Mesh::load(const std::string &path) {
+
+void Mesh::load_into(shared_ptr<Mesh> &mesh, const std::string &path) {
   auto it = cache.find(path);
   if (it != cache.end()) {
-    vertices = it->second->vertices;
-    texcoords = it->second->texcoords;
-    normals = it->second->normals;
-    indices = it->second->indices;
+    mesh->vertices = it->second->vertices;
+    mesh->texcoords = it->second->texcoords;
+    mesh->normals = it->second->normals;
+    mesh->indices = it->second->indices;
     return;
   }
   Assimp::Importer importer;
@@ -32,12 +33,15 @@ void Mesh::load(const std::string &path) {
     throw std::runtime_error("ERROR::ASSIMP::" +
                              std::string(importer.GetErrorString()));
   }
-  process_node(scene->mRootNode, scene);
-  auto unique_mesh = make_shared<Mesh>(*this);
-  cache[path] = unique_mesh;
+  
+  Mesh::process_node(mesh->vertices, mesh->texcoords, mesh->normals, mesh->indices, scene->mRootNode, scene);
+  cache[path] = mesh;
 }
-void Mesh::process_mesh(aiMesh *mesh, const aiScene *scene) {
-  unsigned int vertexOffset = vertices.size() / 3; // Each vertex has 3 components (x, y, z)
+void Mesh::process_mesh(vector<float> &vertices, vector<float> &texcoords,
+                        vector<float> &normals, vector<unsigned int> &indices,
+                        aiMesh *mesh, const aiScene *scene) {
+  unsigned int vertexOffset =
+      vertices.size() / 3; // Each vertex has 3 components (x, y, z)
 
   for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
     aiVector3D vertex = mesh->mVertices[i];
@@ -63,18 +67,16 @@ void Mesh::process_mesh(aiMesh *mesh, const aiScene *scene) {
     }
   }
 }
-void Mesh::process_node(aiNode *node, const aiScene *scene) {
+void Mesh::process_node(vector<float> &vertices, vector<float> &texcoords,
+                        vector<float> &normals, vector<unsigned int> &indices, const aiNode *node, const aiScene *scene) {
   for (unsigned int i = 0; i < node->mNumMeshes; i++) {
     aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-    process_mesh(mesh, scene);
+    Mesh::process_mesh(vertices, texcoords, normals, indices, mesh, scene);
   }
   for (unsigned int i = 0; i < node->mNumChildren; i++) {
-    process_node(node->mChildren[i], scene);
+    Mesh::process_node(vertices, texcoords ,normals, indices, node->mChildren[i], scene);
   }
 }
-
-
-
 void MeshRenderer::deserialize(const YAML::Node &in) {
   material = make_shared<Material>();
   auto material_node = in["material"];
@@ -92,5 +94,14 @@ void MeshRenderer::serialize(YAML::Emitter &out) {
 
 void MeshRenderer::awake() {
   auto &engine = Engine::current();
-  engine.m_renderer->mesh_buffer->meshes.push_back(shared_from_this());
+  auto &meshes = engine.m_renderer->mesh_buffer->meshes;
+  auto shared_of_this = shared_from_this();
+  auto it = std::find(meshes.begin(), meshes.end(), shared_of_this);
+  auto exists = it == meshes.end();
+  if (exists) {
+    std::cout << "MeshRenderer already exists in mesh buffer" << std::endl;
+  } else {
+    std::cout << "MeshRenderer does not exist in mesh buffer" << std::endl;
+    meshes.push_back(shared_of_this);
+  }
 }

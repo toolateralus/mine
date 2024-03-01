@@ -18,9 +18,7 @@ public:
   weak_ptr<Node> parent;
   vector<shared_ptr<Node>> children;
   
-  Node() {
-    transform = glm::identity<mat4>();
-    components = vector<shared_ptr<Component>>();
+  Node() : transform(glm::identity<mat4>()), name("Node"), components() {
   }
   ~Node() { components.clear(); }
   void awake();

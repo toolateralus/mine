@@ -35,9 +35,7 @@ public:
   Player() {}
   ~Player() override {}
   void on_gui() override;
-  void awake() override {
-    node.lock()->add_component<Camera>();
-  }
+  void awake() override {}
   void update(const float &dt) override;
   void serialize(YAML::Emitter &out) override {
     out << YAML::BeginMap;

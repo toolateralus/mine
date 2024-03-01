@@ -16,15 +16,16 @@ struct Mesh : public std::enable_shared_from_this<Mesh> {
   vector<unsigned int> indices;
   std::string path;
   static std::unordered_map<std::string, shared_ptr<Mesh>> cache;
-  Mesh(const std::string &path) : path(path){
-    load(path);
+  Mesh(const std::string &path) : path(path) {
+    
   }
   ~Mesh() {}
-  void load(const std::string &path);
+  static void load_into(shared_ptr<Mesh> &mesh, const std::string &path);
 
 private:
-  void process_node(aiNode *node, const aiScene *scene);
-  void process_mesh(aiMesh *mesh, const aiScene *scene);
+  static void process_node(vector<float> &vertices, vector<float> &texcoords,
+                        vector<float> &normals, vector<unsigned int> &indices, const aiNode *node, const aiScene *scene);
+  static void process_mesh(vector<float> &vertices, vector<float> &texcoords, vector<float> &normals, vector<unsigned int> &indices, aiMesh *mesh, const aiScene *scene);
 };
 
 class MeshRenderer : public Component, public std::enable_shared_from_this<MeshRenderer> {

@@ -109,8 +109,13 @@ void Node::awake() {
 }
 void Node::update(float dt) {
   for (auto component : components) {
-    component->awake();
-    component->update(dt);
+    // skip uninitialized components? why do we need this.
+    if (component) {
+      component->awake();
+      component->update(dt);
+    } else {
+      std::cout << "Component is null" << std::endl;
+    }
   }
 }
 void Node::on_collision(const physics::Collision &collision) {
