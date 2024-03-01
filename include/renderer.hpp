@@ -36,7 +36,7 @@ class Shader {
 public:
   GLuint program_id;
   std::unordered_map<std::string, GLuint> uniform_locations = {};
-  
+  std::string vertex_path, frag_path;
   Shader(const std::string vertex_path, const std::string frag_path);
   ~Shader();
 };
@@ -45,6 +45,7 @@ public:
   GLuint texture;
   int width, height, channel_count;
   unsigned char *data;
+  std::string path;
   Texture(const std::string path);
   ~Texture();
 };

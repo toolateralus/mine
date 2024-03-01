@@ -170,7 +170,7 @@ void Physics::resolve_static_to_dynamic_collision(
   node->translate(mtv / 2.0f);
   vec3 normal = glm::normalize(mtv);
   float impulse = glm::dot(rb->velocity, normal) / (1 / rb->mass);
-  rb->velocity -= normal * impulse;
+  rb->velocity -= normal * impulse * 0.8f;
 }
 
 shared_ptr<Collider> Physics::add_collider(shared_ptr<Node> &node,

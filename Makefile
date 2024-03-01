@@ -1,6 +1,6 @@
 CXX = clang++
 CXXFLAGS = -g -std=c++2b -Ithirdparty/imgui
-LDFLAGS = -lGL -lGLEW -lglfw -lassimp -ldraco
+LDFLAGS = -lGL -lGLEW -lglfw -lassimp -ldraco -lyaml-cpp
 SRC = $(wildcard src/*.cpp) $(wildcard thirdparty/imgui/*.cpp) thirdparty/imgui/imgui_impl_glfw.cpp thirdparty/imgui/imgui_impl_opengl3.cpp
 OBJ_DIR = obj
 OBJ = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))

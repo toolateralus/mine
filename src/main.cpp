@@ -46,10 +46,10 @@ int main(int argc, char **argv) {
   // SETUP FLOOR
   {
     auto floor =
-        m_scene->add_node(vec3(0, -1, 0), quat(1, 0, 0, 0), vec3(1, 1, 1));
+        m_scene->add_node(vec3(0, -10, 0), quat(1, 0, 0, 0), vec3(10, 10, 10));
     m_physics->add_collider(floor);
     auto floor_mesh = m_renderer->add_mesh(
-        floor, m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/several_meshes.obj");
+        floor, m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
     floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
   }
   // SETUP CUBE SCENE

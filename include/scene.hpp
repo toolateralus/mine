@@ -1,5 +1,8 @@
 #pragma once
 #include "usings.hpp"
+#include "yaml-cpp/yaml.h"
+#include <yaml-cpp/emitter.h>
+
 struct Node;
 class Scene {
 public:
@@ -15,4 +18,5 @@ public:
                             const vec3 &scale = {1, 1, 1});
   void update(const float &dt);
   void on_gui();
+ 
 };

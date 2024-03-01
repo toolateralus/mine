@@ -14,9 +14,9 @@
 #include <memory>
 #include <unistd.h>
 
-Shader::Shader(const std::string vertexPath, const std::string fragmentPath) {
+Shader::Shader(const std::string vertex_path, const std::string fragment_path) : vertex_path(vertex_path), frag_path(fragment_path){
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  auto *vertexSource = read_file(vertexPath);
+  auto *vertexSource = read_file(vertex_path);
   glShaderSource(vertexShader, 1, &vertexSource, NULL);
   glCompileShader(vertexShader);
   
@@ -32,7 +32,7 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath) {
   }
   
   GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  auto *fragmentSource = read_file(fragmentPath);
+  auto *fragmentSource = read_file(fragment_path);
   glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
   glCompileShader(fragmentShader);
   
@@ -380,7 +380,7 @@ void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
   gizmo_buffer->gizmos.clear();
 }
 
-Texture::Texture(const std::string path) {
+Texture::Texture(const std::string path) : path(path) {
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
   
