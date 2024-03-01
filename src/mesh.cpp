@@ -13,7 +13,7 @@ MeshRenderer::~MeshRenderer() {}
 
 MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
                            const std::string &mesh_path)
-    : material(material), mesh() {
+    : material(material) {
   if (Mesh::cache.find(mesh_path) == Mesh::cache.end()) {
     mesh = make_shared<Mesh>(mesh_path);
     Mesh::load_into(mesh, mesh_path);
@@ -94,6 +94,7 @@ void MeshRenderer::deserialize(const YAML::Node &in) {
   material->deserialize(material_node);
   auto mesh_path = in["mesh"].as<std::string>();
   mesh = make_shared<Mesh>(mesh_path);
+  Mesh::load_into(mesh, mesh_path);
 }
 void MeshRenderer::serialize(YAML::Emitter &out) {
   out << YAML::BeginMap;

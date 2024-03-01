@@ -1,22 +1,6 @@
 nodes:
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 15
-      - 0
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 15.000000, 0.000000, 1.000000
     components:
       - type: Light
         color: (1.000000, 1.000000, 1.000000)
@@ -24,45 +8,19 @@ nodes:
         range: 1
         cast_shadows: true
   - name: Node
-    transform:
-      - 10
-      - 0
-      - 0
-      - 0
-      - 0
-      - 10
-      - 0
-      - 0
-      - 0
-      - 0
-      - 10
-      - 0
-      - 0
-      - -10
-      - 0
-      - 1
+    transform: 10.000000, 0.000000, 0.000000, 0.000000, 0.000000, 10.000000, 0.000000, 0.000000, 0.000000, 0.000000, 10.000000, 0.000000, 0.000000, -10.000000, 0.000000, 1.000000
     components:
       - type: Collider
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
   - name: Node
-    transform:
-      - -0.685057759
-      - 1.79558992e-06
-      - -0.728489101
-      - 0
-      - -0.249798357
-      - 0.939371586
-      - 0.234908044
-      - 0
-      - 0.684322417
-      - 0.342900872
-      - -0.643523335
-      - 0
-      - 0.0420531183
-      - 3.49852467
-      - 15.1358624
-      - 1
+    transform: 0.772702, 0.000001, 0.634769, 0.000000, 0.223616, 0.935894, -0.272209, 0.000000, -0.594077, 0.352281, 0.723167, 0.000000, -10.166878, 3.501491, 10.029949, 1.000000
     components:
       - type: BlockPlacer
         textured_material:
@@ -79,23 +37,7 @@ nodes:
         far: 10000
         sky_color: (0.100000, 0.300000, 0.800000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 12.7635536
-      - -7.27307749
-      - 7.12017059
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.714978, -4.501757, 0.023806, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -112,23 +54,7 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0.0442925803
-      - -84.4581299
-      - 15.1387768
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.234315, -4.501757, 1.767097, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -145,23 +71,7 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 8.16184235
-      - -64.2281418
-      - 19.6606903
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.164260, -4.501757, -2.709464, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -178,23 +88,24 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 12.0415316
-      - -46.8191795
-      - 23.3233109
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 4.406689, -4.501757, -0.640801, 1.000000
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 2.055801, -4.501757, 1.018516, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -211,23 +122,75 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 9.29476357
-      - -42.8857307
-      - 24.306015
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -5.500000, -152.944611, -2.236073, 1.000000
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -5.500000, -129.321091, -0.868656, 1.000000
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -5.500000, -119.192635, -0.694363, 1.000000
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.164260, -4.501757, -1.652804, 1.000000
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -0.083778, -4.501757, -1.896924, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -244,23 +207,7 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - -1.08189797
-      - -34.2537956
-      - 28.056778
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -1.613785, -4.522848, -2.817556, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -277,23 +224,7 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - -4.11879635
-      - -24.6727314
-      - 28.4588394
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -1.136371, -3.564039, -2.568406, 1.000000
     components:
       - type: MeshRenderer
         material:
@@ -302,7 +233,7 @@ nodes:
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
           texture:
             path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
       - type: Rigidbody
         mass: 1
         drag: 0.980000019
@@ -310,23 +241,24 @@ nodes:
         center: (0.000000, 0.000000, 0.000000)
         size: (1.000000, 1.000000, 1.000000)
   - name: Node
-    transform:
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - 0
-      - 0
-      - 0
-      - 1
-      - 0
-      - -10.0648098
-      - -9.8446207
-      - 24.9525833
-      - 1
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -1.225705, -4.505560, -1.815566, 1.000000
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, -1.255722, -4.501757, -0.563904, 1.000000
     components:
       - type: MeshRenderer
         material:

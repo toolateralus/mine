@@ -84,8 +84,6 @@ static std::string mat4_to_string(const mat4 &m) {
 static mat4 string_to_mat4(const std::string &str) {
   mat4 m;
   std::string s = str;
-  s.erase(0, 1);
-  s.erase(s.size() - 1, 1);
   std::string delimiter = ", ";
   size_t pos = 0;
   std::string token;

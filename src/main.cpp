@@ -51,8 +51,8 @@ void setup_default_scene() {
     auto floor =
         m_scene->add_node(vec3(0, -10, 0), quat(1, 0, 0, 0), vec3(10, 10, 10));
     m_physics->add_collider(floor);
-    //auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
-    //floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
+    auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
+    floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
   }
   // SETUP CUBE SCENE
   if (false)

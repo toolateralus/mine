@@ -12,6 +12,7 @@
 #include "../include/physics.hpp"
 #include <climits>
 #include <iostream>
+#include <memory>
 #include <yaml-cpp/yaml.h>
 
 vec3 Node::fwd() const { return glm::normalize(vec3(transform[2])); }
@@ -131,15 +132,9 @@ void Node::on_gui() {
 void Node::deserialize(const YAML::Node &in) {
     auto &engine = Engine::current();
     auto scene = engine.m_scene;
-    
     this->name = in["name"].as<std::string>();
-    
     auto transform = in["transform"];
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-      this->transform[i][j] = transform[i * 4 + j].as<float>();
-      }
-    }
+    this->transform = string_to_mat4(transform.as<std::string>());
     auto components = in["components"];
     for (auto component : components) {
       auto type = component["type"].as<std::string>();
@@ -166,10 +161,12 @@ void Node::deserialize(const YAML::Node &in) {
       }
       if (type == "Rigidbody") {
         auto rigidbody = this->add_component<physics::Rigidbody>();
+        engine.m_physics->rigidbodies.push_back(rigidbody);
         rigidbody->deserialize(component);
       }
       if (type == "Collider") {
         auto collider = this->add_component<physics::Collider>();
+        engine.m_physics->colliders.push_back(collider);
         collider->deserialize(component);
       }
       if (type == "BlockPlacer") {
@@ -185,13 +182,7 @@ void Node::deserialize(const YAML::Node &in) {
 void Node::serialize(YAML::Emitter &out) {
     out << YAML::BeginMap;
     out << YAML::Key << "name" << YAML::Value << name;
-    out << YAML::Key << "transform" << YAML::Value << YAML::BeginSeq;
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-      out << transform[i][j];
-      }
-    }
-    out << YAML::EndSeq;
+    out << YAML::Key << "transform" << YAML::Value << mat4_to_string(transform);
     out << YAML::Key << "components" << YAML::Value << YAML::BeginSeq;
     for (auto &component : components) {
       component->serialize(out);
