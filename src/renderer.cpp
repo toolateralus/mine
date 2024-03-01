@@ -3,8 +3,8 @@
 #include "../include/engine.hpp"
 #include "../include/fileio.hpp"
 #include "../include/input.hpp"
-#include "../include/mesh.hpp"
 #include "../include/light.hpp"
+#include "../include/mesh.hpp"
 
 #include "../thirdparty/stb/stb_image.h"
 #include <GLFW/glfw3.h>
@@ -14,78 +14,9 @@
 #include <memory>
 #include <unistd.h>
 
-void Shader::compile_shader(const std::string &vertex_path,
-                       const std::string &fragment_path) {
-  GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  auto *vertexSource = read_file(vertex_path);
-  glShaderSource(vertexShader, 1, &vertexSource, NULL);
-  glCompileShader(vertexShader);
-
-  delete[] vertexSource;
-
-  GLint success;
-  GLchar infoLog[512];
-  glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
-              << infoLog << std::endl;
-  }
-
-  GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  auto *fragmentSource = read_file(fragment_path);
-  glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-  glCompileShader(fragmentShader);
-
-  delete[] fragmentSource;
-
-  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-    std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
-              << infoLog << std::endl;
-  }
-
-  program_id = glCreateProgram();
-  glAttachShader(program_id, vertexShader);
-  glAttachShader(program_id, fragmentShader);
-  glLinkProgram(program_id);
-
-  glGetProgramiv(program_id, GL_LINK_STATUS, &success);
-  if (!success) {
-    glGetProgramInfoLog(program_id, 512, NULL, infoLog);
-    std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
-              << infoLog << std::endl;
-  }
-
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
-
-  // get uniform locations
-  // add new uniforms here if your shader calls for it.
-  static const auto uniforms = std::vector<std::string>{
-      "viewProjectionMatrix", "modelMatrix", "color",
-      "lightPosition",        "lightColor",  "lightRadius",
-      "lightIntensity",       "castShadows", "hasTexture",
-      "textureSampler"};
-  glUseProgram(program_id);
-  for (auto i = 0; i < uniforms.size(); i++) {
-    const auto uniform_path = uniforms[i].c_str();
-    const auto location = glGetUniformLocation(program_id, uniform_path);
-    if (location != -1)
-      uniform_locations[uniforms[i]] = location;
-    else {
-    }
-  }
-}
-Shader::Shader(const std::string vertex_path, const std::string fragment_path)
-    : vertex_path(vertex_path), frag_path(fragment_path) {
-  compile_shader(vertex_path, fragment_path);
-}
-
-auto Gizmo::shader = make_shared<Shader>(std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.hlsl"), std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.hlsl"));
-
-Shader::~Shader() { glDeleteProgram(program_id); }
+auto Gizmo::shader = make_shared<Shader>(
+    std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.hlsl"),
+    std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.hlsl"));
 
 // VertexBuffer
 void MeshBuffer::update_data() {
@@ -94,59 +25,65 @@ void MeshBuffer::update_data() {
   normals.clear();
   indices.clear();
   interleaved_data.clear();
-  
+
   for (auto mr : this->meshes) {
     auto mesh = mr->mesh;
-    vertices.insert(vertices.end(), mesh->vertices.begin(), mesh->vertices.end());
-    texcoords.insert(texcoords.end(), mesh->texcoords.begin(), mesh->texcoords.end());
+    vertices.insert(vertices.end(), mesh->vertices.begin(),
+                    mesh->vertices.end());
+    texcoords.insert(texcoords.end(), mesh->texcoords.begin(),
+                     mesh->texcoords.end());
     normals.insert(normals.end(), mesh->normals.begin(), mesh->normals.end());
     indices.insert(indices.end(), mesh->indices.begin(), mesh->indices.end());
   }
-  
+
   // Interleave vertices, texcoords, and normals
   for (size_t i = 0; i < vertices.size() / 3; ++i) {
-    interleaved_data.push_back(vertices[i*3]);
-    interleaved_data.push_back(vertices[i*3 + 1]);
-    interleaved_data.push_back(vertices[i*3 + 2]);
-    
-    interleaved_data.push_back(texcoords[i*2]);
-    interleaved_data.push_back(texcoords[i*2 + 1]);
-    
-    interleaved_data.push_back(normals[i*3]);
-    interleaved_data.push_back(normals[i*3 + 1]);
-    interleaved_data.push_back(normals[i*3 + 2]);
+    interleaved_data.push_back(vertices[i * 3]);
+    interleaved_data.push_back(vertices[i * 3 + 1]);
+    interleaved_data.push_back(vertices[i * 3 + 2]);
+
+    interleaved_data.push_back(texcoords[i * 2]);
+    interleaved_data.push_back(texcoords[i * 2 + 1]);
+
+    interleaved_data.push_back(normals[i * 3]);
+    interleaved_data.push_back(normals[i * 3 + 1]);
+    interleaved_data.push_back(normals[i * 3 + 2]);
   }
-  
+
   // save some memory by dumping this off early
   // probably a negligble performance gain. (if any)
   normals.clear();
   vertices.clear();
   texcoords.clear();
-  
+
   glBindVertexArray(vao);
-  
+
   // Buffer the interleaved data
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, interleaved_data.size() * sizeof(float), interleaved_data.data(), GL_STATIC_DRAW);
-  
+  glBufferData(GL_ARRAY_BUFFER, interleaved_data.size() * sizeof(float),
+               interleaved_data.data(), GL_STATIC_DRAW);
+
   // Buffer the indices
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+               indices.data(), GL_STATIC_DRAW);
   indices.clear();
-  
+
   // Set the vertex attributes pointers
   size_t stride = (3 + 2 + 3) * sizeof(float);
-  
+
   // vertex position
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void *)0);
   glEnableVertexAttribArray(0);
   // texture coordinates
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride,
+                        (void *)(3 * sizeof(float)));
   glEnableVertexAttribArray(1);
   // normals
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (void*)(5 * sizeof(float)));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride,
+                        (void *)(5 * sizeof(float)));
   glEnableVertexAttribArray(2);
-  
+
   glBindVertexArray(0);
 }
 MeshBuffer::MeshBuffer() {
@@ -187,11 +124,11 @@ void Renderer::init_opengl() {
 void Renderer::resizeCallback(GLFWwindow *window, int w, int h) {
   glViewport(0, 0, w, h);
 }
-Renderer::~Renderer() { 
+Renderer::~Renderer() {
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
   ImGui::DestroyContext();
-  glfwTerminate(); 
+  glfwTerminate();
 }
 
 /**
@@ -206,35 +143,35 @@ int Renderer::run() {
   while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
     const auto start = std::chrono::high_resolution_clock::now();
-    
+
     const auto scene = Engine::current().m_scene;
-    
+
     update_loop(dt);
-    
+
     if (scene->camera == nullptr) {
       std::cout << "No camera found in scene." << std::endl;
       continue;
     }
-    
+
     const auto cam = scene->camera->get_component<Camera>();
-    
+
     if (cam == nullptr) {
       std::cout << "No camera component found on camera node." << std::endl;
       continue;
     }
-    
+
     // TODO: optimize this, we re-scrape all mesh data every frame.
     mesh_buffer->update_data();
     gizmo_buffer->update_data();
-    
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(cam->sky_color.x, cam->sky_color.y, cam->sky_color.z, 1.0f);
-    
+
     const auto viewProjectionMatrix = cam->get_view_projection();
     draw_meshes(viewProjectionMatrix);
     draw_gizmos(viewProjectionMatrix);
     draw_imgui();
-    
+
     glfwSwapBuffers(window);
     poll_metrics(start);
   }
@@ -242,49 +179,55 @@ int Renderer::run() {
 }
 
 void Renderer::poll_metrics(
-  const std::chrono::time_point<std::chrono::high_resolution_clock> &start) {
+    const std::chrono::time_point<std::chrono::high_resolution_clock> &start) {
   auto endTime = std::chrono::high_resolution_clock::now();
   dt = std::chrono::duration<float>(endTime - start).count();
   framerate = 1 / dt;
 }
 
-void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader, const GLuint &shader_program) const {
+void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader,
+                                       const GLuint &shader_program) const {
   const auto light_node = Engine::current().m_scene->light;
-  
+
   if (!light_node) {
     std::cout << "no light in scene." << std::endl;
     return;
   }
-  
+
   const auto light = light_node->get_component<Light>();
   const auto light_position = light_node->get_position();
   const auto light_color = light->color;
   const auto light_radius = light->range;
   const auto light_intensity = light->intensity;
   const auto cast_shadows = light->cast_shadows;
-  
-  const auto lightPositionLocation = shader->uniform_locations.find("lightPosition");
+
+  const auto lightPositionLocation =
+      shader->uniform_locations.find("lightPosition");
   const auto lightColorLocation = shader->uniform_locations.find("lightColor");
-  const auto lightRadiusLocation = shader->uniform_locations.find("lightRadius");
-  const auto lightIntensityLocation = shader->uniform_locations.find("lightIntensity");
-  const auto castShadowsLocation = shader->uniform_locations.find("castShadows");
-    
+  const auto lightRadiusLocation =
+      shader->uniform_locations.find("lightRadius");
+  const auto lightIntensityLocation =
+      shader->uniform_locations.find("lightIntensity");
+  const auto castShadowsLocation =
+      shader->uniform_locations.find("castShadows");
+
   if (lightPositionLocation != shader->uniform_locations.end()) {
-    glUniform3fv(lightPositionLocation->second, 1, glm::value_ptr(light_position));
+    glUniform3fv(lightPositionLocation->second, 1,
+                 glm::value_ptr(light_position));
   }
-  
+
   if (lightColorLocation != shader->uniform_locations.end()) {
     glUniform3fv(lightColorLocation->second, 1, glm::value_ptr(light_color));
   }
-  
+
   if (lightRadiusLocation != shader->uniform_locations.end()) {
     glUniform1f(lightRadiusLocation->second, light_radius);
   }
-  
+
   if (lightIntensityLocation != shader->uniform_locations.end()) {
     glUniform1f(lightIntensityLocation->second, light_intensity);
   }
-  
+
   if (castShadowsLocation != shader->uniform_locations.end()) {
     glUniform1i(castShadowsLocation->second, cast_shadows);
   }
@@ -292,7 +235,7 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader, const G
 void Renderer::apply_uniforms(
     const mat4 &viewProjectionMatrix,
     std::shared_ptr<MeshRenderer> &mesh_renderer) const {
-      
+
   const auto material = mesh_renderer->material;
   const auto shader_struct = material->shader;
   const auto shader = shader_struct->program_id;
@@ -300,23 +243,24 @@ void Renderer::apply_uniforms(
   const auto texture = material->texture;
   const auto node = mesh_renderer->node.lock();
   const auto transform_matrix = node->get_transform();
-  
+
   glUseProgram(shader);
-  
+
   // SET TEXTURE UNIFORMS
   {
     auto samplerLoc = uniforms.find("textureSampler");
     const auto hasTextureLoc = uniforms.find("hasTexture");
-    
-    if (samplerLoc != uniforms.end() && hasTextureLoc != uniforms.end() && texture.has_value()) {
-        glActiveTexture(GL_TEXTURE0);
-        glUniform1i(samplerLoc->second, 0);
-        glUniform1i(hasTextureLoc->second, 1);
-        glBindTexture(GL_TEXTURE_2D, texture.value()->texture);
+
+    if (samplerLoc != uniforms.end() && hasTextureLoc != uniforms.end() &&
+        texture.has_value()) {
+      glActiveTexture(GL_TEXTURE0);
+      glUniform1i(samplerLoc->second, 0);
+      glUniform1i(hasTextureLoc->second, 1);
+      glBindTexture(GL_TEXTURE_2D, texture.value()->texture);
     } else {
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glUniform1i(hasTextureLoc->second, 0);
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, 0);
+      glUniform1i(hasTextureLoc->second, 0);
     }
   }
   // MESH & MATRIX UNIFORMS
@@ -325,20 +269,20 @@ void Renderer::apply_uniforms(
     const auto viewProjectionMatrixLocation =
         uniforms.find("viewProjectionMatrix");
     const auto modelMatrixLocation = uniforms.find("modelMatrix");
-    
+
     if (colorLocation != uniforms.end())
       glUniform4fv(colorLocation->second, 1,
-                  glm::value_ptr(mesh_renderer->color));
-    
+                   glm::value_ptr(mesh_renderer->color));
+
     if (viewProjectionMatrixLocation != uniforms.end())
       glUniformMatrix4fv(viewProjectionMatrixLocation->second, 1, GL_FALSE,
-                        glm::value_ptr(viewProjectionMatrix));
+                         glm::value_ptr(viewProjectionMatrix));
 
     if (modelMatrixLocation != uniforms.end())
       glUniformMatrix4fv(modelMatrixLocation->second, 1, GL_FALSE,
-                        glm::value_ptr(transform_matrix));
+                         glm::value_ptr(transform_matrix));
   }
-  
+
   apply_lighting_uniforms(mesh_renderer->material->shader, shader);
 }
 void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
@@ -347,13 +291,13 @@ void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
   void *indexOffset = 0;
   glBindVertexArray(mesh_buffer->vao);
   for (auto &mesh_renderer : mesh_buffer->meshes) {
-    
+
     const auto indexCount = mesh_renderer->mesh->indices.size();
-    
+
     apply_uniforms(viewProjectionMatrix, mesh_renderer);
 
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
-    
+
     indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
   }
 }
@@ -364,62 +308,36 @@ void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
   glBindVertexArray(gizmo_buffer->VAO);
   const auto shader = Gizmo::shader->program_id;
   glUseProgram(shader);
-  
+
   const auto colorLocation = glGetUniformLocation(shader, "color");
   const auto mmXLocation = glGetUniformLocation(shader, "modelMatrix");
-  const auto viewProjectionMatrixLocation = glGetUniformLocation(shader, "viewProjectionMatrix");
-  
+  const auto viewProjectionMatrixLocation =
+      glGetUniformLocation(shader, "viewProjectionMatrix");
+
   void *indexOffset = 0;
   for (auto &gizmo : gizmo_buffer->gizmos) {
-    
+
     const auto indexCount = gizmo.indices.size();
     const auto node = gizmo.node.lock();
     const auto transform_matrix = node->get_transform();
-    
+
     glUniform4fv(colorLocation, 1, glm::value_ptr(gizmo.color));
-    
+
     glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE,
-                        glm::value_ptr(viewProjectionMatrix));
-    
+                       glm::value_ptr(viewProjectionMatrix));
+
     glUniformMatrix4fv(mmXLocation, 1, GL_FALSE,
-                        glm::value_ptr(transform_matrix));
-    
+                       glm::value_ptr(transform_matrix));
+
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
-    
+
     indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
   }
-  
+
   gizmo_buffer->gizmos.clear();
 }
 
-void Texture::load_texture(const std::string &path) {
-  glGenTextures(1, &texture);
-  glBindTexture(GL_TEXTURE_2D, texture);
-  
-  stbi_set_flip_vertically_on_load(true);
-  data = stbi_load(path.c_str(), &width, &height, &channel_count, 0);
-  
-  if (data) {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-                 GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  } else {
-    std::cerr << "Failed to load texture: " << path << std::endl;
-  }
-  
-  stbi_image_free(data);
-}
-Texture::Texture(const std::string path) : path(path) { load_texture(path); }
-Texture::~Texture() { glDeleteTextures(1, &texture); }
 
-shared_ptr<MeshRenderer>
-Renderer::add_mesh(shared_ptr<Node> &node, const shared_ptr<Material> &material,
-                   const std::string &path) {
-  auto mesh = make_shared<Mesh>(path);
-  auto mr = node->add_component<MeshRenderer>(material, mesh);
-  mesh_buffer->meshes.push_back(mr);
-  return mr;
-}
 void Renderer::add_gizmo(const Gizmo &gizmo) {
   gizmo_buffer->gizmos.push_back(gizmo);
 }
@@ -448,6 +366,9 @@ void Renderer::draw_imgui() {
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+
+Material::Material() {}
+
 YAML::Node Material::serialize() {
   YAML::Node out;
   out["shader"] = shader->serialize();
@@ -465,24 +386,33 @@ void Material::deserialize(const YAML::Node &in) {
     this->texture.value()->deserialize(in["texture"]);
   }
 }
+
 YAML::Node Texture::serialize() {
   YAML::Node out;
   out["path"] = this->path;
   return out;
 }
-YAML::Node Shader::serialize() {
-  YAML::Node out;
-  out["vertex_path"] = this->vertex_path;
-  out["frag_path"] = this->frag_path;
-  return out;
-}
+
 void Texture::deserialize(const YAML::Node &in) {
   path = in["path"].as<std::string>();
   load_texture(path);
 }
-void Shader::deserialize(const YAML::Node &in) {
-  vertex_path = in["vertex_path"].as<std::string>();
-  frag_path = in["frag_path"].as<std::string>();
-  compile_shader(vertex_path, frag_path);
+void Texture::load_texture(const std::string &path) {
+  glGenTextures(1, &texture);
+  glBindTexture(GL_TEXTURE_2D, texture);
+
+  stbi_set_flip_vertically_on_load(true);
+  data = stbi_load(path.c_str(), &width, &height, &channel_count, 0);
+
+  if (data) {
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+                 GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+  } else {
+    std::cerr << "Failed to load texture: " << path << std::endl;
+  }
+
+  stbi_image_free(data);
 }
-Material::Material() {}
+Texture::Texture(const std::string path) : path(path) { load_texture(path); }
+Texture::~Texture() { glDeleteTextures(1, &texture); }

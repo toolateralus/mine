@@ -17,10 +17,10 @@ void BlockPlacer::update(const float &dt) {
         auto new_node = engine.m_scene->add_node(position);
         
         if (input.key_down(Key::LeftShift)) {
-          engine.m_renderer->add_mesh(new_node, textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
+          new_node->add_component<MeshRenderer>(textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
         }
         else {
-          engine.m_renderer->add_mesh(new_node, textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
+          new_node->add_component<MeshRenderer>(textured_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
         }
         engine.m_physics->add_rigidbody(new_node);
         engine.m_physics->add_collider(new_node)->draw_collider = true;

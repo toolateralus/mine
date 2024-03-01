@@ -53,17 +53,17 @@ nodes:
         mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
   - name: ""
     transform:
-      - 0.52532196
+      - 0.719505787
+      - 1.15483999e-07
+      - 0.69448638
       - 0
-      - 0.850903571
+      - 0.0624194145
+      - 0.995952725
+      - -0.0646682829
       - 0
-      - 0
-      - 1
-      - -0
-      - 0
-      - -0.850903571
-      - 0
-      - 0.52532196
+      - -0.691675663
+      - 0.0898786336
+      - 0.716593742
       - 0
       - 0
       - 3.5
@@ -83,12 +83,6 @@ nodes:
         near: 0.100000001
         far: 10000
         sky_color: (0.100000, 0.300000, 0.800000)
-      - type: Camera
-        fov: 60
-        aspect: 1.33333337
-        near: 0.100000001
-        far: 10000
-        sky_color: (0.100000, 0.300000, 0.800000)
   - name: ""
     transform:
       - 1
@@ -104,7 +98,7 @@ nodes:
       - 1
       - 0
       - 12.7635536
-      - -25.2074032
+      - -12.6897507
       - 7.12017059
       - 1
     components:
@@ -136,9 +130,9 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7635536
-      - -27.375246
-      - 7.12017059
+      - 10.3751354
+      - -35.4894333
+      - 4.25109386
       - 1
     components:
       - type: MeshRenderer
@@ -169,9 +163,174 @@ nodes:
       - 0
       - 1
       - 0
-      - 12.7635536
-      - -7.37304592
-      - 7.12017059
+      - 10.3751354
+      - -9.96649837
+      - 4.25109386
+      - 1
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: ""
+    transform:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 10.3751354
+      - -8.22433567
+      - 4.25109386
+      - 1
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: ""
+    transform:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 10.3751354
+      - -1.78915119
+      - 4.25109386
+      - 1
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: ""
+    transform:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 10.3751354
+      - -0.376274228
+      - 4.25109386
+      - 1
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: ""
+    transform:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 10.3751354
+      - -73.0302277
+      - 4.25109386
+      - 1
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: Collider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: ""
+    transform:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 1
+      - 0
+      - 10.3751354
+      - -20.0715523
+      - 4.25109386
       - 1
     components:
       - type: MeshRenderer

@@ -23,7 +23,7 @@
 #include "../thirdparty/imgui/imgui.h"
 #include "../thirdparty/imgui/imgui_impl_glfw.h"
 #include "../thirdparty/imgui/imgui_impl_opengl3.h"
-
+#include "shader.hpp"
 #include <yaml-cpp/yaml.h>
 
 static int EXIT_CODE = 0;
@@ -33,20 +33,7 @@ constexpr int SCREEN_H = 480;
 static int VSYNC_ENABLED = GL_TRUE;
 struct MeshRenderer;
 
-class Shader {
-public:
-  GLuint program_id;
-  std::unordered_map<std::string, GLuint> uniform_locations = {};
-  std::string vertex_path, frag_path;
-  Shader() {}
-  void compile_shader(const std::string &vertex_path,
-                 const std::string &fragment_path);
-                 
-  Shader(const std::string vertex_path, const std::string frag_path);
-  ~Shader();
-  YAML::Node serialize();
-  void deserialize(const YAML::Node &in);
-};
+
 class Texture {
 public:
   GLuint texture;
@@ -227,9 +214,6 @@ public:
            void (*update_loop)(const float &dt));
   ~Renderer();
 
-  shared_ptr<MeshRenderer> add_mesh(shared_ptr<Node> &node,
-                                    const shared_ptr<Material> &material,
-                                    const std::string &path);
   void add_gizmo(const Gizmo &gizmo);
   int run();
   void init_opengl();

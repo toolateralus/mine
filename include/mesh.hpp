@@ -27,15 +27,15 @@ private:
   void process_mesh(aiMesh *mesh, const aiScene *scene);
 };
 
-class MeshRenderer : public Component {
+class MeshRenderer : public Component, public std::enable_shared_from_this<MeshRenderer> {
 public:
   shared_ptr<Mesh> mesh;
   shared_ptr<Material> material;
   vec4 color = vec4(1);
   MeshRenderer() = default;
-  MeshRenderer(const shared_ptr<Material> &material, const shared_ptr<Mesh> &mesh);
+  MeshRenderer(const shared_ptr<Material> &material, const std::string &mesh_path);
   ~MeshRenderer() override;
-  void awake() override {}
+  void awake() override;
   void update(const float &dt) override {}
   void serialize(YAML::Emitter &out) override;
   void deserialize(const YAML::Node &in) override;

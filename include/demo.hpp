@@ -30,13 +30,23 @@ struct BlockPlacer : public Component {
 };
 
 // this file is used for testing components, making temporary classes etc.
-class Player : public Camera {
+class Player : public Component {
 public:
   Player() {}
   ~Player() override {}
   void on_gui() override;
-  void awake() override {}
+  void awake() override {
+    node.lock()->add_component<Camera>();
+  }
   void update(const float &dt) override;
+  void serialize(YAML::Emitter &out) override {
+    out << YAML::BeginMap;
+    out << YAML::Key << "type" << YAML::Value << "Player";
+    out << YAML::EndMap;
+  }
+  void deserialize(const YAML::Node &in) override {
+    // do nothing.
+  }
 };
 
 static void setup_cube_scene();

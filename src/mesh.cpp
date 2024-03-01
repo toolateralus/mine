@@ -1,4 +1,6 @@
+#include "../include/renderer.hpp"
 #include "../include/mesh.hpp"
+#include "../include/engine.hpp"
 #include <assimp/matrix4x4.h>
 #include <iostream>
 #include <stdexcept>
@@ -6,8 +8,9 @@
 
 MeshRenderer::~MeshRenderer() {}
 MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
-                           const shared_ptr<Mesh> &mesh)
-    : material(material), mesh(mesh) {
+                           const std::string &mesh_path)
+    : material(material), mesh(make_shared<Mesh>(mesh_path)) {
+      
     }
     
 std::unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
@@ -70,11 +73,12 @@ void Mesh::process_node(aiNode *node, const aiScene *scene) {
   }
 }
 
-#include "../include/renderer.hpp"
+
 
 void MeshRenderer::deserialize(const YAML::Node &in) {
   material = make_shared<Material>();
-  material->deserialize(in["material"]);
+  auto material_node = in["material"];
+  material->deserialize(material_node);
   auto mesh_path = in["mesh"].as<std::string>();
   mesh = make_shared<Mesh>(mesh_path);
 }
@@ -84,4 +88,9 @@ void MeshRenderer::serialize(YAML::Emitter &out) {
   out << YAML::Key << "material" << YAML::Value << material->serialize();
   out << YAML::Key << "mesh" << YAML::Value << mesh->path;
   out << YAML::EndMap;
+}
+
+void MeshRenderer::awake() {
+  auto &engine = Engine::current();
+  engine.m_renderer->mesh_buffer->meshes.push_back(shared_from_this());
 }

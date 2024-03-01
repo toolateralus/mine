@@ -101,8 +101,14 @@ void Node::set_scale(const vec3 &scale) {
 }
 void Node::awake() {
   for (auto component : components) {
-    if (!component->is_awake)
+    if (!component) {
+      std::cerr << "Component is null" << std::endl;
+      continue;
+    }
+    if (!component->is_awake) {
+      component->is_awake = true;
       component->awake();
+    }
   }
 }
 void Node::update(float dt) {
@@ -140,6 +146,10 @@ void Node::deserialize(const YAML::Node &in) {
       if (type == "Light") {
         auto light = this->add_component<Light>();
         light->deserialize(component);
+        
+        if (engine.m_scene->light == nullptr) {
+            engine.m_scene->light = shared_from_this();
+        }
       }
       if (type == "Camera") {
         auto camera = this->add_component<Camera>();
