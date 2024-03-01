@@ -1,7 +1,18 @@
+#include "../include/component.hpp"
+
+#include "../include/light.hpp"
+#include "../include/camera.hpp"
+#include "../include/renderer.hpp"
+#include "../include/physics.hpp"
+#include "../include/collider.hpp"
+#include "../include/engine.hpp"
+#include "../include/demo.hpp"
+
 #include "../include/node.hpp"
 #include "../include/physics.hpp"
 #include <climits>
-
+#include <iostream>
+#include <yaml-cpp/yaml.h>
 
 vec3 Node::fwd() const { return glm::normalize(vec3(transform[2])); }
 vec3 Node::left() const { return glm::normalize(vec3(transform[0])); }
@@ -108,4 +119,68 @@ void Node::on_gui() {
     for (auto &component : components) {
       component->on_gui();
     }
+}
+void Node::deserialize(const YAML::Node &in) {
+    auto &engine = Engine::current();
+    auto scene = engine.m_scene;
+    
+    
+    this->name = in["name"].as<std::string>();
+    
+    auto transform = in["transform"];
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+      this->transform[i][j] = transform[i * 4 + j].as<float>();
+      }
+    }
+    auto components = in["components"];
+    for (auto component : components) {
+      auto type = component["type"].as<std::string>();
+        
+      if (type == "Light") {
+        auto light = this->add_component<Light>();
+        light->deserialize(component);
+      }
+      if (type == "Camera") {
+        auto camera = this->add_component<Camera>();
+        camera->deserialize(component);
+        
+        if (engine.m_scene->camera == nullptr) {
+            engine.m_scene->camera = shared_from_this();
+        }
+      }
+      if (type == "MeshRenderer") {
+        auto renderer = this->add_component<MeshRenderer>();
+        renderer->deserialize(component);
+      }
+      if (type == "Rigidbody") {
+        auto rigidbody = this->add_component<physics::Rigidbody>();
+        rigidbody->deserialize(component);
+      }
+      if (type == "Collider") {
+        auto collider = this->add_component<physics::Collider>();
+        collider->deserialize(component);
+      }
+      if (type == "BlockPlacer") {
+        auto block_placer = this->add_component<BlockPlacer>();
+        block_placer->deserialize(component);
+      }
+    }
+}
+void Node::serialize(YAML::Emitter &out) {
+    out << YAML::BeginMap;
+    out << YAML::Key << "name" << YAML::Value << name;
+    out << YAML::Key << "transform" << YAML::Value << YAML::BeginSeq;
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+      out << transform[i][j];
+      }
+    }
+    out << YAML::EndSeq;
+    out << YAML::Key << "components" << YAML::Value << YAML::BeginSeq;
+    for (auto &component : components) {
+      component->serialize(out);
+    }
+    out << YAML::EndSeq;
+    out << YAML::EndMap;
 }

@@ -7,7 +7,8 @@
 MeshRenderer::~MeshRenderer() {}
 MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
                            const shared_ptr<Mesh> &mesh)
-    : material(material), mesh(mesh) {}
+    : material(material), mesh(mesh) {
+    }
     
 std::unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
     
@@ -73,7 +74,7 @@ void Mesh::process_node(aiNode *node, const aiScene *scene) {
 
 void MeshRenderer::deserialize(const YAML::Node &in) {
   material = make_shared<Material>();
-  material->deserialize(in);
+  material->deserialize(in["material"]);
   auto mesh_path = in["mesh"].as<std::string>();
   mesh = make_shared<Mesh>(mesh_path);
 }

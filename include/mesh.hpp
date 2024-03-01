@@ -32,6 +32,7 @@ public:
   shared_ptr<Mesh> mesh;
   shared_ptr<Material> material;
   vec4 color = vec4(1);
+  MeshRenderer() = default;
   MeshRenderer(const shared_ptr<Material> &material, const shared_ptr<Mesh> &mesh);
   ~MeshRenderer() override;
   void awake() override {}

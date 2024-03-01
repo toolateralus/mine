@@ -6,8 +6,6 @@ namespace physics {
     vec3 min, max;
     BoundingBox() : min(vec3(0)), max(vec3(1)) {}
     BoundingBox(const vec3 &min, const vec3 &max) : min(min), max(max) {
-        // std::cout << "min: " << vec3_to_string(min) << " max: " <<
-        // vec3_to_string(max) << std::endl;
     }
     ~BoundingBox() {}
     vec3 get_center() const;

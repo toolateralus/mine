@@ -17,7 +17,8 @@
 
 
 struct BlockPlacer : public Component {
-  BlockPlacer() {}
+  BlockPlacer() {
+  }
   ~BlockPlacer() override {}
   bool placed;
   vector<shared_ptr<Node>> placed_blocks = {};
@@ -25,9 +26,7 @@ struct BlockPlacer : public Component {
   void awake() override;
   void update(const float &dt) override;
   void serialize(YAML::Emitter &out) override;
-  void deserialize(const YAML::Node &in) override {
-    
-  }
+  void deserialize(const YAML::Node &in) override;
 };
 
 // this file is used for testing components, making temporary classes etc.

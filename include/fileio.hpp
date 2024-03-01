@@ -4,6 +4,10 @@
 #include <fstream>
 #include <iostream>
 
+static const bool file_exists(const std::string &name) {
+  std::ifstream f(name.c_str());
+  return f.good();
+}
 static const char *read_file(const std::string filePath) {
   std::ifstream fileStream(filePath,
                            std::ios::in | std::ios::binary | std::ios::ate);

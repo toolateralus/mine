@@ -27,27 +27,9 @@ public:
   void update(float dt);
   void on_collision(const physics::Collision &collision);
   void on_gui();
-  void serialize(YAML::Emitter &out) {
-    out << YAML::BeginMap;
-    out << YAML::Key << "name" << YAML::Value << name;
-    out << YAML::Key << "transform" << YAML::Value << YAML::BeginSeq;
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        out << transform[i][j];
-      }
-    }
-    out << YAML::EndSeq;
-    out << YAML::Key << "components" << YAML::Value << YAML::BeginSeq;
-    for (auto &component : components) {
-      component->serialize(out);
-    }
-    out << YAML::EndSeq;
-    out << YAML::EndMap;
-  }
-  void deserialize(const YAML::Node &in) {
-    
-  }
-  
+  void serialize(YAML::Emitter &out);
+  void deserialize(const YAML::Node &in);
+
   // for some reason these seem to be backwards.
   vec3 fwd() const;
   vec3 left() const;

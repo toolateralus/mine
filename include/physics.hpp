@@ -18,16 +18,15 @@ struct Rigidbody : public Component {
   
   float mass, drag;
   bool using_gravity = true;
-  
   Rigidbody(const float mass = 1.0f, const float drag = 0.98f)
-      : mass(mass), drag(drag), velocity(), angular() {}
+      : mass(mass), drag(drag), velocity(), angular() {
+      }
   ~Rigidbody() override {}
   void awake() override {}
   void apply_drag(const float &dt);
   void integrate(const float &dt);
   void update(const float &dt) override {}
   void on_collision(const physics::Collision &collision) override {
-    //std::cout << "collision at : " << vec3_to_string(collision.point) << std::endl;
   }
   void serialize(YAML::Emitter &out) override;
   void deserialize(const YAML::Node &in) override;

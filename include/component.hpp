@@ -1,5 +1,7 @@
 #pragma once
 #include "usings.hpp"
+#include <typeindex>
+#include <unordered_map>
 #include <yaml-cpp/emitter.h>
 
 struct Node;
@@ -8,7 +10,7 @@ namespace physics {
 }
 class Component {
 public:
-  Component() {}
+  Component() {};
   bool is_awake = false;
   weak_ptr<Node> node;
   virtual ~Component() {}
@@ -19,3 +21,5 @@ public:
   virtual void serialize(YAML::Emitter &out) = 0;
   virtual void deserialize(const YAML::Node &in) = 0;
 };
+
+

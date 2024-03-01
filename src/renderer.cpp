@@ -14,14 +14,15 @@
 #include <memory>
 #include <unistd.h>
 
-Shader::Shader(const std::string vertex_path, const std::string fragment_path) : vertex_path(vertex_path), frag_path(fragment_path){
+void Shader::compile_shader(const std::string &vertex_path,
+                       const std::string &fragment_path) {
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
   auto *vertexSource = read_file(vertex_path);
   glShaderSource(vertexShader, 1, &vertexSource, NULL);
   glCompileShader(vertexShader);
-  
+
   delete[] vertexSource;
-  
+
   GLint success;
   GLchar infoLog[512];
   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
@@ -30,41 +31,43 @@ Shader::Shader(const std::string vertex_path, const std::string fragment_path) :
     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
               << infoLog << std::endl;
   }
-  
+
   GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
   auto *fragmentSource = read_file(fragment_path);
   glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
   glCompileShader(fragmentShader);
-  
+
   delete[] fragmentSource;
-  
+
   glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
     std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
               << infoLog << std::endl;
   }
-  
+
   program_id = glCreateProgram();
   glAttachShader(program_id, vertexShader);
   glAttachShader(program_id, fragmentShader);
   glLinkProgram(program_id);
-  
+
   glGetProgramiv(program_id, GL_LINK_STATUS, &success);
   if (!success) {
     glGetProgramInfoLog(program_id, 512, NULL, infoLog);
     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
               << infoLog << std::endl;
   }
-  
+
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
-  
+
   // get uniform locations
   // add new uniforms here if your shader calls for it.
   static const auto uniforms = std::vector<std::string>{
-      "viewProjectionMatrix", "modelMatrix", "color", "lightPosition",
-      "lightColor", "lightRadius", "lightIntensity", "castShadows", "hasTexture", "textureSampler"};
+      "viewProjectionMatrix", "modelMatrix", "color",
+      "lightPosition",        "lightColor",  "lightRadius",
+      "lightIntensity",       "castShadows", "hasTexture",
+      "textureSampler"};
   glUseProgram(program_id);
   for (auto i = 0; i < uniforms.size(); i++) {
     const auto uniform_path = uniforms[i].c_str();
@@ -72,9 +75,12 @@ Shader::Shader(const std::string vertex_path, const std::string fragment_path) :
     if (location != -1)
       uniform_locations[uniforms[i]] = location;
     else {
-      //std::cout << "shader " << fragmentPath << " failed to bind uniform: " << uniforms[i] << std::endl;
     }
   }
+}
+Shader::Shader(const std::string vertex_path, const std::string fragment_path)
+    : vertex_path(vertex_path), frag_path(fragment_path) {
+  compile_shader(vertex_path, fragment_path);
 }
 
 auto Gizmo::shader = make_shared<Shader>(std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.hlsl"), std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.hlsl"));
@@ -205,10 +211,16 @@ int Renderer::run() {
     
     update_loop(dt);
     
+    if (scene->camera == nullptr) {
+      std::cout << "No camera found in scene." << std::endl;
+      continue;
+    }
+    
     const auto cam = scene->camera->get_component<Camera>();
     
     if (cam == nullptr) {
-      throw std::runtime_error("No camera found in scene.");
+      std::cout << "No camera component found on camera node." << std::endl;
+      continue;
     }
     
     // TODO: optimize this, we re-scrape all mesh data every frame.
@@ -234,16 +246,17 @@ void Renderer::poll_metrics(
   auto endTime = std::chrono::high_resolution_clock::now();
   dt = std::chrono::duration<float>(endTime - start).count();
   framerate = 1 / dt;
-
-  if (Input::current().key_down(Key::Escape)) {
-    std::cout << "fps: " << framerate << std::endl;
-  }
 }
 
 void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader, const GLuint &shader_program) const {
   const auto light_node = Engine::current().m_scene->light;
-  const auto light = light_node->get_component<Light>();
   
+  if (!light_node) {
+    std::cout << "no light in scene." << std::endl;
+    return;
+  }
+  
+  const auto light = light_node->get_component<Light>();
   const auto light_position = light_node->get_position();
   const auto light_color = light->color;
   const auto light_radius = light->range;
@@ -348,7 +361,6 @@ void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
 void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
   glDisable(GL_DEPTH_TEST);
   glPolygonMode(GL_FRONT, GL_LINE);
-  //std::cout << "drawing " << gizmo_buffer->gizmos.size() << " gizmos" << std::endl;
   glBindVertexArray(gizmo_buffer->VAO);
   const auto shader = Gizmo::shader->program_id;
   glUseProgram(shader);
@@ -380,7 +392,7 @@ void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
   gizmo_buffer->gizmos.clear();
 }
 
-Texture::Texture(const std::string path) : path(path) {
+void Texture::load_texture(const std::string &path) {
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
   
@@ -397,6 +409,7 @@ Texture::Texture(const std::string path) : path(path) {
   
   stbi_image_free(data);
 }
+Texture::Texture(const std::string path) : path(path) { load_texture(path); }
 Texture::~Texture() { glDeleteTextures(1, &texture); }
 
 shared_ptr<MeshRenderer>
@@ -437,11 +450,20 @@ void Renderer::draw_imgui() {
 }
 YAML::Node Material::serialize() {
   YAML::Node out;
-  out["shader"] = this->shader->vertex_path + " " + this->shader->frag_path;
+  out["shader"] = shader->serialize();
   if (this->texture.has_value()) {
-    out["texture"] = this->texture.value()->path;
+    out["texture"] = this->texture.value()->serialize();
   }
   return out;
+}
+void Material::deserialize(const YAML::Node &in) {
+  auto &shader_node = in["shader"];
+  this->shader = make_shared<Shader>();
+  this->shader->deserialize(shader_node);
+  if (in["texture"]) {
+    this->texture = make_shared<Texture>();
+    this->texture.value()->deserialize(in["texture"]);
+  }
 }
 YAML::Node Texture::serialize() {
   YAML::Node out;
@@ -454,12 +476,13 @@ YAML::Node Shader::serialize() {
   out["frag_path"] = this->frag_path;
   return out;
 }
-void Material::deserialize(const YAML::Node &in) {
-  this->shader =
-      make_shared<Shader>(in["shader"]["vertex"].as<std::string>(),
-                          in["shader"]["fragment"].as<std::string>());
-  if (in["texture"]) {
-    this->texture = make_shared<Texture>(in["texture"].as<std::string>());
-  }
+void Texture::deserialize(const YAML::Node &in) {
+  path = in["path"].as<std::string>();
+  load_texture(path);
+}
+void Shader::deserialize(const YAML::Node &in) {
+  vertex_path = in["vertex_path"].as<std::string>();
+  frag_path = in["frag_path"].as<std::string>();
+  compile_shader(vertex_path, frag_path);
 }
 Material::Material() {}

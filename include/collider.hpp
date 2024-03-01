@@ -40,7 +40,9 @@ namespace physics {
     vec4 gizmo_color = {1.0f, 0.0f, 0.0f, 1.0f};
     
     vec3 last_position;
-    Collider(vec3 center, vec3 size) : size(size), center(center) {}
+    Collider() = default;
+    Collider(vec3 center, vec3 size) : size(size), center(center) {
+    }
     ~Collider() override {}
     
     void awake() override {}

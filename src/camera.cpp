@@ -1,8 +1,12 @@
 #include "../include/camera.hpp"
 #include "../include/node.hpp"
+#include "../include/engine.hpp"
+#include "../include/component.hpp"
 
 // Camera
-Camera::Camera() {}
+Camera::Camera() {
+  
+}
 
 mat4 Camera::get_projection() {
   return glm::perspective(glm::radians(fovy), aspect, near, far);

@@ -102,5 +102,13 @@ void Player::update(const float &dt) {
 }
 
 void BlockPlacer::serialize(YAML::Emitter &out) {
-    out << YAML::Key << "type" << YAML::Value << "BlockPlacer";
+  out << YAML::BeginMap;
+  out << YAML::Key << "type" << YAML::Value << "BlockPlacer";
+  out << YAML::Key << "textured_material";
+  out << YAML::Value << textured_material->serialize();
+  out << YAML::EndMap; 
+}
+void BlockPlacer::deserialize(const YAML::Node &in) {
+  textured_material = make_shared<Material>();
+  textured_material->deserialize(in["textured_material"]);
 }

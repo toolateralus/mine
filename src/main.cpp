@@ -11,9 +11,11 @@
 #include "../include/physics.hpp"
 #include "../include/tostring.hpp"
 #include "../include/light.hpp"
+#include "../include/fileio.hpp"
 
 #include <iostream>
 #include <memory>
+#include <system_error>
 #include <yaml-cpp/emitter.h>
 
 using namespace physics;
@@ -35,7 +37,7 @@ shared_ptr<Physics> m_physics = m_engine.m_physics;
 shared_ptr<Material> m_material = m_engine.m_material;
 shared_ptr<Renderer> m_renderer =  m_engine.m_renderer;
 
-int main(int argc, char **argv) {
+void setup_default_scene() {
   auto light = m_scene->add_node();
   light->set_position(vec3(0,15,0));
   auto light_component = light->add_component<Light>();
@@ -88,9 +90,24 @@ int main(int argc, char **argv) {
     player_node->rotate(vec3(0, -45, 0));
   }
   
+}
+
+int main(int argc, char **argv) {
+  
+  std::string scene_path("test_scene.scene");
+  
+  if (file_exists(scene_path)) {
+    std::cout << "Loading scene from file : " << scene_path << std::endl;
+    YAML::Node in = YAML::LoadFile(scene_path);
+    m_scene->deserialize(in);
+  } else {
+    std::cout << "No scene file found, creating default scene\n";
+    setup_default_scene();
+  }
+  
   m_renderer->run();
   YAML::Emitter out;
-  m_scene->serialize(out);
   
-  std::cout << out.c_str() << std::endl;
+  m_scene->serialize(out);
+  write_file(scene_path, out.c_str());
 }

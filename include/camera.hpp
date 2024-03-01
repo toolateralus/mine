@@ -10,6 +10,7 @@ public:
   float near = 0.1f;
   float far = 10000.0f;
   vec3 sky_color = {0.1, 0.3, 0.8};
+  
   Camera();
   ~Camera() override {
     // virtual destructor necessary but useless in this case.

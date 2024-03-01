@@ -108,8 +108,6 @@ void physics::Collider::update(const float &dt) {
       
       auto v = glm::inverse(node->get_transform()) * vec4(vert, 1.0f);
       
-      //std::cout << "vertex " << i << " " << vec3_to_string(v) << std::endl;
-      
       vertices.push_back(v.x);
       vertices.push_back(v.y);
       vertices.push_back(v.z);

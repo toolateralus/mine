@@ -38,9 +38,14 @@ public:
   GLuint program_id;
   std::unordered_map<std::string, GLuint> uniform_locations = {};
   std::string vertex_path, frag_path;
+  Shader() {}
+  void compile_shader(const std::string &vertex_path,
+                 const std::string &fragment_path);
+                 
   Shader(const std::string vertex_path, const std::string frag_path);
   ~Shader();
   YAML::Node serialize();
+  void deserialize(const YAML::Node &in);
 };
 class Texture {
 public:
@@ -48,9 +53,12 @@ public:
   int width, height, channel_count;
   unsigned char *data;
   std::string path;
+  void load_texture(const std::string &path);
+  Texture() = default;
   Texture(const std::string path);
   ~Texture();
   YAML::Node serialize();
+  void deserialize(const YAML::Node &in);
 };
 
 class Material {
