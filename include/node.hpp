@@ -27,7 +27,8 @@ public:
   void on_gui();
   void serialize(YAML::Emitter &out);
   void deserialize(const YAML::Node &in);
-
+  static shared_ptr<Node> instantiate(const vec3 &pos = glm::zero<vec3>(), const vec3 &scale = glm::one<vec3>(),
+                                      const quat &rot = glm::identity<quat>());
   // for some reason these seem to be backwards.
   vec3 fwd() const;
   vec3 left() const;

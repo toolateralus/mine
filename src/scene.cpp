@@ -12,15 +12,6 @@ void Scene::update(const float &dt) {
   }
 }
 
-shared_ptr<Node> Scene::add_node(const vec3 &pos, const quat &rot,
-                                 const vec3 &scale) {
-  auto node = std::make_shared<Node>();
-  node->set_position(pos);
-  node->set_rotation(rot);
-  node->set_scale(scale);
-  new_node_queue.push_back(node);
-  return node;
-}
 
 void Scene::on_gui() {
   for (auto &node : nodes) {
@@ -42,7 +33,7 @@ void Scene::serialize(YAML::Emitter &out) {
 void Scene::deserialize(const YAML::Node &in) {
   auto nodes = in["nodes"].as<std::vector<YAML::Node>>();
   for (auto node : nodes) {
-    auto new_node = add_node();
+    auto new_node = Node::instantiate();
     new_node->deserialize(node);
   }
 }
