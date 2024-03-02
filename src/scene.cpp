@@ -37,3 +37,6 @@ void Scene::deserialize(const YAML::Node &in) {
     new_node->deserialize(node);
   }
 }
+void Scene::remove_node(shared_ptr<Node> &node) {
+  nodes.erase(std::remove(nodes.begin(), nodes.end(), node), nodes.end());
+}

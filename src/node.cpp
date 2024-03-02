@@ -13,6 +13,7 @@
 #include <climits>
 #include <iostream>
 #include <memory>
+#include <yaml-cpp/emittermanip.h>
 #include <yaml-cpp/yaml.h>
 
 vec3 Node::fwd() const { return glm::normalize(vec3(transform[2])); }
@@ -118,6 +119,9 @@ void Node::update(float dt) {
       std::cout << "Component is null" << std::endl;
     }
   }
+  for (auto &child : children) {
+    child->update(dt);
+  }
 }
 void Node::on_collision(const physics::Collision &collision) {
   for (auto &component : components) {
@@ -178,11 +182,22 @@ void Node::deserialize(const YAML::Node &in) {
         player->deserialize(component);
       }
     }
+    auto children = in["children"];
+    for (auto child : children) {
+      auto node = Node::instantiate();
+      node->parent = shared_from_this();
+      node->deserialize(child);
+    }
 }
 void Node::serialize(YAML::Emitter &out) {
     out << YAML::BeginMap;
     out << YAML::Key << "name" << YAML::Value << name;
     out << YAML::Key << "transform" << YAML::Value << mat4_to_string(transform);
+    out << YAML::Key << "children" << YAML::Value << YAML::BeginSeq;
+    for (auto &child : children) {
+      child->serialize(out);
+    }
+    out << YAML::EndSeq;
     out << YAML::Key << "components" << YAML::Value << YAML::BeginSeq;
     for (auto &component : components) {
       component->serialize(out);
@@ -200,4 +215,50 @@ shared_ptr<Node> Node::instantiate(const vec3 &pos, const vec3 &scale,
     node->set_scale(scale);
     scene->new_node_queue.push_back(node);
     return node;
+}
+void Node::add_child(shared_ptr<Node> child) {
+  auto &engine = Engine::current();
+  shared_ptr<Scene> &scene = engine.m_scene;
+  scene->remove_node(child);
+  if (has_cyclic_inclusion(child)) {
+    std::cout << "Cyclic inclusion detected, not adding child" << std::endl;
+    return;
+  }
+  children.push_back(child);
+  child->parent = shared_from_this();
+}
+bool Node::has_cyclic_inclusion(const shared_ptr<Node> &new_child) const {
+  std::unordered_set<shared_ptr<Node>> visited = {new_child};
+  std::unordered_set<shared_ptr<Node>> recursionStack;
+  
+  for (const auto &child : children) {
+     if (has_cyclic_inclusion_helper(child, visited, recursionStack)) {
+        return true;
+     }
+  }
+
+  return false;
+}
+bool Node::has_cyclic_inclusion_helper(
+    const shared_ptr<Node> &node, std::unordered_set<shared_ptr<Node>> &visited,
+    std::unordered_set<shared_ptr<Node>> &recursionStack) const {
+  if (recursionStack.count(node)) {
+     return true; // Found a cycle
+  }
+
+  if (visited.count(node)) {
+     return false; // Already visited, no cycle
+  }
+
+  visited.insert(node);
+  recursionStack.insert(node);
+
+  for (const auto &child : node->children) {
+     if (has_cyclic_inclusion_helper(child, visited, recursionStack)) {
+        return true;
+     }
+  }
+
+  recursionStack.erase(node);
+  return false;
 }

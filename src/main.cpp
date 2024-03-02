@@ -17,6 +17,7 @@
 #include <memory>
 #include <system_error>
 #include <yaml-cpp/emitter.h>
+#include <yaml-cpp/emittermanip.h>
 
 using namespace physics;
 
@@ -43,45 +44,34 @@ void setup_default_scene() {
   // SETUP FLOOR
   {
     auto floor =
-        Node::instantiate(vec3(0, -10, 0),vec3(100, 10, 100));
+        Node::instantiate(vec3(0, -10, 0),vec3(1000, 10, 1000));
     m_physics->add_collider(floor);
     auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
     floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
   }
-  // SETUP CUBE SCENE
-  if (false)
-  {
-    // this is the area of the cube of cubes that will spawn in a grid.
-    const int spawn_area = 4;
-    const vec3 spawn_offset = vec3(10, 5, 10);
-    
-    for (int x = 0; x < spawn_area; x++) {
-      for (int y = 0; y < spawn_area; y++) {
-        for (int z = 0; z < spawn_area; z++) {
-          auto position = vec3(x, y, z) + spawn_offset;
-          auto node = Node::instantiate(position);
-          auto rigidbody = m_physics->add_rigidbody(node);
-          auto collider = m_physics->add_collider(node);
-          node->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
-        }
-      }
-    }
-  }
+
   // SETUP PLAYER
   {
     const auto color = vec3(1, 1, 1);
     const auto intensity = 10.0f;
     const auto range = 1.0;
     const auto cast_shadows = false;
-    auto player_node = Node::instantiate(vec3(0, 3.5, 15));
+    auto player_node = Node::instantiate(vec3(0, 0, 0));
     player_node->set_position(vec3(0,15,0));
     auto light_component = player_node->add_component<Light>(color, intensity, range, cast_shadows);
     m_scene->light = player_node;
-    player_node->add_component<BlockPlacer>();
-    m_scene->camera = player_node;
-    player_node->add_component<Player>();
-    player_node->add_component<Camera>();
-    player_node->rotate(vec3(0, -45, 0));
+    
+   // player_node->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
+    
+    auto camera = Node::instantiate();
+    m_scene->camera = camera;
+    
+    camera->add_component<Camera>();
+    camera->add_component<Player>();
+    camera->add_component<BlockPlacer>();
+    //player_node->add_child(camera);
+    camera->set_position(vec3(0, 2, 5));
+    camera->rotate(glm::radians(vec3(0,-90,0)));
   }
   
 }

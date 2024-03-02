@@ -71,8 +71,8 @@ void Shader::compile_shader(const std::string &vertex_path,
     const auto location = glGetUniformLocation(program_id, uniform_path);
     if (location != -1)
       uniform_locations[uniforms[i]] = location;
-    else {
-      std::cout << "shader : " << fragment_path << "uniform : " << uniform_path << "not found" << std::endl;
+    else  {
+      //std::cout << "shader : " << fragment_path << "uniform : " << uniform_path << "not found" << std::endl;
     }
   }
   glDeleteShader(vertexShader);

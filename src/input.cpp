@@ -23,6 +23,7 @@ glm::vec2 Input::mouse_delta() {
   last_mouse_pos = pos;
   return delta;
 }
+
 bool Input::mouse_button_down(MouseButton button) {
   if (window == nullptr) {
     throw std::runtime_error("Input::mouse_button_down() called before window was set");

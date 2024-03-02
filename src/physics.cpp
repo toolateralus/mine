@@ -22,7 +22,7 @@ void Physics::update(const float &dt) {
     rb->integrate(dt);
   }
   // Collision Detection / Resolution
-
+  
   // clear & rebuild the spatial partitioning tree
   root.clear();
   for (auto &collider : colliders) {
@@ -186,18 +186,16 @@ Octree::Octree(const int level, const BoundingBox bounds)
     : level(level), bounds(bounds) {}
 Octree::~Octree() { clear(); }
 void Octree::clear() {
-  for (auto &child : children) {
-    child.reset();
-  }
+  nodes.clear();
   children.clear();
 }
 void Octree::insert(shared_ptr<Node> &node) {
   auto point = node->get_position();
   auto scale = node->get_scale();
-
+  
   auto node_bounds =
       BoundingBox{point - (scale / 2.0f), point + (scale / 2.0f)};
-
+  
   if (!bounds.intersects(node_bounds)) {
     return;
   }

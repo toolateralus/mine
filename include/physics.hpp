@@ -10,7 +10,7 @@
 
 namespace physics {
 constexpr int PHYSICS_OCTREE_MAX_LEVELS = 250;
-constexpr int MAX_OBJECTS = 100;
+constexpr int MAX_OBJECTS = 10;
 
 struct Rigidbody : public Component {
   vec3 velocity;

@@ -13,6 +13,8 @@ public:
   
   Scene() { nodes = vector<shared_ptr<Node>>(); }
   ~Scene() { nodes.clear(); }
+
+  void remove_node(shared_ptr<Node> &node);
   void update(const float &dt);
   void on_gui();
   void serialize(YAML::Emitter &out);
