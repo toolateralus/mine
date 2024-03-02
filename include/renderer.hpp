@@ -74,6 +74,7 @@ public:
   vector<shared_ptr<MeshRenderer>> meshes = {};
   MeshBuffer();
   ~MeshBuffer();
+  void init();
   void update_data();
 };
 

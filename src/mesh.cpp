@@ -98,13 +98,14 @@ void MeshRenderer::serialize(YAML::Emitter &out) {
 
 void MeshRenderer::awake() {
   auto &engine = Engine::current();
-  auto &meshes = engine.m_renderer->mesh_buffer->meshes;
+  auto &mesh_buffer = engine.m_renderer->mesh_buffer;
+  auto &meshes = mesh_buffer->meshes;
   auto shared_of_this = shared_from_this();
   auto it = std::find(meshes.begin(), meshes.end(), shared_of_this);
   auto exists = it != meshes.end();
-  if (exists) {
-
-  } else {
+  
+  if (!exists) {
     meshes.push_back(shared_of_this);
+    mesh_buffer->update_data();
   }
 }

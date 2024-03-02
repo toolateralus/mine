@@ -50,28 +50,14 @@ void MeshBuffer::update_data() {
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
                indices.data(), GL_STATIC_DRAW);
   indices.clear();
-
-  // Set the vertex attributes pointers
-  size_t stride = (3 + 2 + 3) * sizeof(float);
-
-  // vertex position
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void *)0);
-  glEnableVertexAttribArray(0);
-  // texture coordinates
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride,
-                        (void *)(3 * sizeof(float)));
-  glEnableVertexAttribArray(1);
-  // normals
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride,
-                        (void *)(5 * sizeof(float)));
-  glEnableVertexAttribArray(2);
-
+  
   glBindVertexArray(0);
 }
 MeshBuffer::MeshBuffer() {
   glGenVertexArrays(1, &vao);
   glGenBuffers(1, &vbo);
   glGenBuffers(1, &ebo);
+  init();
 }
 MeshBuffer::~MeshBuffer() {
   glDeleteVertexArrays(1, &vao);
@@ -140,9 +126,8 @@ int Renderer::run() {
       std::cout << "No camera component found on camera node." << std::endl;
       continue;
     }
-
-    // TODO: optimize this, we re-scrape all mesh data every frame.
-    mesh_buffer->update_data();
+    
+    
     gizmo_buffer->update_data();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -397,3 +382,24 @@ void Texture::load_texture(const std::string &path) {
 }
 Texture::Texture(const std::string path) : path(path) { load_texture(path); }
 Texture::~Texture() { glDeleteTextures(1, &texture); }
+
+void MeshBuffer::init() {
+  // Set the vertex attributes pointers
+  const size_t stride = (3 + 2 + 3) * sizeof(float);
+  
+  glBindVertexArray(vao);
+  glBindBuffer(GL_ARRAY_BUFFER, vbo);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+  
+  // vertex position
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void *)0);
+  glEnableVertexAttribArray(0);
+  // texture coordinates
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride,
+                        (void *)(3 * sizeof(float)));
+  glEnableVertexAttribArray(1);
+  // normals
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride,
+                        (void *)(5 * sizeof(float)));
+  glEnableVertexAttribArray(2);
+}
