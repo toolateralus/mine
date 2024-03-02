@@ -20,42 +20,24 @@ auto Gizmo::shader = make_shared<Shader>(
 
 // VertexBuffer
 void MeshBuffer::update_data() {
-  vertices.clear();
-  texcoords.clear();
-  normals.clear();
   indices.clear();
   interleaved_data.clear();
-
+  
   for (auto mr : this->meshes) {
     auto mesh = mr->mesh;
-    vertices.insert(vertices.end(), mesh->vertices.begin(),
-                    mesh->vertices.end());
-    texcoords.insert(texcoords.end(), mesh->texcoords.begin(),
-                     mesh->texcoords.end());
-    normals.insert(normals.end(), mesh->normals.begin(), mesh->normals.end());
+    for (size_t i = 0; i < mesh->vertices.size() / 3; ++i) {
+      interleaved_data.push_back(mesh->vertices[i * 3]);
+      interleaved_data.push_back(mesh->vertices[i * 3 + 1]);
+      interleaved_data.push_back(mesh->vertices[i * 3 + 2]);
+      interleaved_data.push_back(mesh->texcoords[i * 2]);
+      interleaved_data.push_back(mesh->texcoords[i * 2 + 1]);
+      interleaved_data.push_back(mesh->normals[i * 3]);
+      interleaved_data.push_back(mesh->normals[i * 3 + 1]);
+      interleaved_data.push_back(mesh->normals[i * 3 + 2]);
+    }
     indices.insert(indices.end(), mesh->indices.begin(), mesh->indices.end());
   }
-
-  // Interleave vertices, texcoords, and normals
-  for (size_t i = 0; i < vertices.size() / 3; ++i) {
-    interleaved_data.push_back(vertices[i * 3]);
-    interleaved_data.push_back(vertices[i * 3 + 1]);
-    interleaved_data.push_back(vertices[i * 3 + 2]);
-
-    interleaved_data.push_back(texcoords[i * 2]);
-    interleaved_data.push_back(texcoords[i * 2 + 1]);
-
-    interleaved_data.push_back(normals[i * 3]);
-    interleaved_data.push_back(normals[i * 3 + 1]);
-    interleaved_data.push_back(normals[i * 3 + 2]);
-  }
-
-  // save some memory by dumping this off early
-  // probably a negligble performance gain. (if any)
-  normals.clear();
-  vertices.clear();
-  texcoords.clear();
-
+  
   glBindVertexArray(vao);
 
   // Buffer the interleaved data
@@ -88,7 +70,6 @@ void MeshBuffer::update_data() {
 }
 MeshBuffer::MeshBuffer() {
   glGenVertexArrays(1, &vao);
-  glGenBuffers(1, &model_vbo);
   glGenBuffers(1, &vbo);
   glGenBuffers(1, &ebo);
 }

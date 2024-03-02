@@ -68,10 +68,7 @@ public:
 
 class MeshBuffer {
 public:
-  GLuint model_vbo, vbo, vao, ebo;
-  vector<float> vertices = {};
-  vector<float> texcoords = {};
-  vector<float> normals = {};
+  GLuint vbo, vao, ebo;
   vector<unsigned int> indices = {};
   vector<float> interleaved_data = {};
   vector<shared_ptr<MeshRenderer>> meshes = {};
