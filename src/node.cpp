@@ -196,8 +196,8 @@ shared_ptr<Node> Node::instantiate(const vec3 &pos, const vec3 &scale,
     auto &scene = engine.m_scene;
     auto node = make_shared<Node>();
     node->set_position(pos);
-    node->set_scale(scale);
     node->set_rotation(rot);
+    node->set_scale(scale);
     scene->new_node_queue.push_back(node);
     return node;
 }
