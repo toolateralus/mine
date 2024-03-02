@@ -25,6 +25,11 @@ void MeshBuffer::update_data() {
   
   for (auto mr : this->meshes) {
     auto mesh = mr->mesh;
+    const size_t vertexCount = interleaved_data.size() / 8;
+    for (auto index : mesh->indices) {
+      indices.push_back(index + vertexCount);
+    }
+    
     for (size_t i = 0; i < mesh->vertices.size() / 3; ++i) {
       interleaved_data.push_back(mesh->vertices[i * 3]);
       interleaved_data.push_back(mesh->vertices[i * 3 + 1]);
@@ -35,7 +40,6 @@ void MeshBuffer::update_data() {
       interleaved_data.push_back(mesh->normals[i * 3 + 1]);
       interleaved_data.push_back(mesh->normals[i * 3 + 2]);
     }
-    indices.insert(indices.end(), mesh->indices.begin(), mesh->indices.end());
   }
   
   glBindVertexArray(vao);
@@ -291,10 +295,10 @@ void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
 
     glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE,
                        glm::value_ptr(viewProjectionMatrix));
-
+    
     glUniformMatrix4fv(mmXLocation, 1, GL_FALSE,
                        glm::value_ptr(transform_matrix));
-
+    
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
 
     indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
