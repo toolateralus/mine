@@ -1,7 +1,8 @@
 #include "../include/input.hpp"
 #include <stdexcept>
 
-Input::Input() {}
+Input::Input() {}  
+
 Input::~Input() {}
 
 glm::vec2 Input::mouse_position() {
