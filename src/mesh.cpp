@@ -25,14 +25,6 @@ MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
 std::unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
 
 void Mesh::load_into(shared_ptr<Mesh> &mesh, const std::string &path) {
-  auto it = cache.find(path);
-  if (it != cache.end()) {
-    mesh->vertices = it->second->vertices;
-    mesh->texcoords = it->second->texcoords;
-    mesh->normals = it->second->normals;
-    mesh->indices = it->second->indices;
-    return;
-  }
   Assimp::Importer importer;
   const aiScene *scene =
       importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
