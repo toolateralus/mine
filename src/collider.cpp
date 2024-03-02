@@ -8,7 +8,7 @@
 
 using namespace physics;
 
-vector<vec3> Collider::get_points() {
+vector<vec3> BoxCollider::get_points() {
   auto node = this->node.lock();
   if (!node) {
     return vector<vec3>();
@@ -17,8 +17,6 @@ vector<vec3> Collider::get_points() {
   points.clear();
   points.resize(8);
   
-  // why in the world does dividing by 2 cause collision to totally break and 
-  // produce nans???
   float halfX = size.x / 2.0f;
   float halfY = size.y / 2.0f;
   float halfZ = size.z / 2.0f;
@@ -66,7 +64,6 @@ void Collider::project(const vec3 &axis, float &min, float &max) {
   if (points.size() != 8) {
     this->transform_collider();
   }
-  
   min = max = glm::dot(points[0], axis);
   for (size_t i = 1; i < points.size(); i++) {
     float projection = glm::dot(points[i], axis);
@@ -174,4 +171,15 @@ void physics::Collider::serialize(YAML::Emitter &out) {
 void physics::Collider::deserialize(const YAML::Node &in) {
   center = string_to_vec3(in["center"].as<std::string>());
   size = string_to_vec3(in["size"].as<std::string>());
+}
+void physics::BoxCollider::deserialize(const YAML::Node &in) {
+  auto center = in["center"].as<std::string>();
+  auto size = in["size"].as<std::string>();
+  this->center = string_to_vec3(center);
+  this->size = string_to_vec3(size);
+};
+void physics::BoxCollider::serialize(YAML::Emitter &out) {
+  out << YAML::Key << "type" << YAML::Value << "BoxCollider";
+  out << YAML::Key << "center" << YAML::Value << vec3_to_string(center);
+  out << YAML::Key << "size" << YAML::Value << vec3_to_string(size);
 }

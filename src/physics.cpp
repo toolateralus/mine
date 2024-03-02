@@ -176,12 +176,7 @@ void Physics::resolve_static_to_dynamic_collision(
   rb->velocity -= normal * impulse * 0.8f;
 }
 
-shared_ptr<Collider> Physics::add_collider(shared_ptr<Node> &node,
-                                           const vec3 center, const vec3 size) {
-  auto collider = node->add_component<Collider>(center, size);
-  colliders.push_back(collider);
-  return collider;
-}
+
 // TODO: optimize memory allocations here : 
 //    we could avoid recursion and use a more efficient structure for the octree child octree container.
 
@@ -278,6 +273,7 @@ void Rigidbody::apply_drag(const float &dt) {
 void Rigidbody::integrate(const float &dt) {
   if (auto node = this->node.lock()) {
     node->translate(velocity * dt);
+    node->rotate(glm::quat(angular * dt));
     if (using_gravity) {
       velocity.y -= 9.81f * dt;
     }

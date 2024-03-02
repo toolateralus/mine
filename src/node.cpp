@@ -168,8 +168,8 @@ void Node::deserialize(const YAML::Node &in) {
         engine.m_physics->rigidbodies.push_back(rigidbody);
         rigidbody->deserialize(component);
       }
-      if (type == "Collider") {
-        auto collider = this->add_component<physics::Collider>();
+      if (type == "BoxCollider") {
+        auto collider = this->add_component<physics::BoxCollider>();
         engine.m_physics->colliders.push_back(collider);
         collider->deserialize(component);
       }
