@@ -10,6 +10,9 @@
 #include <unordered_set>
 using namespace physics;
 
+int Physics::PHYSICS_OCTREE_MAX_LEVELS = 25;
+int Physics::MAX_OBJECTS = 50;
+
 Physics::Physics() {}
 Physics::~Physics() {
   for (auto &collider : colliders) {
@@ -205,7 +208,7 @@ void Octree::insert(shared_ptr<Node> &node) {
     }
   } else {
     nodes.push_back(node);
-    if (nodes.size() > MAX_OBJECTS && level > 0) {
+    if (nodes.size() > Physics::MAX_OBJECTS && level > 0) {
       subdivide();
     }
   }

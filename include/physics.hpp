@@ -9,8 +9,8 @@
 #include <set>
 
 namespace physics {
-constexpr int PHYSICS_OCTREE_MAX_LEVELS = 250;
-constexpr int MAX_OBJECTS = 10;
+  
+
 
 struct Rigidbody : public Component {
   vec3 velocity;
@@ -46,6 +46,8 @@ struct Octree {
 };
 
 struct Physics {
+  static int PHYSICS_OCTREE_MAX_LEVELS;
+  static int MAX_OBJECTS;  
   Octree root =
       Octree(PHYSICS_OCTREE_MAX_LEVELS, BoundingBox(vec3(-1000.0f), vec3(1000.0f)));
   vector<shared_ptr<Collider>> colliders;
