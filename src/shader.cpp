@@ -56,8 +56,7 @@ void Shader::compile_shader(const std::string &vertex_path,
               << infoLog << std::endl;
   }
   
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
+  
   
   // get uniform locations
   // add new uniforms here if your shader calls for it.
@@ -73,8 +72,11 @@ void Shader::compile_shader(const std::string &vertex_path,
     if (location != -1)
       uniform_locations[uniforms[i]] = location;
     else {
+      std::cout << "shader : " << fragment_path << "uniform : " << uniform_path << "not found" << std::endl;
     }
   }
+  glDeleteShader(vertexShader);
+  glDeleteShader(fragmentShader);
 }
 Shader::Shader(const std::string vertex_path, const std::string fragment_path)
     : vertex_path(vertex_path), frag_path(fragment_path) {

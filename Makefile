@@ -13,18 +13,21 @@ TARGET = bin/mine
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	mkdir -p $(TARGET_DIR)
-	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	@mkdir -p $(TARGET_DIR)
+	@$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: %.cpp
-	mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@mkdir -p $(@D)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: $(TARGET)
-	./$(TARGET)
+	@./$(TARGET) $(filter-out $@,$(MAKECMDGOALS))
 
 run_asan: $(TARGET)
-	ASAN_OPTIONS=detect_leaks=1 ./$(TARGET)
+	@ASAN_OPTIONS=detect_leaks=1 ./$(TARGET) 
 
 clean:
-	rm -rf $(OBJ_SRC_DIR) $(TARGET)
+	@rm -rf $(OBJ_SRC_DIR) $(TARGET)
+
+%:
+	@:

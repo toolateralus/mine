@@ -163,14 +163,14 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader,
     std::cout << "no light in scene." << std::endl;
     return;
   }
-
+  
   const auto light = light_node->get_component<Light>();
   const auto light_position = light_node->get_position();
   const auto light_color = light->color;
   const auto light_radius = light->range;
   const auto light_intensity = light->intensity;
   const auto cast_shadows = light->cast_shadows;
-
+  
   const auto lightPositionLocation =
       shader->uniform_locations.find("lightPosition");
   const auto lightColorLocation = shader->uniform_locations.find("lightColor");
@@ -185,15 +185,15 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader,
     glUniform3fv(lightPositionLocation->second, 1,
                  glm::value_ptr(light_position));
   }
-
+  
   if (lightColorLocation != shader->uniform_locations.end()) {
     glUniform3fv(lightColorLocation->second, 1, glm::value_ptr(light_color));
   }
-
+  
   if (lightRadiusLocation != shader->uniform_locations.end()) {
     glUniform1f(lightRadiusLocation->second, light_radius);
   }
-
+  
   if (lightIntensityLocation != shader->uniform_locations.end()) {
     glUniform1f(lightIntensityLocation->second, light_intensity);
   }
@@ -247,7 +247,7 @@ void Renderer::apply_uniforms(
     if (viewProjectionMatrixLocation != uniforms.end())
       glUniformMatrix4fv(viewProjectionMatrixLocation->second, 1, GL_FALSE,
                          glm::value_ptr(viewProjectionMatrix));
-
+    
     if (modelMatrixLocation != uniforms.end())
       glUniformMatrix4fv(modelMatrixLocation->second, 1, GL_FALSE,
                          glm::value_ptr(transform_matrix));

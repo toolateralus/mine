@@ -3,10 +3,10 @@ nodes:
     transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 15.000000, 0.000000, 1.000000
     components:
       - type: Light
-        color: (1.000000, 1.000000, 1.000000)
+        color: (0.000000, 1.000000, 1.000000)
         intensity: 1
-        range: 1
-        cast_shadows: true
+        range: 100
+        cast_shadows: false
   - name: Node
     transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, -10.000000, 0.000000, 1.000000
     components:
@@ -20,7 +20,7 @@ nodes:
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
         mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
   - name: Node
-    transform: 0.861650, 0.000004, -0.507503, 0.000000, -0.202307, 0.917113, -0.343475, 0.000000, 0.465436, 0.398627, 0.790231, 0.000000, 3.961702, -6.501160, 5.243588, 1.000000
+    transform: 0.525322, 0.000000, 0.850904, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, -0.850904, 0.000000, 0.525322, 0.000000, 0.000000, 3.500000, 15.000000, 1.000000
     components:
       - type: BlockPlacer
         textured_material:
@@ -36,122 +36,3 @@ nodes:
         near: 0.100000001
         far: 10000
         sky_color: (0.100000, 0.300000, 0.800000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 9.745987, -283.163605, 6.045634, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.483594, -271.410706, -4.574965, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.857422, -263.252411, -1.796144, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.800574, -257.661224, -2.616780, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.549661, -252.600220, -2.143759, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 1.142505, -248.885864, -1.376189, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.924086, -9.000115, -0.964426, 1.000000
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
-      - type: Rigidbody
-        mass: 1
-        drag: 0.980000019
-      - type: Collider
-        center: (0.000000, 0.000000, 0.000000)
-        size: (1.000000, 1.000000, 1.000000)

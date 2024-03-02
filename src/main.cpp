@@ -32,18 +32,20 @@ using namespace physics;
 static Engine &m_engine = Engine::current();
 static Input &m_input = Input::current();
 
-shared_ptr<Scene> m_scene = m_engine.m_scene;
-shared_ptr<Physics> m_physics = m_engine.m_physics;
-shared_ptr<Material> m_material = m_engine.m_material;
-shared_ptr<Renderer> m_renderer =  m_engine.m_renderer;
+shared_ptr<Scene> &m_scene = m_engine.m_scene;
+shared_ptr<Physics> &m_physics = m_engine.m_physics;
+shared_ptr<Material> &m_material = m_engine.m_material;
+shared_ptr<Renderer> &m_renderer =  m_engine.m_renderer;
 
 void setup_default_scene() {
   auto light = Node::instantiate();
   light->set_position(vec3(0,15,0));
-  auto light_component = light->add_component<Light>();
-  light_component->intensity = 1;
-  light_component->range = 1;
-  light_component->color = glm::vec3(1.0f, 1.0f, 1.0f);
+  const auto color = vec3(0, 1, 1);
+  const auto intensity = 1.0f;
+  const auto range = 100.0;
+  const auto cast_shadows = false;
+  
+  auto light_component = light->add_component<Light>(color, intensity, range, cast_shadows);
   m_scene->light = light;
   
   // SETUP FLOOR
@@ -87,20 +89,23 @@ void setup_default_scene() {
 
 int main(int argc, char **argv) {
   
-  std::string scene_path("test_scene.scene");
-  
-  if (file_exists(scene_path)) {
-    std::cout << "Loading scene from file : " << scene_path << std::endl;
-    YAML::Node in = YAML::LoadFile(scene_path);
-    m_scene->deserialize(in);
+  if (argc == 2) {
+    std::string scene_path(argv[1]);
+    if (file_exists(scene_path)) {
+      std::cout << "Loading scene from file : " << scene_path << std::endl;
+      m_scene->deserialize(YAML::LoadFile(scene_path));
+    } else {
+      std::cout << "Scene file not found, creating default scene\n";
+      setup_default_scene();
+    }
+    m_renderer->run();
+    YAML::Emitter out;
+    m_scene->serialize(out);
+    write_file(scene_path, out.c_str());
   } else {
     std::cout << "No scene file found, creating default scene\n";
     setup_default_scene();
+    m_renderer->run();
   }
   
-  m_renderer->run();
-  
-  YAML::Emitter out;
-  m_scene->serialize(out);
-  write_file(scene_path, out.c_str());
 }

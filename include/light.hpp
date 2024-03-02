@@ -10,7 +10,7 @@ struct Light : public Component {
   float range;
   bool cast_shadows;
   Light(const vec3 &color = {1, 1, 1}, const float &intensity = 1.0f,
-        const float &range = 100.0f, const bool &cast_shadows = true)
+        const float &range = 1.0f, const bool &cast_shadows = true)
       : color(color), intensity(intensity), range(range),
         cast_shadows(cast_shadows) {
         }
