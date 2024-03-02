@@ -37,7 +37,7 @@ void main()
     vec3 specular = 0.5 * spec * lightColor;
     
     // Combine results
-    vec3 lighting = (ambient + diffuse + specular) * lightIntensity * attenuation;
+    vec3 lighting = ambient + (diffuse + specular) * lightIntensity * attenuation;
     vec4 textureColor = (hasTexture == 1) ? texture(textureSampler, vTexCoord) : color;
     FragColor = vec4(lighting, 1.0) * textureColor;
 }

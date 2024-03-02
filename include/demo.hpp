@@ -15,7 +15,18 @@
 #include <iostream>
 #include <ostream>
 
-
+struct Car : public Component {
+  Car(){
+  }
+  ~Car() override {
+    
+  }
+  void on_gui() override {}
+  void awake() override;
+  void update(const float &dt) override;
+  void serialize(YAML::Emitter &out) override;
+  void deserialize(const YAML::Node &in) override;
+};
 struct BlockPlacer : public Component {
   BlockPlacer() {
   }
