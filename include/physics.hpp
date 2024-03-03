@@ -4,9 +4,6 @@
 #include "component.hpp"
 #include "node.hpp"
 #include "collider.hpp"
-#include "tostring.hpp"
-#include <iostream>
-#include <set>
 
 namespace physics {
   

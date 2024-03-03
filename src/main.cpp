@@ -3,19 +3,14 @@
 #include "../include/scene.hpp"
 #include "../include/component.hpp"
 #include "../include/mesh.hpp"
-#include "../include/camera.hpp"
 #include "../include/node.hpp"
 #include "../include/engine.hpp"
 #include "../include/input.hpp"
 #include "../include/demo.hpp"
 #include "../include/physics.hpp"
-#include "../include/tostring.hpp"
-#include "../include/light.hpp"
 #include "../include/fileio.hpp"
 
 #include <iostream>
-#include <memory>
-#include <system_error>
 #include <yaml-cpp/emitter.h>
 #include <yaml-cpp/emittermanip.h>
 
