@@ -2,10 +2,7 @@
 #include "bbox.hpp"
 #include "component.hpp"
 #include "node.hpp"
-#include "tostring.hpp"
 #include "usings.hpp"
-#include <cfloat>
-#include <iostream>
 
 namespace physics {
 struct SATProjection {
