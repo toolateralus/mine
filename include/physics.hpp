@@ -7,8 +7,6 @@
 
 namespace physics {
   
-
-
 struct Rigidbody : public Component {
   vec3 velocity;
   vec3 angular;
