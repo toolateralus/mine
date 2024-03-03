@@ -13,6 +13,7 @@
 #include <glm/ext/quaternion_trigonometric.hpp>
 #include <glm/fwd.hpp>
 #include <iostream>
+#include <optional>
 #include <ostream>
 
 struct Car : public Component {
@@ -34,6 +35,7 @@ struct BlockPlacer : public Component {
   bool placed;
   vector<shared_ptr<Node>> placed_blocks = {};
   shared_ptr<Material> textured_material;
+  std::optional<glm::vec2> last_pos;
   void awake() override;
   void update(const float &dt) override;
   void serialize(YAML::Emitter &out) override;

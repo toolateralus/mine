@@ -1,6 +1,7 @@
 #pragma once
 #include "component.hpp"
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/constants.hpp>
 #include <unordered_set>
 #include <yaml-cpp/emitter.h>
 
@@ -10,7 +11,16 @@ struct Collision;
 
 class Node : public std::enable_shared_from_this<Node> {
 private:
-  mat4 transform;
+  mat4 local_transform;
+
+  vec3 local_scale = glm::one<vec3>(), local_translation = glm::zero<vec3>(), local_skew;
+  quat local_rotation = glm::identity<quat>();
+  vec4 local_perspective;
+
+  bool is_composed = false;
+
+  void decompose();
+  void compose();
 
 public:
   std::string name;
@@ -19,7 +29,7 @@ public:
   weak_ptr<Node> parent;
   vector<shared_ptr<Node>> children;
   
-  Node() : transform(glm::identity<mat4>()), name("Node"), components() {}
+  Node() : local_transform(glm::identity<mat4>()), name("Node"), components() {}
   ~Node() { components.clear(); }
   void awake();
   void update(float dt);
@@ -41,11 +51,22 @@ public:
   vec3 left() const;
   vec3 up() const;
 
-  mat4 get_transform() const;
-  vec3 get_position() const;
-  quat get_rotation() const;
-  vec3 get_scale() const;
+  mat4 get_local_transform();
+  vec3 get_local_position();
+  quat get_local_rotation();
+  vec3 get_local_scale();
 
+  void set_local_transform(const mat4 &transform);
+  void set_local_position(const vec3 &position);
+  void set_local_rotation(const quat &rotation);
+  void set_local_scale(const vec3 &scale);
+
+  mat4 get_transform();
+  vec3 get_position();
+  quat get_rotation();
+  vec3 get_scale();
+
+  void set_transform(const mat4 &transform);
   void set_position(const vec3 &position);
   void set_rotation(const quat &rotation);
   void set_scale(const vec3 &scale);

@@ -11,59 +11,85 @@
 #include "../include/node.hpp"
 #include "../include/physics.hpp"
 #include <climits>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_geometric.hpp>
+#include <glm/fwd.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/matrix.hpp>
 #include <iostream>
 #include <memory>
 #include <yaml-cpp/emittermanip.h>
 #include <yaml-cpp/yaml.h>
+#include <glm/gtx/quaternion.hpp>
 
-vec3 Node::fwd() const { return glm::normalize(vec3(transform[2])); }
-vec3 Node::left() const { return glm::normalize(vec3(transform[0])); }
-vec3 Node::up() const { return glm::normalize(vec3(transform[1])); }
+namespace glm {
+  mat4 compose(const vec3 &translation, const quat &rotation, const vec3 &scale) {
+    mat4 out = glm::translate(glm::identity<mat4>(), translation);
+    out *= glm::toMat4(glm::normalize(rotation));
+    return glm::scale(out, scale);
+  }
+}
 
-mat4 Node::get_transform() const {
+vec3 Node::fwd() const { return glm::normalize(vec3(local_transform[2])); }
+vec3 Node::left() const { return glm::normalize(vec3(local_transform[0])); }
+vec3 Node::up() const { return glm::normalize(vec3(local_transform[1])); }
+
+mat4 Node::get_transform() {
   glm::mat4 parentTransform = glm::mat4(1.0f);
   if (auto parentNode = parent.lock()) {
     parentTransform = parentNode->get_transform();
   }
-  return parentTransform * transform;
+  return parentTransform * get_local_transform();
 }
-vec3 Node::get_position() const {
-  vec3 position = vec3(transform[3][0], transform[3][1], transform[3][2]);
-  if (auto parentNode = parent.lock()) {
-    glm::vec4 parentPosition =
-        parentNode->get_transform() * glm::vec4(position, 1.0f);
-    position = vec3(parentPosition.x, parentPosition.y, parentPosition.z);
-  }
-  return position;
+vec3 Node::get_position() {
+  return vec3(get_transform()[3]);
 }
-quat Node::get_rotation() const {
-  glm::quat rotation = glm::quat_cast(glm::mat3(transform));
-  if (auto parentNode = parent.lock()) {
-    glm::quat parentRotation = parentNode->get_rotation();
-    rotation = parentRotation * rotation;
-  }
+quat Node::get_rotation() {
+  vec3 scale, translation, skew;
+  quat rotation;
+  vec4 perspective;
+  glm::decompose(get_transform(), scale, rotation, translation, skew, perspective);
   return rotation;
 }
-vec3 Node::get_scale() const {
-  vec3 scale = vec3(transform[0][0], transform[1][1], transform[2][2]);
-  if (auto parentNode = parent.lock()) {
-    vec3 parentScale = parentNode->get_scale();
-    scale *= parentScale;
-  }
+vec3 Node::get_scale() {
+  vec3 scale, translation, skew;
+  quat rotation;
+  vec4 perspective;
+  glm::decompose(get_transform(), scale, rotation, translation, skew, perspective);
   return scale;
 }
 
+void Node::set_transform(const mat4 &transform) {
+  if (auto parentNode = parent.lock()) {
+    set_local_transform(transform * glm::inverse(parentNode->get_transform()));
+  } else {
+    set_local_transform(transform);
+  }
+}
 void Node::set_position(const vec3 &position) {
   if (auto parentNode = parent.lock()) {
-    glm::vec4 parentPosition =
-        glm::inverse(parentNode->get_transform()) * glm::vec4(position, 1.0f);
-    transform[3][0] = parentPosition.x;
-    transform[3][1] = parentPosition.y;
-    transform[3][2] = parentPosition.z;
+    set_local_position(vec4(position, 0) * glm::inverse(parentNode->get_transform()));
   } else {
-    transform[3][0] = position.x;
-    transform[3][1] = position.y;
-    transform[3][2] = position.z;
+    set_local_position(position);
+  }
+}
+void Node::set_rotation(const glm::quat &rotation) {
+  if (auto parentNode = parent.lock()) {
+    set_local_rotation(glm::toMat4(rotation) * glm::inverse(parentNode->get_transform()));
+  } else {
+    set_local_rotation(rotation);
+  }
+}
+void Node::set_scale(const vec3 &scale) {
+  if (auto parentNode = parent.lock()) {
+    auto scale_mat4 = glm::scale(glm::identity<mat4>(), scale) * glm::inverse(parentNode->get_transform());
+    vec3 new_scale, translation, skew;
+    quat rotation;
+    vec4 perspective;
+    glm::decompose(scale_mat4, new_scale, rotation, translation, skew, perspective);
+    set_local_scale(new_scale);
+  } else {
+    set_local_scale(scale);
   }
 }
 void Node::scale(const vec3 &scale) { set_scale(get_scale() * scale); }
@@ -72,34 +98,6 @@ void Node::translate(const vec3 &translation) {
 }
 void Node::rotate(const glm::quat &rotation) {
   set_rotation(rotation * get_rotation());
-}
-void Node::set_rotation(const glm::quat &rotation) {
-  if (auto parentNode = parent.lock()) {
-    glm::quat parentRotation = glm::inverse(parentNode->get_rotation());
-    glm::quat localRotation = parentRotation * rotation;
-    glm::mat3 rotationMatrix = glm::mat3_cast(localRotation);
-    transform[0] = glm::vec4(rotationMatrix[0], transform[0].w);
-    transform[1] = glm::vec4(rotationMatrix[1], transform[1].w);
-    transform[2] = glm::vec4(rotationMatrix[2], transform[2].w);
-  } else {
-    glm::mat3 rotationMatrix = glm::mat3_cast(rotation);
-    transform[0] = glm::vec4(rotationMatrix[0], transform[0].w);
-    transform[1] = glm::vec4(rotationMatrix[1], transform[1].w);
-    transform[2] = glm::vec4(rotationMatrix[2], transform[2].w);
-  }
-}
-void Node::set_scale(const vec3 &scale) {
-  if (auto parentNode = parent.lock()) {
-    vec3 parentScale = parentNode->get_scale();
-    vec3 localScale = scale / parentScale;
-    transform[0][0] = localScale.x;
-    transform[1][1] = localScale.y;
-    transform[2][2] = localScale.z;
-  } else {
-    transform[0][0] = scale.x;
-    transform[1][1] = scale.y;
-    transform[2][2] = scale.z;
-  }
 }
 void Node::awake() {
   for (auto component : components) {
@@ -138,7 +136,7 @@ void Node::deserialize(const YAML::Node &in) {
     auto scene = engine.m_scene;
     this->name = in["name"].as<std::string>();
     auto transform = in["transform"];
-    this->transform = string_to_mat4(transform.as<std::string>());
+    this->local_transform = string_to_mat4(transform.as<std::string>());
     auto components = in["components"];
     for (auto component : components) {
       auto type = component["type"].as<std::string>();
@@ -192,7 +190,7 @@ void Node::deserialize(const YAML::Node &in) {
 void Node::serialize(YAML::Emitter &out) {
     out << YAML::BeginMap;
     out << YAML::Key << "name" << YAML::Value << name;
-    out << YAML::Key << "transform" << YAML::Value << mat4_to_string(transform);
+    out << YAML::Key << "transform" << YAML::Value << mat4_to_string(local_transform);
     out << YAML::Key << "children" << YAML::Value << YAML::BeginSeq;
     for (auto &child : children) {
       child->serialize(out);
@@ -261,4 +259,58 @@ bool Node::has_cyclic_inclusion_helper(
 
   recursionStack.erase(node);
   return false;
+}
+void Node::decompose() {
+  is_composed = false;
+  glm::decompose(local_transform, local_scale, local_rotation, local_translation, local_skew, local_perspective);
+}
+void Node::compose() {
+  local_transform = glm::compose(local_translation, local_rotation, local_scale);
+  is_composed = true;
+}
+mat4 Node::get_local_transform() {
+  if (!is_composed) {
+    compose();
+  }
+  return local_transform;
+}
+vec3 Node::get_local_position() {
+  if (is_composed) {
+    decompose();
+  }
+  return local_translation;
+}
+quat Node::get_local_rotation() {
+  if (is_composed) {
+    decompose();
+  }
+  return local_rotation;
+}
+vec3 Node::get_local_scale() {
+  if (is_composed) {
+    decompose();
+  }
+  return local_scale;
+}
+void Node::set_local_transform(const mat4 &transform) {
+  local_transform = transform;
+  is_composed = true;
+}
+void Node::set_local_position(const vec3 &position) {
+  if (is_composed) {
+    decompose();
+  }
+  local_translation = position;
+}
+void Node::set_local_rotation(const quat &rotation) {
+  if (is_composed) {
+    decompose();
+  }
+  local_rotation = rotation;
+}
+void Node::set_local_scale(const vec3 &scale) {
+  if (is_composed) {
+    decompose();
+  }
+  local_scale = scale;
 }

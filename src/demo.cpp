@@ -1,6 +1,8 @@
 #include "../include/demo.hpp"
 #include "../include/light.hpp"
 #include "../thirdparty/imgui/imgui.h"
+#include <glm/fwd.hpp>
+#include <glm/trigonometric.hpp>
 
 void BlockPlacer::update(const float &dt) {
   auto node = this->node.lock();
@@ -9,7 +11,6 @@ void BlockPlacer::update(const float &dt) {
   if (placed && input.mouse_button_up(MouseButton::Left)) {
     placed = false;
   }
-
   if (!placed && input.mouse_button_down(MouseButton::Left)) {
     placed = true;
 
@@ -25,9 +26,10 @@ void BlockPlacer::update(const float &dt) {
         new_node->add_component<MeshRenderer>(textured_material,
                                               Engine::RESOURCE_DIR_PATH +
                                                   "/prim_mesh/car.obj");
+        engine.m_physics->add_rigidbody(new_node);
       }
-      engine.m_physics->add_rigidbody(new_node);
-      engine.m_physics->add_collider<physics::BoxCollider>(new_node)->draw_collider = true;
+      engine.m_physics->add_collider<physics::BoxCollider>(new_node)
+          ->draw_collider = true;
       placed_blocks.push_back(new_node);
     } else {
       auto block = placed_blocks.front();
@@ -35,11 +37,34 @@ void BlockPlacer::update(const float &dt) {
       placed_blocks.erase(placed_blocks.begin());
       placed_blocks.push_back(block);
     }
+  } else {
+    if (input.mouse_button_down(MouseButton::Right)) {
+      auto block = placed_blocks.back();
+      glm::vec2 delta;
+      auto mouse_pos = input.mouse_position();
+      if (last_pos.has_value()) {
+        delta = mouse_pos - last_pos.value();
+      } else {
+        delta = glm::vec2(0);
+      }
+	  if (input.key_down(Key::LeftShift)) {
+		auto curr_pos = block->get_position();
+		block->set_position(curr_pos + (node->left() * delta.x + node->up() * -delta.y) * 0.1f);
+	  } else if (input.key_down(Key::LeftControl)) {
+		auto curr_scale = block->get_scale();
+		block->set_scale(curr_scale + curr_scale * delta.y / 10.0f);
+	  } else {
+		block->rotate(glm::radians(node->up() * delta.x + node->left() * delta.y));
+	  }
+      last_pos = mouse_pos;
+    } else {
+		last_pos.reset();
+	}
   }
 }
 void BlockPlacer::awake() {
   auto &engine = Engine::current();
-  
+
   textured_material = make_shared<Material>(engine.m_shader, engine.m_texture);
 }
 void Player::on_gui() {
@@ -121,7 +146,7 @@ void Car::awake() {
   const auto intensity = 10.0f;
   const auto range = 1.0;
   const auto cast_shadows = false;
-  
+
   auto &engine = Engine::current();
   auto &m_scene = engine.m_scene;
   auto physics = engine.m_physics;
@@ -131,14 +156,15 @@ void Car::awake() {
       light->add_component<Light>(color, intensity, range, cast_shadows);
   m_scene->light = light;
   light->set_position(vec3(0, 5, 0));
-  
+
   auto player_node = node.lock();
   player_node->add_component<BlockPlacer>();
   player_node->add_component<MeshRenderer>(
       engine.m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
-  
+
   auto player_rigidbody = physics->add_rigidbody(player_node, 1.0f, 0.98f);
-  auto player_collider = physics->add_collider<physics::BoxCollider>(player_node, vec3(0), vec3(1));
+  auto player_collider = physics->add_collider<physics::BoxCollider>(
+      player_node, vec3(0), vec3(1));
   player_collider->draw_collider = true;
 
   auto camera = Node::instantiate();
@@ -150,14 +176,13 @@ void Car::awake() {
   player_node->add_child(light);
 }
 void Car::update(const float &dt) {
-  
+
   auto node = this->node.lock();
   auto &input = Input::current();
   vec3 move_vec = vec3(0);
   auto rigidbody = node->get_component<physics::Rigidbody>();
   // forward/backward/left/right
-  if (rigidbody)
-  {
+  if (rigidbody) {
     const auto speed = 10.f;
     if (input.key_down(Key::W)) {
       rigidbody->velocity += -node->fwd() * dt * speed;
