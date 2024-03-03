@@ -143,7 +143,7 @@ void BlockPlacer::deserialize(const YAML::Node &in) {
 
 void Car::awake() {
   const auto color = vec3(1, 1, 1);
-  const auto intensity = 10.0f;
+  const auto intensity = 1.0f;
   const auto range = 1.0;
   const auto cast_shadows = false;
 

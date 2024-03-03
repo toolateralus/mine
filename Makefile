@@ -14,11 +14,11 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ)
 	@mkdir -p $(TARGET_DIR)
-	@$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(@D)
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: $(TARGET)
 	@./$(TARGET) $(filter-out $@,$(MAKECMDGOALS))
