@@ -8,7 +8,7 @@
 #include <iostream>
 
 
-std::string Engine::RESOURCE_DIR_PATH = "/home/josh/source/c++/mine/res";
+std::string Engine::RESOURCE_DIR_PATH = "res";
 
 void Engine::update_loop(const float &dt) {
   auto &current = Engine::current();

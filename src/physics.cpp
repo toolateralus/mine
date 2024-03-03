@@ -151,19 +151,34 @@ void Physics::resolve_dynamic_collision(const Collision &collision,
                                         shared_ptr<Node> &node_b,
                                         shared_ptr<Rigidbody> &rb_a,
                                         shared_ptr<Rigidbody> &rb_b) const {
-  const auto mtv = collision.mtv;
-  const auto normal = collision.normal;
-  const auto correction = mtv / 2.0f;
+    const auto mtv = collision.mtv;
+    const auto normal = collision.normal;
+    const auto correction = mtv / 2.0f;
 
-  node_a->translate(-correction);
-  node_b->translate(correction);
+    node_a->translate(-correction);
+    node_b->translate(correction);
 
-  vec3 rel_vel = rb_b->velocity - rb_a->velocity;
-  
-  float impulse = glm::dot(rel_vel, normal) / (1 / rb_a->mass + 1 / rb_b->mass);
+    vec3 rel_vel = rb_b->velocity - rb_a->velocity;
 
-  rb_a->velocity += normal * impulse / rb_a->mass;
-  rb_b->velocity -= normal * impulse / rb_b->mass;
+    // Linear impulse
+    float impulse = glm::dot(rel_vel, normal) / (1 / rb_a->mass + 1 / rb_b->mass);
+
+    rb_a->velocity += normal * impulse / rb_a->mass;
+    rb_b->velocity -= normal * impulse / rb_b->mass;
+
+    vec3 relativeContactPointA = collision.point - node_a->get_position();
+    vec3 relativeContactPointB = collision.point - node_b->get_position();
+
+    vec3 torqueA = glm::cross(relativeContactPointA, normal);
+    vec3 torqueB = glm::cross(relativeContactPointB, normal);
+
+    float angularImpulseFactor = 0.1f;
+
+    vec3 angularImpulseA = torqueA * angularImpulseFactor / rb_a->compute_inertia();
+    vec3 angularImpulseB = torqueB * angularImpulseFactor / rb_b->compute_inertia();
+
+    rb_a->angular += angularImpulseA;
+    rb_b->angular -= angularImpulseB;
 }
 
 void Physics::resolve_static_to_dynamic_collision(

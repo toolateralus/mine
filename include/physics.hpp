@@ -10,13 +10,17 @@ namespace physics {
 struct Rigidbody : public Component {
   vec3 velocity;
   vec3 angular;
-  
+  float inertia; 
   float mass, drag;
   bool using_gravity = true;
   Rigidbody(const float mass = 1.0f, const float drag = 0.98f)
       : mass(mass), drag(drag), velocity(), angular() {
       }
   ~Rigidbody() override {}
+  const float compute_inertia() {
+	auto scale = node.lock()->get_scale();
+	return inertia = (1.0f / 12.0f) * mass * (scale.x * scale.x + scale.y * scale.y + scale.z * scale.z);
+  }
   void awake() override {}
   void apply_drag(const float &dt);
   void integrate(const float &dt);

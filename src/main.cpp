@@ -10,6 +10,8 @@
 #include "../include/physics.hpp"
 #include "../include/fileio.hpp"
 
+#include <glm/ext/quaternion_trigonometric.hpp>
+#include <glm/trigonometric.hpp>
 #include <iostream>
 #include <yaml-cpp/emitter.h>
 #include <yaml-cpp/emittermanip.h>
@@ -43,11 +45,15 @@ void setup_default_scene() {
     m_physics->add_collider<BoxCollider>(floor);
     auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
     floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
+
+	auto rot = glm::angleAxis(15.0f, vec3(1,0,0));
+	auto ramp = Node::instantiate(vec3(10,-5,0), vec3(100, 1, 100), rot);
+	ramp->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
+	m_physics->add_collider<BoxCollider>(ramp);
   }
   
   // SETUP PLAYER
   {
-    
     auto player_node = Node::instantiate();
     player_node->add_component<Car>();
   }

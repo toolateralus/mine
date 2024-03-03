@@ -38,7 +38,7 @@ void BlockPlacer::update(const float &dt) {
       placed_blocks.push_back(block);
     }
   } else {
-    if (input.mouse_button_down(MouseButton::Right)) {
+    if (input.mouse_button_down(MouseButton::Right) && placed_blocks.size() != 0) {
       auto block = placed_blocks.back();
       glm::vec2 delta;
       auto mouse_pos = input.mouse_position();
