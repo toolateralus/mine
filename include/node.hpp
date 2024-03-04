@@ -2,6 +2,7 @@
 #include "component.hpp"
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/constants.hpp>
+#include <memory>
 #include <unordered_set>
 #include <yaml-cpp/emitter.h>
 
@@ -12,16 +13,16 @@ struct Collision;
 class Node : public std::enable_shared_from_this<Node> {
 private:
   mat4 local_transform;
-
+  
   vec3 local_scale = glm::one<vec3>(), local_translation = glm::zero<vec3>(), local_skew;
   quat local_rotation = glm::identity<quat>();
   vec4 local_perspective;
-
+  
   bool is_composed = false;
-
+  
   void decompose();
   void compose();
-
+  vector<shared_ptr<Component>> new_component_queue = {};
 public:
   std::string name;
   vector<shared_ptr<Component>> components;
@@ -78,7 +79,7 @@ public:
   template <typename T, typename... Args>
   shared_ptr<T> add_component(Args &&...args) {
     auto component = make_shared<T>(args...);
-    components.push_back(component);
+    new_component_queue.push_back(component);
     component->node = shared_from_this();
     return component;
   }

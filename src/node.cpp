@@ -100,15 +100,20 @@ void Node::rotate(const glm::quat &rotation) {
   set_rotation(rotation * get_rotation());
 }
 void Node::awake() {
-  for (auto component : components) {
-    if (!component->is_awake) {
-      component->is_awake = true;
-      component->awake();
-    }
+  for (auto &component : components) {
+    if (component)
+      if (!component->is_awake) {
+        component->is_awake = true;
+        component->awake();
+      }
   }
 }
 void Node::update(float dt) {
-  for (auto component : components) {
+  for (auto &new_component : new_component_queue) {
+    components.push_back(new_component);
+  }
+  new_component_queue.clear();
+  for (auto &component : components) {
     // skip uninitialized components? why do we need this.
     if (component) {
       awake();
