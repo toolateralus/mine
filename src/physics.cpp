@@ -163,19 +163,22 @@ void Physics::resolve_dynamic_collision(const Collision &collision,
     rb_a->velocity += normal * impulse / rb_a->mass;
     rb_b->velocity -= normal * impulse / rb_b->mass;
     
-    vec3 relativeContactPointA = collision.point - node_a->get_position();
-    vec3 relativeContactPointB = collision.point - node_b->get_position();
+    // TODO: fix angular impulse
+    // the contact points are fairly inaccurate, too much so to implement this.
     
-    vec3 torqueA = glm::cross(relativeContactPointA, normal);
-    vec3 torqueB = glm::cross(relativeContactPointB, normal);
+    // vec3 relativeContactPointA = collision.point - node_a->get_position();
+    // vec3 relativeContactPointB = collision.point - node_b->get_position();
     
-    float angularImpulseFactor = 0.1f;
+    // vec3 torqueA = glm::cross(relativeContactPointA, normal);
+    // vec3 torqueB = glm::cross(relativeContactPointB, normal);
     
-    vec3 angularImpulseA = torqueA * angularImpulseFactor / rb_a->compute_inertia();
-    vec3 angularImpulseB = torqueB * angularImpulseFactor / rb_b->compute_inertia();
+    // float angularImpulseFactor = 0.1f;
     
-    rb_a->angular += angularImpulseA;
-    rb_b->angular -= angularImpulseB;
+    // vec3 angularImpulseA = torqueA * angularImpulseFactor / rb_a->compute_inertia();
+    // vec3 angularImpulseB = torqueB * angularImpulseFactor / rb_b->compute_inertia();
+    
+    // rb_a->angular += angularImpulseA;
+    // rb_b->angular -= angularImpulseB;
 }
 
 void Physics::resolve_static_to_dynamic_collision(const Collision &collision,
