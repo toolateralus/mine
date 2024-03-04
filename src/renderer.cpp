@@ -14,16 +14,17 @@
 #include <unistd.h>
 
 auto Gizmo::shader = make_shared<Shader>(
-    std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.hlsl"),
-    std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.hlsl"));
+    std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.glsl"),
+    std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.glsl"));
 
 void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
   const size_t vertexCount = interleaved_data.size() / 8;
-    for (auto index : mesh->indices) {
+    for (auto &index : mesh->indices) {
       indices.push_back(index + vertexCount);
     }
     
-    for (size_t i = 0; i < mesh->vertices.size() / 3; ++i) {
+    const auto mesh_vert_count = mesh->vertices.size() / 3;
+    for (size_t i = 0; i < mesh_vert_count; ++i) {
       interleaved_data.push_back(mesh->vertices[i * 3]);
       interleaved_data.push_back(mesh->vertices[i * 3 + 1]);
       interleaved_data.push_back(mesh->vertices[i * 3 + 2]);
@@ -34,7 +35,10 @@ void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
       interleaved_data.push_back(mesh->normals[i * 3 + 2]);
     }
     
-    
+    for (auto &submesh: mesh->submeshes) {
+      interleave_mesh(submesh);
+    }
+    std::cout << "vertex data interleaved: " << interleaved_data.size() / 8 << std::endl;
 }
 
 // VertexBuffer
@@ -42,25 +46,24 @@ void MeshBuffer::update_data() {
   indices.clear();
   interleaved_data.clear();
   
-  for (auto mr : this->meshes) {
+  for (auto &mr : this->meshes) {
     auto mesh = mr->mesh;
     // recursively grabs submeshes;
     interleave_mesh(mesh);
   }
   
   glBindVertexArray(vao);
-
+  
   // Buffer the interleaved data
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glBufferData(GL_ARRAY_BUFFER, interleaved_data.size() * sizeof(float),
                interleaved_data.data(), GL_STATIC_DRAW);
-
+  
   // Buffer the indices
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
                indices.data(), GL_STATIC_DRAW);
-  indices.clear();
-  
+               
   glBindVertexArray(0);
 }
 MeshBuffer::MeshBuffer() {
@@ -249,7 +252,7 @@ void Renderer::apply_uniforms(
     if (colorLocation != uniforms.end())
       glUniform4fv(colorLocation->second, 1,
                    glm::value_ptr(mesh_renderer->color));
-
+    
     if (viewProjectionMatrixLocation != uniforms.end())
       glUniformMatrix4fv(viewProjectionMatrixLocation->second, 1, GL_FALSE,
                          glm::value_ptr(viewProjectionMatrix));
@@ -267,13 +270,16 @@ void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
   void *indexOffset = 0;
   glBindVertexArray(mesh_buffer->vao);
   for (auto &mesh_renderer : mesh_buffer->meshes) {
-
-    const auto indexCount = mesh_renderer->mesh->indices.size();
-
-    apply_uniforms(viewProjectionMatrix, mesh_renderer);
-
+    for (const auto &mesh : mesh_renderer->mesh->submeshes) {
+      apply_uniforms(viewProjectionMatrix * mesh->transform, mesh_renderer);
+      const auto &indexCount = mesh->indices.size();
+      glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
+      indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
+    }
+    const auto &indexCount = mesh_renderer->mesh->indices.size();
+    const auto &transform = mesh_renderer->mesh->transform;
+    apply_uniforms(viewProjectionMatrix * transform, mesh_renderer);
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
-
     indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
   }
 }

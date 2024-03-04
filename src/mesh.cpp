@@ -33,18 +33,16 @@ void Mesh::load_into(shared_ptr<Mesh> &mesh, const std::string &path) {
     throw std::runtime_error("ERROR::ASSIMP::" +
                              std::string(importer.GetErrorString()));
   }
-
-  Mesh::process_node(mesh->vertices, mesh->texcoords, mesh->normals,
-                     mesh->indices, scene->mRootNode, scene);
+  Mesh::process_node(mesh, scene->mRootNode, scene);
   cache[path] = mesh;
 }
-void Mesh::process_mesh(vector<float> &vertices, vector<float> &texcoords,
-                        vector<float> &normals, vector<unsigned int> &indices,
-                        aiMesh *mesh, const aiScene *scene) {
-  unsigned int vertexOffset =
-      vertices.size() / 3; // Each vertex has 3 components (x, y, z)
-
-  for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
+void Mesh::process_mesh(shared_ptr<Mesh> &parent, aiMesh *mesh, const aiScene *scene) {
+  auto &vertices = parent->vertices;
+  auto &texcoords = parent->texcoords;
+  auto &normals = parent->normals;
+  auto &indices = parent->indices;
+  
+  for (size_t i = 0; i < mesh->mNumVertices; i++) {
     aiVector3D vertex = mesh->mVertices[i];
     vertices.push_back(vertex.x / 2.0);
     vertices.push_back(vertex.y / 2.0);
@@ -61,23 +59,23 @@ void Mesh::process_mesh(vector<float> &vertices, vector<float> &texcoords,
       normals.push_back(normal.z);
     }
   }
-  for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-    aiFace face = mesh->mFaces[i];
-    for (unsigned int j = 0; j < face.mNumIndices; j++) {
-      indices.push_back(face.mIndices[j] + vertexOffset);
+  for (size_t i = 0; i < mesh->mNumFaces; i++) {
+    aiFace &face = mesh->mFaces[i];
+    for (size_t j = 0; j < face.mNumIndices; j++) {
+      indices.push_back(face.mIndices[j]);
     }
   }
 }
-void Mesh::process_node(vector<float> &vertices, vector<float> &texcoords,
-                        vector<float> &normals, vector<unsigned int> &indices,
-                        const aiNode *node, const aiScene *scene) {
+void Mesh::process_node(shared_ptr<Mesh> &parent, const aiNode *node, const aiScene *scene) {
   for (unsigned int i = 0; i < node->mNumMeshes; i++) {
     aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-    Mesh::process_mesh(vertices, texcoords, normals, indices, mesh, scene);
+    Mesh::process_mesh(parent, mesh, scene);
   }
   for (unsigned int i = 0; i < node->mNumChildren; i++) {
-    Mesh::process_node(vertices, texcoords, normals, indices,
-                       node->mChildren[i], scene);
+    auto new_mesh = make_shared<Mesh>("");
+    parent->submeshes.push_back(new_mesh);
+    new_mesh->transform = glm::make_mat4(&node->mTransformation.a1);
+    Mesh::process_node(new_mesh, node->mChildren[i], scene);
   }
 }
 void MeshRenderer::deserialize(const YAML::Node &in) {
@@ -100,12 +98,12 @@ void MeshRenderer::awake() {
   auto &engine = Engine::current();
   auto &mesh_buffer = engine.m_renderer->mesh_buffer;
   auto &meshes = mesh_buffer->meshes;
-  auto shared_of_this = shared_from_this();
-  auto it = std::find(meshes.begin(), meshes.end(), shared_of_this);
+  auto self = shared_from_this();
+  auto it = std::find(meshes.begin(), meshes.end(), self);
   auto exists = it != meshes.end();
   
   if (!exists) {
-    meshes.push_back(shared_of_this);
+    meshes.push_back(self);
     mesh_buffer->update_data();
   }
 }

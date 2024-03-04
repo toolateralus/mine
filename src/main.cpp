@@ -18,13 +18,7 @@
 
 using namespace physics;
 
-/*
- IMPORTANT : 
-  if you intend to debug with RenderDoc or run the program from anywhere but the project root, you must adjust
-  this RESOURCE_DIR_PATH to the correct path to the resources directory.
-  
-  I just use VScode to right click the folder, get 'copy path' and paste it here.
-*/
+
 
 // We do this to initialize the singletons and provide easy access here.
 static Engine &m_engine = Engine::current();
@@ -43,13 +37,13 @@ void setup_default_scene() {
     auto floor =
         Node::instantiate(vec3(0, -10, 0),vec3(1000, 10, 1000));
     m_physics->add_collider<BoxCollider>(floor);
-    auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
+    auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/multi.obj");
     floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
-
-	auto rot = glm::angleAxis(15.0f, vec3(1,0,0));
-	auto ramp = Node::instantiate(vec3(10,-5,0), vec3(100, 1, 100), rot);
-	ramp->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
-	m_physics->add_collider<BoxCollider>(ramp);
+    
+    auto rot = glm::angleAxis(5.0f, vec3(1,0,0));
+    auto ramp = Node::instantiate(vec3(10,-5,0), vec3(100, 1, 100), rot);
+    ramp->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
+    m_physics->add_collider<BoxCollider>(ramp);
   }
   
   // SETUP PLAYER

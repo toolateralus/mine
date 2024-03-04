@@ -24,9 +24,8 @@ struct Mesh : public std::enable_shared_from_this<Mesh> {
   static void load_into(shared_ptr<Mesh> &mesh, const std::string &path);
 
 private:
-  static void process_node(vector<float> &vertices, vector<float> &texcoords,
-                        vector<float> &normals, vector<unsigned int> &indices, const aiNode *node, const aiScene *scene);
-  static void process_mesh(vector<float> &vertices, vector<float> &texcoords, vector<float> &normals, vector<unsigned int> &indices, aiMesh *mesh, const aiScene *scene);
+  static void process_node(shared_ptr<Mesh> &parent, const aiNode *node, const aiScene *scene);
+  static void process_mesh(shared_ptr<Mesh> &new_mesh, aiMesh *mesh, const aiScene *scene);
 };
 
 class MeshRenderer : public Component, public std::enable_shared_from_this<MeshRenderer> {

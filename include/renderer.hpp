@@ -160,7 +160,7 @@ public:
     vertices.clear();
     indices.clear();
 
-    for (auto gizmo : this->gizmos) {
+    for (auto &gizmo : this->gizmos) {
       auto node = gizmo.node.lock();
       modelMatrices.insert(modelMatrices.end(), node->get_transform());
       vertices.insert(vertices.end(), gizmo.vertices.begin(),

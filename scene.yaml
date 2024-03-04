@@ -1,0 +1,126 @@
+nodes:
+  - name: Node
+    transform: 1000.000000, 0.000000, 0.000000, 0.000000, 0.000000, 10.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1000.000000, 0.000000, 0.000000, -10.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type
+      - BoxCollider
+      - center
+      - (0.000000, 0.000000, 0.000000)
+      - size
+      - (1.000000, 1.000000, 1.000000)
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+  - name: Node
+    transform: 100.000000, 0.000000, 0.000000, 0.000000, 0.000000, -0.759688, 0.650288, 0.000000, 0.000000, -65.028778, -75.968788, 0.000000, 10.000000, -5.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+      - type
+      - BoxCollider
+      - center
+      - (0.000000, 0.000000, 0.000000)
+      - size
+      - (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 0.279068, 0.000000, 0.960272, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, -0.960272, 0.000000, 0.279068, 0.000000, 0.113206, -4.500113, -4.260450, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 1.000000, 5.000000, 1.000000
+        children:
+          []
+        components:
+          - type: Camera
+            fov: 60
+            aspect: 1.33333337
+            near: 0.100000001
+            far: 10000
+            sky_color: (0.100000, 0.300000, 0.800000)
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 5.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: Light
+            color: (1.000000, 1.000000, 1.000000)
+            intensity: 1
+            range: 1
+            cast_shadows: false
+    components:
+      - type: Car
+      - type: BlockPlacer
+        textured_material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type
+      - BoxCollider
+      - center
+      - (0.000000, 0.000000, 0.000000)
+      - size
+      - (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 5.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: Light
+        color: (1.000000, 1.000000, 1.000000)
+        intensity: 1
+        range: 1
+        cast_shadows: false
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 1.000000, 5.000000, 1.000000
+    children:
+      []
+    components:
+      - type: Camera
+        fov: 60
+        aspect: 1.33333337
+        near: 0.100000001
+        far: 10000
+        sky_color: (0.100000, 0.300000, 0.800000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 7.872991, -4.500113, -15.802885, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type
+      - BoxCollider
+      - center
+      - (0.000000, 0.000000, 0.000000)
+      - size
+      - (1.000000, 1.000000, 1.000000)

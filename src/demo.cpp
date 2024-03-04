@@ -21,7 +21,7 @@ void BlockPlacer::update(const float &dt) {
     if (placed_blocks.size() < 25) {
       auto position = node->get_position() + (node->fwd() * -15.0f);
       auto new_node = Node::instantiate(position);
-
+      
       if (input.key_down(Key::LeftShift)) {
         new_node->add_component<MeshRenderer>(textured_material,
                                               Engine::RESOURCE_DIR_PATH +
@@ -150,25 +150,27 @@ void Car::awake() {
   const auto intensity = 1.0f;
   const auto range = 1.0;
   const auto cast_shadows = false;
-
+  auto self = node.lock();
+  
   auto &engine = Engine::current();
   auto &m_scene = engine.m_scene;
   auto physics = engine.m_physics;
+  
   // setup light
   auto light = Node::instantiate();
   auto light_component =
       light->add_component<Light>(color, intensity, range, cast_shadows);
   m_scene->light = light;
   light->set_position(vec3(0, 5, 0));
-
-  auto player_node = node.lock();
-  player_node->add_component<BlockPlacer>();
-  player_node->add_component<MeshRenderer>(
+    
+  self->add_component<Player>();
+  self->add_component<BlockPlacer>();
+  self->add_component<MeshRenderer>(
       engine.m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
 
-  auto player_rigidbody = physics->add_rigidbody(player_node, 1.0f, 0.98f);
+  auto player_rigidbody = physics->add_rigidbody(self, 1.0f, 0.98f);
   auto player_collider = physics->add_collider<physics::BoxCollider>(
-      player_node, vec3(0), vec3(1));
+      self, vec3(0), vec3(1));
   player_collider->draw_collider = true;
 
   auto camera = Node::instantiate();
@@ -176,8 +178,8 @@ void Car::awake() {
   camera->add_component<Camera>();
   camera->set_position(vec3(0.0, 1, 5));
 
-  player_node->add_child(camera);
-  player_node->add_child(light);
+  self->add_child(camera);
+  self->add_child(light);
 }
 void Car::update(const float &dt) {
 

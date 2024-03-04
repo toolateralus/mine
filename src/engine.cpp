@@ -3,12 +3,19 @@
 #include "../include/physics.hpp"
 #include "../include/light.hpp"
 
+#include <filesystem>
 #include <glm/fwd.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <iostream>
 
-
-std::string Engine::RESOURCE_DIR_PATH = "res";
+/*
+    IMPORTANT : 
+      if you intend to debug with RenderDoc or run the program from anywhere but the project root, you must adjust
+      this Engine::RESOURCE_DIR_PATH to the correct path to the resources directory.
+      
+      I just use VScode to right click the folder, get 'copy path' and paste it here.
+  */
+std::string Engine::RESOURCE_DIR_PATH = "/home/josh/source/c++/mine/res";
 
 void Engine::update_loop(const float &dt) {
   auto &current = Engine::current();
@@ -27,12 +34,14 @@ void Engine::update_loop(const float &dt) {
   m_physics->update(dt);
 }
 Engine::Engine() {
+  
+
   m_scene = make_shared<Scene>();
   m_physics = make_shared<physics::Physics>();
   m_renderer =
       make_shared<Renderer>("Mine Engine", SCREEN_H, SCREEN_W, update_loop);
-  m_shader = make_shared<Shader>(RESOURCE_DIR_PATH + "/shaders/vertex.hlsl",
-                                 RESOURCE_DIR_PATH + "/shaders/fragment.hlsl");
+  m_shader = make_shared<Shader>(RESOURCE_DIR_PATH + "/shaders/vertex.glsl",
+                                 RESOURCE_DIR_PATH + "/shaders/fragment.glsl");
   m_texture = optional<shared_ptr<Texture>>(
       make_shared<Texture>(RESOURCE_DIR_PATH + "/textures/conflag.jpg"));
   m_material = make_shared<Material>(m_shader, std::nullopt);
