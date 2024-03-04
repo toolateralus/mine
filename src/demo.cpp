@@ -1,3 +1,7 @@
+
+#include "../include/engine.hpp"
+#include "../include/camera.hpp"
+#include "../include/node.hpp"
 #include "../include/demo.hpp"
 #include "../include/light.hpp"
 #include "../thirdparty/imgui/imgui.h"
