@@ -101,9 +101,21 @@ void MeshRenderer::awake() {
   auto self = shared_from_this();
   auto it = std::find(meshes.begin(), meshes.end(), self);
   auto exists = it != meshes.end();
-  
   if (!exists) {
     meshes.push_back(self);
     mesh_buffer->update_data();
+  }
+  instantiate_nodes_for_submeshes();
+}
+void MeshRenderer::instantiate_nodes_for_submeshes() {
+  for (auto &submesh : mesh->submeshes) {
+    auto mesh_node = Node::instantiate();
+    auto self_node = this->node.lock();
+    auto submesh_renderer = mesh_node->add_component<MeshRenderer>();
+    submesh_renderer->material = material;
+    submesh_renderer->color = color;
+    submesh_renderer->mesh = submesh;
+    mesh_node->set_transform(submesh->transform);
+    self_node->add_child(mesh_node);
   }
 }

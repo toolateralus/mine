@@ -38,6 +38,7 @@ public:
   ~MeshRenderer() override;
   void awake() override;
   void update(const float &dt) override {}
+  void instantiate_nodes_for_submeshes();
   void serialize(YAML::Emitter &out) override;
   void deserialize(const YAML::Node &in) override;
 };

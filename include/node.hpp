@@ -79,8 +79,8 @@ public:
   template <typename T, typename... Args>
   shared_ptr<T> add_component(Args &&...args) {
     auto component = make_shared<T>(args...);
-    new_component_queue.push_back(component);
     component->node = shared_from_this();
+    new_component_queue.push_back(component);
     return component;
   }
   template <typename T> void remove_component() {

@@ -34,10 +34,6 @@ void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
       interleaved_data.push_back(mesh->normals[i * 3 + 1]);
       interleaved_data.push_back(mesh->normals[i * 3 + 2]);
     }
-    
-    for (auto &submesh: mesh->submeshes) {
-      interleave_mesh(submesh);
-    }
     std::cout << "vertex data interleaved: " << interleaved_data.size() / 8 << std::endl;
 }
 
@@ -270,15 +266,8 @@ void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
   void *indexOffset = 0;
   glBindVertexArray(mesh_buffer->vao);
   for (auto &mesh_renderer : mesh_buffer->meshes) {
-    for (const auto &mesh : mesh_renderer->mesh->submeshes) {
-      apply_uniforms(viewProjectionMatrix * mesh->transform, mesh_renderer);
-      const auto &indexCount = mesh->indices.size();
-      glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
-      indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
-    }
     const auto &indexCount = mesh_renderer->mesh->indices.size();
-    const auto &transform = mesh_renderer->mesh->transform;
-    apply_uniforms(viewProjectionMatrix * transform, mesh_renderer);
+    apply_uniforms(viewProjectionMatrix, mesh_renderer);
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
     indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
   }
