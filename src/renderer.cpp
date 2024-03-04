@@ -17,14 +17,8 @@ auto Gizmo::shader = make_shared<Shader>(
     std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.hlsl"),
     std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_frag.hlsl"));
 
-// VertexBuffer
-void MeshBuffer::update_data() {
-  indices.clear();
-  interleaved_data.clear();
-  
-  for (auto mr : this->meshes) {
-    auto mesh = mr->mesh;
-    const size_t vertexCount = interleaved_data.size() / 8;
+void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
+  const size_t vertexCount = interleaved_data.size() / 8;
     for (auto index : mesh->indices) {
       indices.push_back(index + vertexCount);
     }
@@ -39,6 +33,19 @@ void MeshBuffer::update_data() {
       interleaved_data.push_back(mesh->normals[i * 3 + 1]);
       interleaved_data.push_back(mesh->normals[i * 3 + 2]);
     }
+    
+    
+}
+
+// VertexBuffer
+void MeshBuffer::update_data() {
+  indices.clear();
+  interleaved_data.clear();
+  
+  for (auto mr : this->meshes) {
+    auto mesh = mr->mesh;
+    // recursively grabs submeshes;
+    interleave_mesh(mesh);
   }
   
   glBindVertexArray(vao);

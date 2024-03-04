@@ -70,6 +70,7 @@ public:
   vector<shared_ptr<MeshRenderer>> meshes = {};
   MeshBuffer();
   ~MeshBuffer();
+  void interleave_mesh(const shared_ptr<Mesh> &mesh);
   void init();
   void update_data();
 };
