@@ -35,15 +35,10 @@ void setup_default_scene() {
   // SETUP FLOOR
   {
     auto floor =
-        Node::instantiate(vec3(0, -10, 0),vec3(1000, 10, 1000));
-    m_physics->add_collider<BoxCollider>(floor);
+        Node::instantiate(vec3(0, -10, 0),vec3(1, 1, 1));
+    m_physics->add_collider<BoxCollider>(floor, glm::zero<vec3>(), vec3(100, 1, 100));
     auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/multi.obj");
     floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
-    
-    auto rot = glm::angleAxis(5.0f, vec3(1,0,0));
-    auto ramp = Node::instantiate(vec3(10,-5,0), vec3(100, 1, 100), rot);
-    ramp->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/cube.obj");
-    m_physics->add_collider<BoxCollider>(ramp);
   }
   
   // SETUP PLAYER
