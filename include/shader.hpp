@@ -9,7 +9,7 @@
 class Shader {
 public:
   GLuint program_id;
-  std::unordered_map<std::string, GLuint> uniform_locations = {};
+  unordered_map<std::string, GLuint> uniform_locations = {};
   std::string vertex_path, frag_path;
   Shader() {}
   void compile_shader(const std::string &vertex_path,

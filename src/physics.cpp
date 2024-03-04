@@ -1,13 +1,10 @@
 #include "../include/physics.hpp"
-#include "../include/engine.hpp"
-#include "../include/tostring.hpp"
-
+#include <yaml-cpp/yaml.h>
 #include <algorithm>
 #include <glm/gtc/constants.hpp>
-#include <iostream>
 #include <memory>
-#include <ostream>
 #include <unordered_set>
+
 using namespace physics;
 
 int Physics::PHYSICS_OCTREE_MAX_LEVELS = 25;
@@ -154,36 +151,36 @@ void Physics::resolve_dynamic_collision(const Collision &collision,
     const auto mtv = collision.mtv;
     const auto normal = collision.normal;
     const auto correction = mtv / 2.0f;
-
+    
     node_a->translate(-correction);
     node_b->translate(correction);
-
+    
     vec3 rel_vel = rb_b->velocity - rb_a->velocity;
-
+    
     // Linear impulse
     float impulse = glm::dot(rel_vel, normal) / (1 / rb_a->mass + 1 / rb_b->mass);
-
+    
     rb_a->velocity += normal * impulse / rb_a->mass;
     rb_b->velocity -= normal * impulse / rb_b->mass;
-
+    
     vec3 relativeContactPointA = collision.point - node_a->get_position();
     vec3 relativeContactPointB = collision.point - node_b->get_position();
-
+    
     vec3 torqueA = glm::cross(relativeContactPointA, normal);
     vec3 torqueB = glm::cross(relativeContactPointB, normal);
-
+    
     float angularImpulseFactor = 0.1f;
-
+    
     vec3 angularImpulseA = torqueA * angularImpulseFactor / rb_a->compute_inertia();
     vec3 angularImpulseB = torqueB * angularImpulseFactor / rb_b->compute_inertia();
-
+    
     rb_a->angular += angularImpulseA;
     rb_b->angular -= angularImpulseB;
 }
 
-void Physics::resolve_static_to_dynamic_collision(
-    const Collision &collision, shared_ptr<Node> &node,
-    shared_ptr<Rigidbody> &rb) const {
+void Physics::resolve_static_to_dynamic_collision(const Collision &collision,
+                                                  shared_ptr<Node> &node,
+                                                  shared_ptr<Rigidbody> &rb) const {
   const auto mtv = collision.mtv;
   node->translate(mtv / 2.0f);
   vec3 normal = glm::normalize(mtv);
@@ -327,7 +324,7 @@ void Rigidbody::serialize(YAML::Emitter &out) {
 
 //   auto mtv = m_physics->get_minimum_translation_vector(a, b);
 
-//   std::cout << "MTV: " << vec3_to_string(mtv) << std::endl;
+//   cout << "MTV: " << vec3_to_string(mtv) << std::endl;
 
 //   return mtv == vec3(0, -0.5, 0);
 // }
@@ -352,7 +349,7 @@ void Rigidbody::serialize(YAML::Emitter &out) {
 //   o.insert(n2);
 
 //   for (auto &node : o.query(BoundingBox{vec3(0), vec3(1.5)})) {
-//     std::cout << "Queried Node: " << node->name << " " <<
+//     cout << "Queried Node: " << node->name << " " <<
 //     vec3_to_string(node->get_position()) << std::endl;
 //   }
 

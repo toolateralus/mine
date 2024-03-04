@@ -65,10 +65,10 @@ int main(int argc, char **argv) {
   if (argc == 2) {
     std::string scene_path(argv[1]);
     if (file_exists(scene_path)) {
-      std::cout << "Loading scene from file : " << scene_path << std::endl;
+      cout << "Loading scene from file : " << scene_path << std::endl;
       m_scene->deserialize(YAML::LoadFile(scene_path));
     } else {
-      std::cout << "Scene file not found, creating default scene\n";
+      cout << "Scene file not found, creating default scene\n";
       setup_default_scene();
     }
     m_renderer->run();
@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
     m_scene->serialize(out);
     write_file(scene_path, out.c_str());
   } else {
-    std::cout << "No scene file found, creating default scene\n";
+    cout << "No scene file found, creating default scene\n";
     setup_default_scene();
     m_renderer->run();
   }

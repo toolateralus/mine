@@ -26,7 +26,7 @@ void Shader::compile_shader(const std::string &vertex_path,
   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+    cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
               << infoLog << std::endl;
   }
   
@@ -40,7 +40,7 @@ void Shader::compile_shader(const std::string &vertex_path,
   glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-    std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+    cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
               << infoLog << std::endl;
   }
   
@@ -52,7 +52,7 @@ void Shader::compile_shader(const std::string &vertex_path,
   glGetProgramiv(program_id, GL_LINK_STATUS, &success);
   if (!success) {
     glGetProgramInfoLog(program_id, 512, NULL, infoLog);
-    std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
+    cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
               << infoLog << std::endl;
   }
   
@@ -72,7 +72,7 @@ void Shader::compile_shader(const std::string &vertex_path,
     if (location != -1)
       uniform_locations[uniforms[i]] = location;
     else  {
-      //std::cout << "shader : " << fragment_path << "uniform : " << uniform_path << "not found" << std::endl;
+      //cout << "shader : " << fragment_path << "uniform : " << uniform_path << "not found" << std::endl;
     }
   }
   glDeleteShader(vertexShader);

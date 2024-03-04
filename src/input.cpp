@@ -5,21 +5,21 @@ Input::Input() {}
 
 Input::~Input() {}
 
-glm::vec2 Input::mouse_position() {
+vec2 Input::mouse_position() {
   if (window == nullptr) {
     throw std::runtime_error("Input::mouse_position() called before window was set");
   }
   double x, y;
   glfwGetCursorPos(window, &x, &y);
-  return glm::vec2(x, y);
+  return vec2(x, y);
 }
-glm::vec2 Input::mouse_delta() {
+vec2 Input::mouse_delta() {
   if (window == nullptr) {
     throw std::runtime_error("Input::mouse_delta() called before window was set");
   }
   
-  glm::vec2 pos = mouse_position();
-  glm::vec2 delta = pos - last_mouse_pos;
+  vec2 pos = mouse_position();
+  vec2 delta = pos - last_mouse_pos;
   last_mouse_pos = pos;
   return delta;
 }

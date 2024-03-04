@@ -114,7 +114,7 @@ void Node::update(float dt) {
       awake();
       component->update(dt);
     } else {
-      std::cout << "Component is null" << std::endl;
+      cout << "Component is null" << std::endl;
     }
   }
   for (auto &child : children) {
@@ -219,7 +219,7 @@ void Node::add_child(shared_ptr<Node> child) {
   shared_ptr<Scene> &scene = engine.m_scene;
   scene->remove_node(child);
   if (has_cyclic_inclusion(child)) {
-    std::cout << "Cyclic inclusion detected, not adding child" << std::endl;
+    cout << "Cyclic inclusion detected, not adding child" << std::endl;
     return;
   }
   children.push_back(child);

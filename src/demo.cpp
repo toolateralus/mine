@@ -40,12 +40,12 @@ void BlockPlacer::update(const float &dt) {
   } else {
     if (input.mouse_button_down(MouseButton::Right) && placed_blocks.size() != 0) {
       auto block = placed_blocks.back();
-      glm::vec2 delta;
+      vec2 delta;
       auto mouse_pos = input.mouse_position();
       if (last_pos.has_value()) {
         delta = mouse_pos - last_pos.value();
       } else {
-        delta = glm::vec2(0);
+        delta = vec2(0);
       }
 	  if (input.key_down(Key::LeftShift)) {
 		auto curr_pos = block->get_position();
@@ -93,7 +93,7 @@ void Player::update(const float &dt) {
   {
     const float rotationSens = 0.01f;
     const float panSens = 0.1f;
-    const glm::vec2 delta = input.mouse_delta();
+    const vec2 delta = input.mouse_delta();
 
     if (input.mouse_button_down(MouseButton::Right)) {
       float pitch = -delta.y * rotationSens;

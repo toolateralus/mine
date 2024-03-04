@@ -1,15 +1,14 @@
 #include "../include/renderer.hpp"
 #include "../include/camera.hpp"
 #include "../include/engine.hpp"
-#include "../include/fileio.hpp"
-#include "../include/input.hpp"
 #include "../include/light.hpp"
 #include "../include/mesh.hpp"
-
+#include "../thirdparty/imgui/imgui.h"
+#include "../thirdparty/imgui/imgui_impl_glfw.h"
+#include "../thirdparty/imgui/imgui_impl_opengl3.h"
 #include "../thirdparty/stb/stb_image.h"
 #include <GLFW/glfw3.h>
 #include <chrono>
-#include <fstream>
 #include <iostream>
 #include <memory>
 #include <unistd.h>
@@ -120,14 +119,14 @@ int Renderer::run() {
     update_loop(dt);
 
     if (scene->camera == nullptr) {
-      std::cout << "No camera found in scene." << std::endl;
+      cout << "No camera found in scene." << std::endl;
       continue;
     }
 
     const auto cam = scene->camera->get_component<Camera>();
 
     if (cam == nullptr) {
-      std::cout << "No camera component found on camera node." << std::endl;
+      cout << "No camera component found on camera node." << std::endl;
       continue;
     }
     
@@ -160,7 +159,7 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader,
   const auto light_node = Engine::current().m_scene->light;
 
   if (!light_node) {
-    std::cout << "no light in scene." << std::endl;
+    cout << "no light in scene." << std::endl;
     return;
   }
   

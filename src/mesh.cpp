@@ -22,7 +22,7 @@ MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
   }
 }
 
-std::unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
+unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
 
 void Mesh::load_into(shared_ptr<Mesh> &mesh, const std::string &path) {
   Assimp::Importer importer;

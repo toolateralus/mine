@@ -4,8 +4,6 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
-#include <stdexcept>
-#include <unordered_map>
 struct Material;
 
 
@@ -15,7 +13,7 @@ struct Mesh : public std::enable_shared_from_this<Mesh> {
   vector<float> normals;
   vector<unsigned int> indices;
   std::string path;
-  static std::unordered_map<std::string, shared_ptr<Mesh>> cache;
+  static unordered_map<std::string, shared_ptr<Mesh>> cache;
   Mesh(const std::string &path) : path(path) {
     
   }

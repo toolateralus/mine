@@ -33,7 +33,7 @@ Engine::Engine() {
       make_shared<Renderer>("Mine Engine", SCREEN_H, SCREEN_W, update_loop);
   m_shader = make_shared<Shader>(RESOURCE_DIR_PATH + "/shaders/vertex.hlsl",
                                  RESOURCE_DIR_PATH + "/shaders/fragment.hlsl");
-  m_texture = std::optional<shared_ptr<Texture>>(
+  m_texture = optional<shared_ptr<Texture>>(
       make_shared<Texture>(RESOURCE_DIR_PATH + "/textures/conflag.jpg"));
   m_material = make_shared<Material>(m_shader, std::nullopt);
   

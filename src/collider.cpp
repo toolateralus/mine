@@ -33,7 +33,7 @@ vector<vec3> BoxCollider::get_points() {
   for (auto &point : points) {
     point = node->get_transform() * vec4(point, 1.0f);
     if (point.x == NAN || point.y == NAN || point.z == NAN) {
-      std::cout << "Error: point is NAN" << std::endl;
+      cout << "Error: point is NAN" << std::endl;
     }
   }
   
@@ -151,7 +151,7 @@ vec3 physics::Collider::get_closest_point_to(const vec3 &point) {
     }
   }
   if (min == FLT_MAX) {
-    std::cout << "Error: No closest point found" << std::endl;
+    cout << "Error: No closest point found" << std::endl;
     return glm::zero<vec3>();
   }
   return closest;

@@ -5,7 +5,6 @@
 #include <chrono>
 #include <memory>
 #include <optional>
-#include <stdexcept>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -15,14 +14,11 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
-#include <unordered_map>
 
 #include "node.hpp"
 
 #define IMGUI_HAS_DOCK
-#include "../thirdparty/imgui/imgui.h"
-#include "../thirdparty/imgui/imgui_impl_glfw.h"
-#include "../thirdparty/imgui/imgui_impl_opengl3.h"
+
 #include "shader.hpp"
 #include <yaml-cpp/yaml.h>
 
@@ -51,10 +47,10 @@ public:
 class Material {
 public:
   shared_ptr<Shader> shader;
-  std::optional<shared_ptr<Texture>> texture;
+  optional<shared_ptr<Texture>> texture;
   Material(); // This should only be used when deserializing.
   Material(shared_ptr<Shader> shader,
-           std::optional<shared_ptr<Texture>> texture = std::nullopt)
+           optional<shared_ptr<Texture>> texture = std::nullopt)
       : shader(shader), texture(texture) {}
   ~Material() {
     this->shader.reset();

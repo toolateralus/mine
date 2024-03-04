@@ -143,9 +143,9 @@ public:
     Input(const Input&) = delete;
     Input& operator=(const Input&) = delete;
     
-    glm::vec2 last_mouse_pos;
-    glm::vec2 mouse_position();
-    glm::vec2 mouse_delta();
+    vec2 last_mouse_pos;
+    vec2 mouse_position();
+    vec2 mouse_delta();
     bool mouse_button_down(MouseButton button);
     bool mouse_button_up(MouseButton button);
     bool key_down(Key key);
