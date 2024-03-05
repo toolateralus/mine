@@ -37,7 +37,7 @@ void setup_default_scene() {
     auto floor =
         Node::instantiate(vec3(0, -10, 0),vec3(1, 1, 1));
     m_physics->add_collider<BoxCollider>(floor, glm::zero<vec3>(), vec3(100, 1, 100));
-    auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/multi.obj");
+    auto floor_mesh = floor->add_component<MeshRenderer>(m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/rooms.obj");
     floor_mesh->color = vec4(0.5, 0.5, 0.5, 1.0f);
   }
   

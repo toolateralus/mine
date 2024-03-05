@@ -26,6 +26,7 @@ struct Collision {
 struct Collider : public Component {
   vec3 size;
   vec3 center;
+  vector<vec3> local_points, local_axes;
   vector<vec3> points, axes;
   BoundingBox bounds;
   bool is_dirty = true;
@@ -49,15 +50,31 @@ struct Collider : public Component {
   vec3 get_closest_point_to(const vec3 &point);
   vec3 get_center() const { return node.lock()->get_position() + center; }
   virtual vector<vec3> get_indices();
-  virtual vector<vec3> get_axes();
-  virtual vector<vec3> get_points() = 0;
-  BoundingBox get_bounds();
+  virtual vector<vec3> get_world_axes();
+  virtual vector<vec3> get_world_points() = 0;
+  BoundingBox get_world_bounds();
 };
 struct BoxCollider : public Collider {
-  BoxCollider() = default;
-  BoxCollider(vec3 center, vec3 size) : Collider(center, size) {}
+  BoxCollider() : BoxCollider(zero<vec3>(), one<vec3>()) {}
+  BoxCollider(vec3 center, vec3 size) : Collider(center, size) {
+    local_points.clear();
+    local_points.resize(8);
+    
+    float halfX = size.x / 2.0f;
+    float halfY = size.y / 2.0f;
+    float halfZ = size.z / 2.0f;
+    
+    local_points[0] = vec3(halfX, halfY, halfZ);
+    local_points[1] = vec3(-halfX, halfY, halfZ);
+    local_points[2] = vec3(-halfX, -halfY, halfZ);
+    local_points[3] = vec3(halfX, -halfY, halfZ);
+    local_points[4] = vec3(halfX, halfY, -halfZ);
+    local_points[5] = vec3(-halfX, halfY, -halfZ);
+    local_points[6] = vec3(-halfX, -halfY, -halfZ);
+    local_points[7] = vec3(halfX, -halfY, -halfZ);
+  }
   ~BoxCollider() override = default;
-  vector<vec3> get_points() override;
+  vector<vec3> get_world_points() override;
   void serialize(YAML::Emitter &out) override;
   void deserialize(const YAML::Node &in) override;
 };

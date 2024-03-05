@@ -8,39 +8,29 @@
 
 using namespace physics;
 
-vector<vec3> BoxCollider::get_points() {
+vector<vec3> BoxCollider::get_world_points() {
   auto node = this->node.lock();
   if (!node) {
     return vector<vec3>();
   }
   
-  points.clear();
-  points.resize(8);
+  if (points.size() != local_points.size()) {
+    points.resize(local_points.size());
+  }
   
-  float halfX = size.x / 2.0f;
-  float halfY = size.y / 2.0f;
-  float halfZ = size.z / 2.0f;
-  
-  points[0] = vec3(halfX, halfY, halfZ);
-  points[1] = vec3(-halfX, halfY, halfZ);
-  points[2] = vec3(-halfX, -halfY, halfZ);
-  points[3] = vec3(halfX, -halfY, halfZ);
-  points[4] = vec3(halfX, halfY, -halfZ);
-  points[5] = vec3(-halfX, halfY, -halfZ);
-  points[6] = vec3(-halfX, -halfY, -halfZ);
-  points[7] = vec3(halfX, -halfY, -halfZ);
-  
-  for (auto &point : points) {
-    point = node->get_transform() * vec4(point, 1.0f);
+  for (size_t i = 0; i < local_points.size(); i++) {
+    points[i] = node->get_transform() * vec4(local_points[i], 1.0f);
+  }
     
+  for (auto &point : points) {
     if (std::isnan(point.x) || std::isnan(point.y) || std::isnan(point.z)){
-      cout << "Error: collider point is NAN" << std::endl;
+      std::cerr << "Error: collider point is NAN" << std::endl;
     }
   }
   
   return points;
 }
-vector<vec3> Collider::get_axes() {
+vector<vec3> Collider::get_world_axes() {
   axes.clear();
   for (size_t i = 0; i < points.size(); i++) {
     for (size_t j = i + 1; j < points.size(); j++) {
@@ -50,7 +40,7 @@ vector<vec3> Collider::get_axes() {
   }
   return axes;
 }
-BoundingBox Collider::get_bounds() {
+BoundingBox Collider::get_world_bounds() {
   if (points.size() == 0) {
     return {};
   }
@@ -78,9 +68,9 @@ void Collider::transform_collider() {
     return;
   }
   is_dirty = false;
-  points = get_points();
-  axes = get_axes();
-  bounds = get_bounds();
+  points = get_world_points();
+  axes = get_world_axes();
+  bounds = get_world_bounds();
 }
 void physics::Collider::update(const float &dt) {
   if (auto node = this->node.lock()) {
