@@ -13,23 +13,28 @@ struct Collision;
 class Node : public std::enable_shared_from_this<Node> {
 private:
   mat4 local_transform;
-  
   vec3 local_scale = glm::one<vec3>(), local_translation = glm::zero<vec3>(), local_skew;
   quat local_rotation = glm::identity<quat>();
   vec4 local_perspective;
-  
-  bool is_composed = false;
-  
+  bool transform_composed = false;
   void decompose();
   void compose();
+  bool has_cyclic_inclusion(const shared_ptr<Node> &node) const;
+  bool has_cyclic_inclusion_helper(
+      const shared_ptr<Node> &node,
+      std::unordered_set<shared_ptr<Node>> &visited,
+      std::unordered_set<shared_ptr<Node>> &recursionStack) const;
   vector<shared_ptr<Component>> new_component_queue = {};
-public:
-  std::string name;
   vector<shared_ptr<Component>> components;
-  
-  weak_ptr<Node> parent;
+  vector<shared_ptr<Node>> new_child_queue;
   vector<shared_ptr<Node>> children;
+public:
+  vector<shared_ptr<Node>> get_children() { 
+    return children;
+  }
   
+  std::string name;
+  weak_ptr<Node> parent;
   Node() : local_transform(glm::identity<mat4>()), name("Node"), components() {}
   ~Node() { components.clear(); }
   void awake();
@@ -39,11 +44,7 @@ public:
   void serialize(YAML::Emitter &out);
   void deserialize(const YAML::Node &in);
   void add_child(shared_ptr<Node> child);
-  bool has_cyclic_inclusion(const shared_ptr<Node> &node) const;
-  bool has_cyclic_inclusion_helper(
-      const shared_ptr<Node> &node,
-      std::unordered_set<shared_ptr<Node>> &visited,
-      std::unordered_set<shared_ptr<Node>> &recursionStack) const;
+  
   static shared_ptr<Node> instantiate(const vec3 &pos = glm::zero<vec3>(),
                                       const vec3 &scale = glm::one<vec3>(),
                                       const quat &rot = glm::identity<quat>());
@@ -95,6 +96,15 @@ public:
     for (int i = 0; i < components.size(); i++) {
       if (std::dynamic_pointer_cast<T>(components[i])) {
         return std::dynamic_pointer_cast<T>(components[i]);
+      }
+    }
+    // we need to check the new component queue as well, 
+    // components are added to the queue and then added to the components list at the beginning of the next frame,
+    // this would be strange if the components didn't exist until the next frame, but it's a possibility someone
+    // wants to add and get on the same frame.
+    for (int i = 0; i < new_component_queue.size(); i++) {
+      if (std::dynamic_pointer_cast<T>(new_component_queue[i])) {
+        return std::dynamic_pointer_cast<T>(new_component_queue[i]);
       }
     }
     return nullptr;

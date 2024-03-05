@@ -25,7 +25,7 @@ struct Mesh : public std::enable_shared_from_this<Mesh> {
 
 private:
   static void process_node(shared_ptr<Mesh> &parent, const aiNode *node, const aiScene *scene);
-  static void process_mesh(shared_ptr<Mesh> &new_mesh, aiMesh *mesh, const aiScene *scene);
+  static void process_mesh(shared_ptr<Mesh> &new_mesh, aiMesh *mesh);
 };
 
 class MeshRenderer : public Component, public std::enable_shared_from_this<MeshRenderer> {

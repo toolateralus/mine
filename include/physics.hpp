@@ -45,6 +45,7 @@ struct Octree {
 };
 
 struct Physics {
+  bool running = true;
   static int PHYSICS_OCTREE_MAX_LEVELS;
   static int MAX_OBJECTS;  
   Octree root =
@@ -57,12 +58,10 @@ struct Physics {
   shared_ptr<Rigidbody> add_rigidbody(shared_ptr<Node> &node,
                                       const float mass = 1.0f,
                                       const float drag = 0.98f);
-  template<typename T>
-  shared_ptr<T> add_collider(shared_ptr<Node> &node,
-                              const vec3 center = {0, 0, 0},
-                              const vec3 size = {1, 1, 1}) {
+  template<typename T, typename ...Args>
+  shared_ptr<T> add_collider(shared_ptr<Node> &node, Args &&...args) {
     static_assert(std::is_base_of<Collider, T>::value, "T must inherit from Collider");
-    auto collider = node->add_component<T>(center, size);
+    auto collider = node->add_component<T>(args...);
     colliders.push_back(collider);
     return collider;
   }

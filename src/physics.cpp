@@ -11,11 +11,7 @@ int Physics::PHYSICS_OCTREE_MAX_LEVELS = 25;
 int Physics::MAX_OBJECTS = 50;
 
 Physics::Physics() {}
-Physics::~Physics() {
-  for (auto &collider : colliders) {
-    collider.reset();
-  }
-}
+Physics::~Physics() {}
 void Physics::update(const float &dt) {
   for (auto &rb : rigidbodies) {
     rb->apply_drag(dt);
@@ -30,8 +26,8 @@ void Physics::update(const float &dt) {
       root.insert(node);
     }
   }
-
-  // check spatial partitioning tree for collisions
+  
+  
   for (auto &collider : colliders) {
     auto node = collider->node.lock();
     if (!node) {
@@ -74,6 +70,10 @@ SATProjection Physics::sat_project(shared_ptr<Collider> &a_collider,
   float overlap = FLT_MAX;
   vec3 smallest;
   SATProjection projection;
+  
+  if (axes.size() == 0) {
+    return projection;
+  }
   
   for (auto &axis : axes) {
     float min1, max1, min2, max2;
@@ -163,22 +163,6 @@ void Physics::resolve_dynamic_collision(const Collision &collision,
     rb_a->velocity += normal * impulse / rb_a->mass;
     rb_b->velocity -= normal * impulse / rb_b->mass;
     
-    // TODO: fix angular impulse
-    // the contact points are fairly inaccurate, too much so to implement this.
-    
-    // vec3 relativeContactPointA = collision.point - node_a->get_position();
-    // vec3 relativeContactPointB = collision.point - node_b->get_position();
-    
-    // vec3 torqueA = glm::cross(relativeContactPointA, normal);
-    // vec3 torqueB = glm::cross(relativeContactPointB, normal);
-    
-    // float angularImpulseFactor = 0.1f;
-    
-    // vec3 angularImpulseA = torqueA * angularImpulseFactor / rb_a->compute_inertia();
-    // vec3 angularImpulseB = torqueB * angularImpulseFactor / rb_b->compute_inertia();
-    
-    // rb_a->angular += angularImpulseA;
-    // rb_b->angular -= angularImpulseB;
 }
 
 void Physics::resolve_static_to_dynamic_collision(const Collision &collision,
@@ -313,50 +297,3 @@ void Rigidbody::serialize(YAML::Emitter &out) {
   out << YAML::Key << "drag" << YAML::Value << drag;
   out << YAML::EndMap;
 }
-// static bool test_collider_and_mtv() const {
-//   auto m_physics = Engine::current().m_physics;
-//   auto node_a = make_shared<Node>();
-//   node_a->set_position(vec3(0, 0.5, 0));
-//   auto node_b = make_shared<Node>();
-
-//   auto a = node_a->add_component<Collider>(vec3(0), vec3(1));
-//   auto b = node_b->add_component<Collider>(vec3(0), vec3(1));
-
-//   a->transform_collider();
-//   b->transform_collider();
-
-//   auto mtv = m_physics->get_minimum_translation_vector(a, b);
-
-//   cout << "MTV: " << vec3_to_string(mtv) << std::endl;
-
-//   return mtv == vec3(0, -0.5, 0);
-// }
-
-// static bool test_collider_octree_query() {
-//   auto n1 = make_shared<Node>();
-
-//   n1->name = "node 1";
-//   n1->set_position(vec3(1));
-//   auto n2 = make_shared<Node>();
-//   n2->name = "node 2";
-
-//   auto c1 = n1->add_component<Collider>(vec3(0), vec3(1));
-//   auto c2 = n2->add_component<Collider>(vec3(0), vec3(1));
-
-//   c1->transform_collider();
-//   c2->transform_collider();
-
-//   Octree o(10, BoundingBox(vec3(-100), vec3(100)));
-
-//   o.insert(n1);
-//   o.insert(n2);
-
-//   for (auto &node : o.query(BoundingBox{vec3(0), vec3(1.5)})) {
-//     cout << "Queried Node: " << node->name << " " <<
-//     vec3_to_string(node->get_position()) << std::endl;
-//   }
-
-//   return 0;
-// }
-
-

@@ -10,7 +10,6 @@
 
 #include "../include/node.hpp"
 #include "../include/physics.hpp"
-#include <climits>
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/quaternion_geometric.hpp>
 #include <glm/fwd.hpp>
@@ -109,12 +108,19 @@ void Node::awake() {
   }
 }
 void Node::update(float dt) {
-  for (auto &new_component : new_component_queue) {
-    components.push_back(new_component);
+  if (new_child_queue.size() != 0) {
+    for (auto &new_child : new_child_queue) {
+      children.push_back(new_child);
+    }
+    new_child_queue.clear();
   }
-  new_component_queue.clear();
+  if (new_component_queue.size() != 0) {
+    for (auto &new_component : new_component_queue) {
+      components.push_back(new_component);
+    }
+    new_component_queue.clear();
+  }
   for (auto &component : components) {
-    // skip uninitialized components? why do we need this.
     if (component) {
       awake();
       component->update(dt);
@@ -227,7 +233,7 @@ void Node::add_child(shared_ptr<Node> child) {
     cout << "Cyclic inclusion detected, not adding child" << std::endl;
     return;
   }
-  children.push_back(child);
+  new_child_queue.push_back(child);
   child->parent = shared_from_this();
 }
 bool Node::has_cyclic_inclusion(const shared_ptr<Node> &new_child) const {
@@ -266,55 +272,55 @@ bool Node::has_cyclic_inclusion_helper(
   return false;
 }
 void Node::decompose() {
-  is_composed = false;
+  this->transform_composed = false;
   glm::decompose(local_transform, local_scale, local_rotation, local_translation, local_skew, local_perspective);
 }
 void Node::compose() {
   local_transform = glm::compose(local_translation, local_rotation, local_scale);
-  is_composed = true;
+  this->transform_composed = true;
 }
 mat4 Node::get_local_transform() {
-  if (!is_composed) {
+  if (!this->transform_composed) {
     compose();
   }
   return local_transform;
 }
 vec3 Node::get_local_position() {
-  if (is_composed) {
+  if (this->transform_composed) {
     decompose();
   }
   return local_translation;
 }
 quat Node::get_local_rotation() {
-  if (is_composed) {
+  if (this->transform_composed) {
     decompose();
   }
   return local_rotation;
 }
 vec3 Node::get_local_scale() {
-  if (is_composed) {
+  if (this->transform_composed) {
     decompose();
   }
   return local_scale;
 }
 void Node::set_local_transform(const mat4 &transform) {
   local_transform = transform;
-  is_composed = true;
+  this->transform_composed = true;
 }
 void Node::set_local_position(const vec3 &position) {
-  if (is_composed) {
+  if (this->transform_composed) {
     decompose();
   }
   local_translation = position;
 }
 void Node::set_local_rotation(const quat &rotation) {
-  if (is_composed) {
+  if (this->transform_composed) {
     decompose();
   }
   local_rotation = rotation;
 }
 void Node::set_local_scale(const vec3 &scale) {
-  if (is_composed) {
+  if (this->transform_composed) {
     decompose();
   }
   local_scale = scale;

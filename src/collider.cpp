@@ -32,8 +32,9 @@ vector<vec3> BoxCollider::get_points() {
   
   for (auto &point : points) {
     point = node->get_transform() * vec4(point, 1.0f);
-    if (point.x == NAN || point.y == NAN || point.z == NAN) {
-      cout << "Error: point is NAN" << std::endl;
+    
+    if (std::isnan(point.x) || std::isnan(point.y) || std::isnan(point.z)){
+      cout << "Error: collider point is NAN" << std::endl;
     }
   }
   
@@ -50,8 +51,8 @@ vector<vec3> Collider::get_axes() {
   return axes;
 }
 BoundingBox Collider::get_bounds() {
-  if (points.size() != 8) {
-    this->transform_collider();
+  if (points.size() == 0) {
+    return {};
   }
   
   bounds = BoundingBox(points[0], points[0]);
@@ -61,8 +62,8 @@ BoundingBox Collider::get_bounds() {
   return bounds;
 }
 void Collider::project(const vec3 &axis, float &min, float &max) {
-  if (points.size() != 8) {
-    this->transform_collider();
+  if (points.size() == 0) {
+    return;
   }
   min = max = glm::dot(points[0], axis);
   for (size_t i = 1; i < points.size(); i++) {
@@ -140,7 +141,7 @@ vector<vec3> physics::Collider::get_indices() {
   }
   return indices;
 }
-vec3 physics::Collider::get_closest_point_to(const vec3 &point) {
+vec3 Collider::get_closest_point_to(const vec3 &point) {
   float min = FLT_MAX;
   vec3 closest;
   for (const auto &point : points) {

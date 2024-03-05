@@ -6,11 +6,9 @@
 #include <stdexcept>
 #include <yaml-cpp/yaml.h>
 
-MeshRenderer::~MeshRenderer() {}
 
 // TODO: implement instanced rendering and use unqiue mesh/material buffers
 // this will allow us to avoid redundant data and reduce the number of draw calls.
-
 MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
                            const std::string &mesh_path)
     : material(material) {
@@ -21,6 +19,7 @@ MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
     mesh = Mesh::cache[mesh_path];
   }
 }
+MeshRenderer::~MeshRenderer() {}
 
 unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
 
@@ -36,31 +35,32 @@ void Mesh::load_into(shared_ptr<Mesh> &mesh, const std::string &path) {
   Mesh::process_node(mesh, scene->mRootNode, scene);
   cache[path] = mesh;
 }
-void Mesh::process_mesh(shared_ptr<Mesh> &parent, aiMesh *mesh, const aiScene *scene) {
-  auto &vertices = parent->vertices;
-  auto &texcoords = parent->texcoords;
-  auto &normals = parent->normals;
-  auto &indices = parent->indices;
+void Mesh::process_mesh(shared_ptr<Mesh> &out_mesh, aiMesh *in_mesh) {
+  auto &vertices = out_mesh->vertices;
+  auto &texcoords = out_mesh->texcoords;
+  auto &normals = out_mesh->normals;
+  auto &indices = out_mesh->indices;
   
-  for (size_t i = 0; i < mesh->mNumVertices; i++) {
-    aiVector3D vertex = mesh->mVertices[i];
+  for (size_t i = 0; i < in_mesh->mNumVertices; i++) {
+    aiVector3D &vertex = in_mesh->mVertices[i];
+    // 2 meters in blender == 1 meter in our (collison, position)system(s).
     vertices.push_back(vertex.x / 2.0);
-    vertices.push_back(vertex.y / 2.0);
-    vertices.push_back(vertex.z / 2.0);
-    if (mesh->HasTextureCoords(0)) {
-      aiVector3D texcoord = mesh->mTextureCoords[0][i];
+    vertices.push_back(vertex.y / 2.0); 
+    vertices.push_back(vertex.z / 2.0); 
+    if (in_mesh->HasTextureCoords(0)) {
+      aiVector3D texcoord = in_mesh->mTextureCoords[0][i];
       texcoords.push_back(texcoord.x);
       texcoords.push_back(texcoord.y);
     }
-    if (mesh->HasNormals()) {
-      aiVector3D normal = mesh->mNormals[i];
+    if (in_mesh->HasNormals()) {
+      aiVector3D normal = in_mesh->mNormals[i];
       normals.push_back(normal.x);
       normals.push_back(normal.y);
       normals.push_back(normal.z);
     }
   }
-  for (size_t i = 0; i < mesh->mNumFaces; i++) {
-    aiFace &face = mesh->mFaces[i];
+  for (size_t i = 0; i < in_mesh->mNumFaces; i++) {
+    aiFace &face = in_mesh->mFaces[i];
     for (size_t j = 0; j < face.mNumIndices; j++) {
       indices.push_back(face.mIndices[j]);
     }
@@ -68,14 +68,14 @@ void Mesh::process_mesh(shared_ptr<Mesh> &parent, aiMesh *mesh, const aiScene *s
 }
 void Mesh::process_node(shared_ptr<Mesh> &parent, const aiNode *node, const aiScene *scene) {
   for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-    aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-    Mesh::process_mesh(parent, mesh, scene);
+    aiMesh *ai_mesh = scene->mMeshes[node->mMeshes[i]];
+    auto output_mesh = make_shared<Mesh>("");
+    parent->submeshes.push_back(output_mesh);
+    output_mesh->transform = glm::make_mat4(&node->mTransformation.a1);
+    Mesh::process_mesh(output_mesh, ai_mesh);
   }
   for (unsigned int i = 0; i < node->mNumChildren; i++) {
-    auto new_mesh = make_shared<Mesh>("");
-    parent->submeshes.push_back(new_mesh);
-    new_mesh->transform = glm::make_mat4(&node->mTransformation.a1);
-    Mesh::process_node(new_mesh, node->mChildren[i], scene);
+    Mesh::process_node(parent, node->mChildren[i], scene);
   }
 }
 void MeshRenderer::deserialize(const YAML::Node &in) {
@@ -93,7 +93,6 @@ void MeshRenderer::serialize(YAML::Emitter &out) {
   out << YAML::Key << "mesh" << YAML::Value << mesh->path;
   out << YAML::EndMap;
 }
-
 void MeshRenderer::awake() {
   auto &engine = Engine::current();
   auto &mesh_buffer = engine.m_renderer->mesh_buffer;

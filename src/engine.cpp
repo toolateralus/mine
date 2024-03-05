@@ -1,12 +1,8 @@
 
 #include "../include/engine.hpp"
 #include "../include/physics.hpp"
-#include "../include/light.hpp"
-
-#include <filesystem>
 #include <glm/fwd.hpp>
 #include <glm/gtx/quaternion.hpp>
-#include <iostream>
 
 /*
     IMPORTANT : 
@@ -30,8 +26,10 @@ void Engine::update_loop(const float &dt) {
   if (m_input.key_down(Key::End)) {
       current.running = false;
   }
-  m_scene->update(dt);
-  m_physics->update(dt);
+  if (current.running) {
+    m_scene->update(dt);
+    m_physics->update(dt);
+  }
 }
 Engine::Engine() {
   

@@ -34,7 +34,6 @@ void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
       interleaved_data.push_back(mesh->normals[i * 3 + 1]);
       interleaved_data.push_back(mesh->normals[i * 3 + 2]);
     }
-    std::cout << "vertex data interleaved: " << interleaved_data.size() / 8 << std::endl;
 }
 
 // VertexBuffer
