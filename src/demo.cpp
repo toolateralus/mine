@@ -165,7 +165,6 @@ void Car::awake() {
   auto mesh = self->add_component<MeshRenderer>(
       engine.m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
   
-  self->remove_component(mesh);   
   
   auto camera = Node::instantiate();
   m_scene.camera = camera;

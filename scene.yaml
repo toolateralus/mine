@@ -21,7 +21,7 @@ nodes:
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
         mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
   - name: Node
-    transform: 0.913077, -0.000000, 0.407759, 0.000000, 0.012231, 0.999484, -0.027388, 0.000000, -0.407572, 0.029996, 0.912661, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    transform: 0.993940, -0.000000, -0.109772, 0.000000, 0.029281, 0.963758, 0.265123, 0.000000, 0.105795, -0.266735, 0.957934, 0.000000, 1.988338, 0.839911, 2.527345, 1.000000
     children:
       - name: Node
         transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 1.000000, 5.000000, 1.000000
@@ -113,4 +113,1372 @@ nodes:
           shader:
             vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.521018, 6.116394, -13.236014, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.521018, 6.116395, -13.236014, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.521018, 6.116395, -13.236014, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.521018, 6.116395, -13.236014, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.649985, 6.116395, -13.200997, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.633901, 6.249594, -13.142879, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.761079, 6.249595, -13.106971, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.761080, 6.249597, -13.106971, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.991067, 6.379273, -12.975270, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 4.096953, 6.510451, -12.876297, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 4.220608, 6.510452, -12.835978, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 4.444530, 6.640260, -12.692002, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 4.543890, 6.769753, -12.587205, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 4.839898, 7.016386, -12.335861, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 5.047358, 7.143342, -12.176329, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 5.465167, 7.266581, -11.914287, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 6.603690, 7.380732, -11.203294, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 7.802896, 7.493789, -10.224569, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 8.813691, 7.493790, -9.230399, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 9.669748, 7.382532, -8.250946, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 10.548722, 7.160244, -7.013237, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 11.153028, 6.824598, -6.090111, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 11.521063, 6.712519, -5.175342, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 11.748352, 6.712520, -4.226147, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 11.578156, 7.254038, -3.451488, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 10.757524, 8.573934, -2.691032, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 9.809731, 9.668630, -2.633344, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 9.624475, 9.839867, -2.851016, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 9.237799, 10.087237, -3.605026, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 8.910616, 9.701970, -5.273191, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 8.721739, 8.622699, -7.086584, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 8.109671, 7.143194, -8.938563, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 7.448478, 6.422612, -9.864241, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 6.036608, 5.901230, -10.864105, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 3.608341, 5.158876, -11.789616, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 0.999372, 0.011164, -0.033636, 0.000000, -0.011718, 0.999798, -0.016316, 0.000000, 0.033447, 0.016700, 0.999301, 0.000000, 0.689079, 4.840981, -11.870688, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
         mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj

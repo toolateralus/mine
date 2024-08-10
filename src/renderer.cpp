@@ -386,23 +386,23 @@ void MeshBuffer::render(const mat4 &viewProjectionMatrix) const {
 }
 
 void MeshBuffer::erase_mesh(const MeshRenderer *mesh) {
-  shared_ptr<MeshRenderer> renderer;
+  // shared_ptr<MeshRenderer> renderer;
   
-  int idx = -1;
-  for (size_t i= 0; i < meshes.size();++i) {
-    if (meshes[i].get() == mesh) {
-      renderer = meshes[i];
-      idx = i;
-      break;
-    }
-  }
+  // int idx = -1;
+  // for (size_t i= 0; i < meshes.size();++i) {
+  //   if (meshes[i].get() == mesh) {
+  //     renderer = meshes[i];
+  //     idx = i;
+  //     break;
+  //   }
+  // }
   
-  if (!renderer || idx == -1) return;
+  // if (!renderer || idx == -1) return;
   
-  auto it = std::ranges::find(meshes, renderer);
-  meshes.erase(it);
-  erase_interleaved_data(idx, renderer->mesh);
-  refresh();  
+  // auto it = std::ranges::find(meshes, renderer);
+  // meshes.erase(it);
+  // erase_interleaved_data(idx, renderer->mesh);
+  // refresh();  
 }
 
 void MeshBuffer::erase_interleaved_data(const size_t index,
