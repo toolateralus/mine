@@ -16,7 +16,6 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/matrix.hpp>
 #include <iostream>
-#include <memory>
 #include <yaml-cpp/emittermanip.h>
 #include <yaml-cpp/yaml.h>
 #include <glm/gtx/quaternion.hpp>
@@ -144,7 +143,7 @@ void Node::on_gui() {
 }
 void Node::deserialize(const YAML::Node &in) {
     auto &engine = Engine::current();
-    auto scene = engine.m_scene;
+    auto &scene = engine.m_scene;
     this->name = in["name"].as<std::string>();
     auto transform = in["transform"];
     this->local_transform = string_to_mat4(transform.as<std::string>());
@@ -156,16 +155,16 @@ void Node::deserialize(const YAML::Node &in) {
         auto light = this->add_component<Light>();
         light->deserialize(component);
         
-        if (engine.m_scene->light == nullptr) {
-            engine.m_scene->light = shared_from_this();
+        if (engine.m_scene.light == nullptr) {
+            engine.m_scene.light = shared_from_this();
         }
       }
       if (type == "Camera") {
         auto camera = this->add_component<Camera>();
         camera->deserialize(component);
         
-        if (engine.m_scene->camera == nullptr) {
-            engine.m_scene->camera = shared_from_this();
+        if (engine.m_scene.camera == nullptr) {
+            engine.m_scene.camera = shared_from_this();
         }
       }
       if (type == "MeshRenderer") {
@@ -174,12 +173,12 @@ void Node::deserialize(const YAML::Node &in) {
       }
       if (type == "Rigidbody") {
         auto rigidbody = this->add_component<physics::Rigidbody>();
-        engine.m_physics->rigidbodies.push_back(rigidbody);
+        engine.m_physics.rigidbodies.push_back(rigidbody);
         rigidbody->deserialize(component);
       }
       if (type == "BoxCollider") {
         auto collider = this->add_component<physics::BoxCollider>();
-        engine.m_physics->colliders.push_back(collider);
+        engine.m_physics.colliders.push_back(collider);
         collider->deserialize(component);
       }
       if (type == "BlockPlacer") {
@@ -222,13 +221,13 @@ shared_ptr<Node> Node::instantiate(const vec3 &pos, const vec3 &scale,
     node->set_position(pos);
     node->set_rotation(rot);
     node->set_scale(scale);
-    scene->new_node_queue.push_back(node);
+    scene.new_node_queue.push_back(node);
     return node;
 }
 void Node::add_child(shared_ptr<Node> child) {
   auto &engine = Engine::current();
-  shared_ptr<Scene> &scene = engine.m_scene;
-  scene->remove_node(child);
+  Scene &scene = engine.m_scene;
+  scene.remove_node(child);
   if (has_cyclic_inclusion(child)) {
     cout << "Cyclic inclusion detected, not adding child" << std::endl;
     return;

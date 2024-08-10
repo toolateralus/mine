@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -g -std=c++2b -Ithirdparty/imgui
+CXXFLAGS = -g -std=c++23 -Ithirdparty/imgui
 LDFLAGS = -lGL -lGLEW -lglfw -lassimp -ldraco -lyaml-cpp
 SRC = $(wildcard src/*.cpp) $(wildcard thirdparty/imgui/*.cpp) thirdparty/imgui/imgui_impl_glfw.cpp thirdparty/imgui/imgui_impl_opengl3.cpp
 OBJ_DIR = obj

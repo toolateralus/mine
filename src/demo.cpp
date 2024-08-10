@@ -30,9 +30,9 @@ void BlockPlacer::update(const float &dt) {
         new_node->add_component<MeshRenderer>(textured_material,
                                               Engine::RESOURCE_DIR_PATH +
                                                   "/prim_mesh/car.obj");
-        engine.m_physics->add_rigidbody(new_node);
+        engine.m_physics.add_rigidbody(new_node);
       }
-      engine.m_physics->add_collider<physics::BoxCollider>(new_node)
+      engine.m_physics.add_collider<physics::BoxCollider>(new_node)
           ->draw_collider = true;
       placed_blocks.push_back(new_node);
     } else {
@@ -73,7 +73,7 @@ void BlockPlacer::awake() {
 }
 void Player::on_gui() {
   ImGui::Begin("Player");
-  auto fps = Engine::current().m_renderer->framerate;
+  auto fps = Engine::current().m_renderer.framerate;
   ImGui::Text("FPS: %f", fps);
   ImGui::End();
 }
@@ -154,13 +154,13 @@ void Car::awake() {
   
   auto &engine = Engine::current();
   auto &m_scene = engine.m_scene;
-  auto physics = engine.m_physics;
+  auto &physics = engine.m_physics;
   
   // setup light
   auto light = Node::instantiate();
   auto light_component =
       light->add_component<Light>(color, intensity, range, cast_shadows);
-  m_scene->light = light;
+  m_scene.light = light;
   light->set_position(vec3(0, 5, 0));
     
   self->add_component<Player>();
@@ -168,13 +168,15 @@ void Car::awake() {
   self->add_component<MeshRenderer>(
       engine.m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
 
-  auto player_rigidbody = physics->add_rigidbody(self, 1.0f, 0.98f);
-  auto player_collider = physics->add_collider<physics::BoxCollider>(
+  auto player_rigidbody = physics.add_rigidbody(self);
+  
+  auto player_collider = physics.add_collider<physics::BoxCollider>(
       self, vec3(0), vec3(1));
+      
   player_collider->draw_collider = true;
 
   auto camera = Node::instantiate();
-  m_scene->camera = camera;
+  m_scene.camera = camera;
   camera->add_component<Camera>();
   camera->set_position(vec3(0.0, 1, 5));
 

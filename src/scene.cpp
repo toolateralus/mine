@@ -2,16 +2,14 @@
 #include "../include/node.hpp"
 
 void Scene::update(const float &dt) {
-  for (auto node : new_node_queue) {
+  for (const auto &node : new_node_queue) {
     nodes.push_back(node);
   }
   new_node_queue.clear();
-  
-  for (auto node : this->nodes) {
+  for (auto &node : this->nodes) {
     node->update(dt);
   }
 }
-
 
 void Scene::on_gui() {
   for (auto &node : nodes) {
@@ -32,7 +30,7 @@ void Scene::serialize(YAML::Emitter &out) {
 
 void Scene::deserialize(const YAML::Node &in) {
   auto nodes = in["nodes"].as<std::vector<YAML::Node>>();
-  for (auto node : nodes) {
+  for (auto &node : nodes) {
     auto new_node = Node::instantiate();
     new_node->deserialize(node);
   }

@@ -120,7 +120,7 @@ void physics::Collider::update(const float &dt) {
     gizmo.color = gizmo_color;
     
     auto &renderer = Engine::current().m_renderer;
-    renderer->add_gizmo(gizmo);
+    renderer.add_gizmo(gizmo);
   }
 }
 vector<vec3> physics::Collider::get_indices() {
@@ -153,10 +153,8 @@ void Collider::on_collision(const Collision &collision) {
 void physics::Collider::serialize(YAML::Emitter &out) {
   out << YAML::BeginMap;
   out << YAML::Key << "type" << YAML::Value << "Collider";
-  out << YAML::Key << "center" << YAML::Value << YAML::Flow
-      << vec3_to_string(center);
-  out << YAML::Key << "size" << YAML::Value << YAML::Flow
-      << vec3_to_string(size);
+  out << YAML::Key << "center" << YAML::Value << YAML::Flow << vec3_to_string(center);
+  out << YAML::Key << "size" << YAML::Value << YAML::Flow << vec3_to_string(size);
   out << YAML::EndMap;
 }
 void physics::Collider::deserialize(const YAML::Node &in) {
@@ -170,7 +168,9 @@ void physics::BoxCollider::deserialize(const YAML::Node &in) {
   this->size = string_to_vec3(size);
 };
 void physics::BoxCollider::serialize(YAML::Emitter &out) {
+  out << YAML::BeginMap;
   out << YAML::Key << "type" << YAML::Value << "BoxCollider";
-  out << YAML::Key << "center" << YAML::Value << vec3_to_string(center);
-  out << YAML::Key << "size" << YAML::Value << vec3_to_string(size);
+  out << YAML::Key << "center" << YAML::Value << YAML::Flow << vec3_to_string(center);
+  out << YAML::Key << "size" << YAML::Value << YAML::Flow << vec3_to_string(size);
+  out << YAML::EndMap;
 }

@@ -1,40 +1,30 @@
 nodes:
   - name: Node
-    transform: 1000.000000, 0.000000, 0.000000, 0.000000, 0.000000, 10.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1000.000000, 0.000000, 0.000000, -10.000000, 0.000000, 1.000000
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, -10.000000, 0.000000, 1.000000
     children:
-      []
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
     components:
-      - type
-      - BoxCollider
-      - center
-      - (0.000000, 0.000000, 0.000000)
-      - size
-      - (1.000000, 1.000000, 1.000000)
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (100.000000, 1.000000, 100.000000)
       - type: MeshRenderer
         material:
           shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
   - name: Node
-    transform: 100.000000, 0.000000, 0.000000, 0.000000, 0.000000, -0.759688, 0.650288, 0.000000, 0.000000, -65.028778, -75.968788, 0.000000, 10.000000, -5.000000, 0.000000, 1.000000
-    children:
-      []
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/cube.obj
-      - type
-      - BoxCollider
-      - center
-      - (0.000000, 0.000000, 0.000000)
-      - size
-      - (1.000000, 1.000000, 1.000000)
-  - name: Node
-    transform: 0.279068, 0.000000, 0.960272, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, -0.960272, 0.000000, 0.279068, 0.000000, 0.113206, -4.500113, -4.260450, 1.000000
+    transform: -0.999724, -0.000001, -0.027259, 0.000000, -0.009091, 0.942728, 0.333400, 0.000000, 0.025698, 0.333557, -0.942472, 0.000000, 16.746534, -8.975518, -11.521011, 1.000000
     children:
       - name: Node
         transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 1.000000, 5.000000, 1.000000
@@ -57,30 +47,50 @@ nodes:
             intensity: 1
             range: 1
             cast_shadows: false
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
     components:
       - type: Car
+      - type: Player
       - type: BlockPlacer
         textured_material:
           shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
           texture:
             path: /home/josh/source/c++/mine/res/textures/conflag.jpg
       - type: MeshRenderer
         material:
           shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
         mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
       - type: Rigidbody
         mass: 1
         drag: 0.980000019
-      - type
-      - BoxCollider
-      - center
-      - (0.000000, 0.000000, 0.000000)
-      - size
-      - (1.000000, 1.000000, 1.000000)
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
   - name: Node
     transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 5.000000, 0.000000, 1.000000
     children:
@@ -103,24 +113,1113 @@ nodes:
         far: 10000
         sky_color: (0.100000, 0.300000, 0.800000)
   - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 7.872991, -4.500113, -15.802885, 1.000000
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
     children:
       []
     components:
       - type: MeshRenderer
         material:
           shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.hlsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.hlsl
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 0.312949, -0.166627, 0.935046, 0.000000, -0.742295, 0.571268, 0.350239, 0.000000, -0.592514, -0.803677, 0.055091, 0.000000, 14.208003, -8.890370, -5.334709, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
           texture:
             path: /home/josh/source/c++/mine/res/textures/conflag.jpg
         mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
       - type: Rigidbody
         mass: 1
         drag: 0.980000019
-      - type
-      - BoxCollider
-      - center
-      - (0.000000, 0.000000, 0.000000)
-      - size
-      - (1.000000, 1.000000, 1.000000)
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 13.383930, -120.230316, -4.352364, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 13.383930, -119.061111, -4.352364, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 13.334590, -116.618103, -3.850869, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 0.086813, 0.223346, -0.970866, 0.000000, -0.039050, 0.974556, 0.220703, 0.000000, 0.995459, 0.018752, 0.093326, 0.000000, 13.602660, -116.861954, -4.993325, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 0.992686, -0.089137, -0.081417, 0.000000, 0.009971, 0.732642, -0.680541, 0.000000, 0.120311, 0.674752, 0.728173, 0.000000, 13.253565, -115.450676, -4.433584, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 13.113745, -9.001334, -6.623900, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 12.718273, -6.215195, -3.258465, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 11.405792, -9.016447, -3.603410, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 15.527276, -9.001334, -6.489346, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 14.206831, -102.092415, -3.503930, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: -0.772023, 0.123579, 0.623466, 0.000000, 0.097740, 0.992330, -0.075665, 0.000000, -0.628036, 0.002522, -0.778182, 0.000000, 14.096382, -96.229813, -3.337937, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 12.488763, -9.224737, -3.503930, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 12.549998, -7.270649, -3.344147, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 11.323404, -8.021587, -3.607794, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: -0.261613, 0.200852, -0.944046, 0.000000, 0.518650, 0.854141, 0.037997, 0.000000, 0.813981, -0.479689, -0.327627, 0.000000, 18.244757, -8.907304, -3.005221, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 19.642731, -9.001334, -3.144751, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 12.467829, -8.151194, -3.316138, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 16.857777, -9.001334, -3.270538, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 14.042911, -9.001334, -2.963748, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 15.851822, -9.001334, -3.877214, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: -0.107635, 0.407394, -0.906893, 0.000000, 0.937567, -0.261859, -0.228907, 0.000000, -0.330734, -0.874912, -0.353775, 0.000000, 12.807083, -8.901361, -7.868689, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 0.951018, 0.023969, -0.308203, 0.000000, 0.153274, 0.829252, 0.537446, 0.000000, 0.268460, -0.558360, 0.784960, 0.000000, 15.430882, -8.909168, -0.229796, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 0.999378, -0.007122, -0.034482, 0.000000, 0.004705, 0.997552, -0.069662, 0.000000, 0.034894, 0.069457, 0.996975, 0.000000, 16.020376, -8.992750, -9.583000, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 15.739276, -9.001334, -7.888275, 1.000000
+    children:
+      - name: Node
+        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+        children:
+          []
+        components:
+          - type: MeshRenderer
+            material:
+              shader:
+                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+              texture:
+                path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+      - type: Rigidbody
+        mass: 1
+        drag: 0.980000019
+      - type: BoxCollider
+        center: (0.000000, 0.000000, 0.000000)
+        size: (1.000000, 1.000000, 1.000000)
+  - name: Node
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    children:
+      []
+    components:
+      - type: MeshRenderer
+        material:
+          shader:
+            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
+            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
+          texture:
+            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
+        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj

@@ -2,7 +2,6 @@
 #include "../include/engine.hpp"
 #include "../include/renderer.hpp"
 #include <assimp/matrix4x4.h>
-#include <iostream>
 #include <stdexcept>
 #include <yaml-cpp/yaml.h>
 
@@ -69,7 +68,7 @@ void Mesh::process_mesh(shared_ptr<Mesh> &out_mesh, aiMesh *in_mesh) {
 void Mesh::process_node(shared_ptr<Mesh> &parent, const aiNode *node, const aiScene *scene) {
   for (unsigned int i = 0; i < node->mNumMeshes; i++) {
     aiMesh *ai_mesh = scene->mMeshes[node->mMeshes[i]];
-    auto output_mesh = make_shared<Mesh>("");
+    auto output_mesh = make_shared<Mesh>(parent->path);
     parent->submeshes.push_back(output_mesh);
     output_mesh->transform = glm::make_mat4(&node->mTransformation.a1);
     Mesh::process_mesh(output_mesh, ai_mesh);
@@ -95,7 +94,7 @@ void MeshRenderer::serialize(YAML::Emitter &out) {
 }
 void MeshRenderer::awake() {
   auto &engine = Engine::current();
-  auto &mesh_buffer = engine.m_renderer->mesh_buffer;
+  auto &mesh_buffer = engine.m_renderer.mesh_buffer;
   auto &meshes = mesh_buffer->meshes;
   auto self = shared_from_this();
   auto it = std::find(meshes.begin(), meshes.end(), self);

@@ -53,6 +53,10 @@ struct Physics {
   vector<shared_ptr<Collider>> colliders;
   vector<shared_ptr<Rigidbody>> rigidbodies;
   Physics();
+  Physics(const Physics &) = delete;
+  Physics(Physics &&) = delete;
+  Physics &operator=(const Physics &) = delete;
+  Physics &operator=(Physics &&) = delete;
   ~Physics();
   void update(const float &dt);
   shared_ptr<Rigidbody> add_rigidbody(shared_ptr<Node> &node,

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "usings.hpp"
 #include <GLFW/glfw3.h>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/fwd.hpp>
@@ -150,6 +151,8 @@ public:
     bool mouse_button_up(MouseButton button);
     bool key_down(Key key);
     bool key_up(Key key);
+    
+private:
     Input();
     ~Input();
 };

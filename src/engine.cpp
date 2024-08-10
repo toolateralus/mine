@@ -17,9 +17,9 @@ void Engine::update_loop(const float &dt) {
   auto &current = Engine::current();
   auto &m_input = Input::current();
   
-  auto m_scene = current.m_scene;
-  auto m_physics = current.m_physics;
-  auto m_renderer = current.m_renderer;
+  auto &m_scene = current.m_scene;
+  auto &m_physics = current.m_physics;
+  auto &m_renderer = current.m_renderer;
   if (m_input.key_down(Key::Home)) {
       current.running = true;
   }
@@ -27,27 +27,17 @@ void Engine::update_loop(const float &dt) {
       current.running = false;
   }
   if (current.running) {
-    m_scene->update(dt);
-    m_physics->update(dt);
+    m_scene.update(dt);
+    m_physics.update(dt);
   }
 }
-Engine::Engine() {
-  
-
-  m_scene = make_shared<Scene>();
-  m_physics = make_shared<physics::Physics>();
-  m_renderer =
-      make_shared<Renderer>("Mine Engine", SCREEN_H, SCREEN_W, update_loop);
+Engine::Engine() : m_renderer("Mine Engine", SCREEN_H, SCREEN_W, update_loop), m_input(Input::current()) {
   m_shader = make_shared<Shader>(RESOURCE_DIR_PATH + "/shaders/vertex.glsl",
                                  RESOURCE_DIR_PATH + "/shaders/fragment.glsl");
   m_texture = optional<shared_ptr<Texture>>(
       make_shared<Texture>(RESOURCE_DIR_PATH + "/textures/conflag.jpg"));
   m_material = make_shared<Material>(m_shader, std::nullopt);
-  
-  // TODO: remove this
-  // hacky solution to initialize input;
-  auto &m_input = Input::current();
-  m_input.window = m_renderer->window;
+  m_input.window = m_renderer.window;
   
 };
 Engine &Engine::current() {

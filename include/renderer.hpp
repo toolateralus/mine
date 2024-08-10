@@ -63,12 +63,18 @@ public:
 };
 
 class MeshBuffer {
+  MeshBuffer(const MeshBuffer &) = delete;
+  MeshBuffer(MeshBuffer &&) = delete;
+  MeshBuffer &operator=(const MeshBuffer &) = delete;
+  MeshBuffer &operator=(MeshBuffer &&) = delete;
+  
 public:
   GLuint vbo, vao, ebo;
   vector<unsigned int> indices = {};
   vector<float> interleaved_data = {};
   vector<shared_ptr<MeshRenderer>> meshes = {};
   MeshBuffer();
+  
   ~MeshBuffer();
   void interleave_mesh(const shared_ptr<Mesh> &mesh);
   void init();
@@ -194,10 +200,15 @@ public:
 };
 
 class Renderer {
+  Renderer(const Renderer &) = delete;
+  Renderer(Renderer &&) = delete;
+  Renderer &operator=(const Renderer &) = delete;
+  Renderer &operator=(Renderer &&) = delete;
+  
 public:
   GLFWwindow *window;
-  shared_ptr<MeshBuffer> mesh_buffer;
-  shared_ptr<GizmoBuffer> gizmo_buffer;
+  MeshBuffer *mesh_buffer;
+  GizmoBuffer *gizmo_buffer;
   float dt, framerate;
   const char *title;
   int screenWidth;
@@ -208,7 +219,7 @@ public:
   Renderer(const char *title, const int h, const int w,
            void (*update_loop)(const float &dt));
   ~Renderer();
-
+  
   void add_gizmo(const Gizmo &gizmo);
   int run();
   void init_opengl();
