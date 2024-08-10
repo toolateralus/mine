@@ -1,6 +1,5 @@
 
 #include "../include/engine.hpp"
-#include "../include/physics.hpp"
 #include <glm/fwd.hpp>
 #include <glm/gtx/quaternion.hpp>
 
@@ -18,7 +17,6 @@ void Engine::update_loop(const float &dt) {
   auto &m_input = Input::current();
   
   auto &m_scene = current.m_scene;
-  auto &m_physics = current.m_physics;
   auto &m_renderer = current.m_renderer;
   if (m_input.key_down(Key::Home)) {
       current.running = true;
@@ -28,7 +26,6 @@ void Engine::update_loop(const float &dt) {
   }
   if (current.running) {
     m_scene.update(dt);
-    m_physics.update(dt);
   }
 }
 Engine::Engine() : m_renderer("Mine Engine", SCREEN_H, SCREEN_W, update_loop), m_input(Input::current()) {

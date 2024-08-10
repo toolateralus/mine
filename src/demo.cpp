@@ -30,10 +30,7 @@ void BlockPlacer::update(const float &dt) {
         new_node->add_component<MeshRenderer>(textured_material,
                                               Engine::RESOURCE_DIR_PATH +
                                                   "/prim_mesh/car.obj");
-        engine.m_physics.add_rigidbody(new_node);
       }
-      engine.m_physics.add_collider<physics::BoxCollider>(new_node)
-          ->draw_collider = true;
       placed_blocks.push_back(new_node);
     } else {
       auto block = placed_blocks.front();
@@ -154,7 +151,6 @@ void Car::awake() {
   
   auto &engine = Engine::current();
   auto &m_scene = engine.m_scene;
-  auto &physics = engine.m_physics;
   
   // setup light
   auto light = Node::instantiate();
@@ -168,13 +164,6 @@ void Car::awake() {
   self->add_component<MeshRenderer>(
       engine.m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
 
-  auto player_rigidbody = physics.add_rigidbody(self);
-  
-  auto player_collider = physics.add_collider<physics::BoxCollider>(
-      self, vec3(0), vec3(1));
-      
-  player_collider->draw_collider = true;
-
   auto camera = Node::instantiate();
   m_scene.camera = camera;
   camera->add_component<Camera>();
@@ -184,27 +173,9 @@ void Car::awake() {
   self->add_child(light);
 }
 void Car::update(const float &dt) {
-
   auto node = this->node.lock();
   auto &input = Input::current();
   vec3 move_vec = vec3(0);
-  auto rigidbody = node->get_component<physics::Rigidbody>();
-  // forward/backward/left/right
-  if (rigidbody) {
-    const auto speed = 10.f;
-    if (input.key_down(Key::W)) {
-      rigidbody->velocity += -node->fwd() * dt * speed;
-    }
-    if (input.key_down(Key::A)) {
-      rigidbody->angular.y += speed * dt;
-    }
-    if (input.key_down(Key::S)) {
-      rigidbody->velocity += node->fwd() * dt * speed;
-    }
-    if (input.key_down(Key::D)) {
-      rigidbody->angular.y -= speed * dt;
-    }
-  }
 }
 void Car::serialize(YAML::Emitter &out) {
   out << YAML::BeginMap;

@@ -3,7 +3,6 @@
 #include "renderer.hpp"
 #include "usings.hpp"
 #include "input.hpp"
-#include "physics.hpp"
 #include "scene.hpp"
 #include <glm/gtx/quaternion.hpp>
 
@@ -11,7 +10,6 @@ struct Engine {
   Renderer m_renderer;
   Scene m_scene = Scene();
   Input &m_input;
-  physics::Physics m_physics;
   
   // these are just quick and easy defaults / fallbacks
   shared_ptr<Shader> m_shader;

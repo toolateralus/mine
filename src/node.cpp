@@ -3,13 +3,10 @@
 #include "../include/light.hpp"
 #include "../include/camera.hpp"
 #include "../include/renderer.hpp"
-#include "../include/physics.hpp"
-#include "../include/collider.hpp"
 #include "../include/engine.hpp"
 #include "../include/demo.hpp"
 
 #include "../include/node.hpp"
-#include "../include/physics.hpp"
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/quaternion_geometric.hpp>
 #include <glm/fwd.hpp>
@@ -170,16 +167,6 @@ void Node::deserialize(const YAML::Node &in) {
       if (type == "MeshRenderer") {
         auto renderer = this->add_component<MeshRenderer>();
         renderer->deserialize(component);
-      }
-      if (type == "Rigidbody") {
-        auto rigidbody = this->add_component<physics::Rigidbody>();
-        engine.m_physics.rigidbodies.push_back(rigidbody);
-        rigidbody->deserialize(component);
-      }
-      if (type == "BoxCollider") {
-        auto collider = this->add_component<physics::BoxCollider>();
-        engine.m_physics.colliders.push_back(collider);
-        collider->deserialize(component);
       }
       if (type == "BlockPlacer") {
         auto block_placer = this->add_component<BlockPlacer>();
