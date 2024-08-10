@@ -29,7 +29,6 @@ constexpr int SCREEN_H = 480;
 static int VSYNC_ENABLED = GL_TRUE;
 struct MeshRenderer;
 
-
 class Texture {
 public:
   GLuint texture;
@@ -67,7 +66,7 @@ class MeshBuffer {
   MeshBuffer(MeshBuffer &&) = delete;
   MeshBuffer &operator=(const MeshBuffer &) = delete;
   MeshBuffer &operator=(MeshBuffer &&) = delete;
-  
+
 public:
   GLuint vbo, vao, ebo;
   vector<unsigned int> indices = {};
@@ -76,9 +75,14 @@ public:
   MeshBuffer();
   
   ~MeshBuffer();
+
+  void refresh();
   void interleave_mesh(const shared_ptr<Mesh> &mesh);
+  void erase_interleaved_data(const size_t index, const shared_ptr<Mesh> &mesh);
   void init();
   void update_data();
+  void erase_mesh(const MeshRenderer *mesh);
+  void render(const mat4 &viewProjectionMatrix) const;
 };
 
 struct Gizmo {
@@ -197,6 +201,40 @@ public:
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
   }
+  void render(const mat4 &viewProjectionMatrix)  {
+    glDisable(GL_DEPTH_TEST);
+    glPolygonMode(GL_FRONT, GL_LINE);
+    glBindVertexArray(VAO);
+    const auto shader = Gizmo::shader->program_id;
+    glUseProgram(shader);
+
+    const auto colorLocation = glGetUniformLocation(shader, "color");
+    const auto mmXLocation = glGetUniformLocation(shader, "modelMatrix");
+    const auto viewProjectionMatrixLocation =
+        glGetUniformLocation(shader, "viewProjectionMatrix");
+
+    void *indexOffset = 0;
+    for (auto &gizmo : gizmos) {
+
+      const auto indexCount = gizmo.indices.size();
+      const auto node = gizmo.node.lock();
+      const auto transform_matrix = node->get_transform();
+
+      glUniform4fv(colorLocation, 1, glm::value_ptr(gizmo.color));
+
+      glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE,
+                         glm::value_ptr(viewProjectionMatrix));
+
+      glUniformMatrix4fv(mmXLocation, 1, GL_FALSE,
+                         glm::value_ptr(transform_matrix));
+
+      glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
+
+      indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
+    }
+
+    gizmos.clear();
+  }
 };
 
 class Renderer {
@@ -204,7 +242,7 @@ class Renderer {
   Renderer(Renderer &&) = delete;
   Renderer &operator=(const Renderer &) = delete;
   Renderer &operator=(Renderer &&) = delete;
-  
+
 public:
   GLFWwindow *window;
   MeshBuffer *mesh_buffer;
@@ -215,27 +253,29 @@ public:
   int screenHeight;
   bool running = true;
   void (*update_loop)(const float &dt);
-  
+
   Renderer(const char *title, const int h, const int w,
            void (*update_loop)(const float &dt));
   ~Renderer();
-  
+
   void add_gizmo(const Gizmo &gizmo);
   int run();
   void init_opengl();
   void init_imgui();
-  
+
   void draw_meshes(const mat4 &viewProjectionMatrix) const;
   void draw_gizmos(const mat4 &viewProjectionMatrix) const;
   void draw_imgui();
-  
+
   static void resizeCallback(GLFWwindow *window, int width, int height);
-  
-  void poll_metrics(const std::chrono::time_point<std::chrono::high_resolution_clock> &start);
-      
-  void apply_lighting_uniforms(const shared_ptr<Shader> &shader,
-                               const GLuint &program_id) const;
-                               
-  void apply_uniforms(const mat4 &viewProjectionMatrix,
-                    std::shared_ptr<MeshRenderer> &mesh_renderer) const;
+
+  void poll_metrics(
+      const std::chrono::time_point<std::chrono::high_resolution_clock> &start);
+
+  static void apply_lighting_uniforms(const shared_ptr<Shader> &shader,
+                                      const GLuint &program_id);
+
+  static void
+  apply_uniforms(const mat4 &viewProjectionMatrix,
+                 const std::shared_ptr<MeshRenderer> &mesh_renderer);
 };

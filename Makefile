@@ -1,6 +1,6 @@
 CXX = clang++
-CXXFLAGS = -g -std=c++23 -Ithirdparty/imgui
-LDFLAGS = -lGL -lGLEW -lglfw -lassimp -ldraco -lyaml-cpp
+CXXFLAGS = -g -std=c++26 -Ithirdparty/imgui -Iinclude -flto #-fsanitize=address,undefined,leak
+LDFLAGS = -lGL -lGLEW -lglfw -lassimp -ldraco -lyaml-cpp -s
 SRC = $(wildcard src/*.cpp) $(wildcard thirdparty/imgui/*.cpp) thirdparty/imgui/imgui_impl_glfw.cpp thirdparty/imgui/imgui_impl_opengl3.cpp
 OBJ_DIR = obj
 OBJ_SRC_DIR = $(OBJ_DIR)/src

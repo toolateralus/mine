@@ -12,6 +12,7 @@
 #include <iostream>
 #include <memory>
 #include <unistd.h>
+#include <vector>
 
 auto Gizmo::shader = make_shared<Shader>(
     std::string(Engine::RESOURCE_DIR_PATH + "/shaders/gizmo_vert.glsl"),
@@ -22,7 +23,7 @@ void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
   for (auto &index : mesh->indices) {
     indices.push_back(index + vertexCount);
   }
-  
+
   const auto mesh_vert_count = mesh->vertices.size() / 3;
   for (size_t i = 0; i < mesh_vert_count; ++i) {
     interleaved_data.push_back(mesh->vertices[i * 3]);
@@ -38,13 +39,13 @@ void MeshBuffer::interleave_mesh(const shared_ptr<Mesh> &mesh) {
 
 // VertexBuffer
 void MeshBuffer::update_data() {
-  indices.clear();
-  interleaved_data.clear();
+  // indices.clear();
+  // interleaved_data.clear();
 
-  for (auto &mr : this->meshes) {
-    interleave_mesh(mr->mesh);
-  }
-  
+  // for (const auto &mr : this->meshes) {
+  //   interleave_mesh(mr->mesh);
+  // }
+
   glBindVertexArray(vao);
 
   // Buffer the interleaved data
@@ -59,12 +60,14 @@ void MeshBuffer::update_data() {
 
   glBindVertexArray(0);
 }
+
 MeshBuffer::MeshBuffer() {
   glGenVertexArrays(1, &vao);
   glGenBuffers(1, &vbo);
   glGenBuffers(1, &ebo);
   init();
 }
+
 MeshBuffer::~MeshBuffer() {
   glDeleteVertexArrays(1, &vao);
   glDeleteBuffers(1, &vbo);
@@ -78,6 +81,7 @@ Renderer::Renderer(const char *title, const int h, const int w,
     : update_loop(update_loop), screenWidth(w), screenHeight(h), title(title) {
   init_opengl();
   init_imgui();
+
   // the vertex buffer can only be instantiated after GL context is initialized.
   mesh_buffer = new MeshBuffer();
   gizmo_buffer = new GizmoBuffer();
@@ -90,13 +94,15 @@ void Renderer::init_opengl() {
   glewInit();
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
+  glEnable(GL_STATIC_DRAW);
   glfwSetFramebufferSizeCallback(window, resizeCallback);
-  glfwSwapInterval(VSYNC_ENABLED);
+  glfwSwapInterval(0); // unlimit framerate.
 }
-// static
+
 void Renderer::resizeCallback(GLFWwindow *window, int w, int h) {
   glViewport(0, 0, w, h);
 }
+
 Renderer::~Renderer() {
   delete mesh_buffer;
   delete gizmo_buffer;
@@ -160,7 +166,7 @@ void Renderer::poll_metrics(
 }
 
 void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader,
-                                       const GLuint &shader_program) const {
+                                       const GLuint &shader_program) {
   const auto light_node = Engine::current().m_scene.light;
 
   if (!light_node) {
@@ -208,7 +214,7 @@ void Renderer::apply_lighting_uniforms(const shared_ptr<Shader> &shader,
 }
 void Renderer::apply_uniforms(
     const mat4 &viewProjectionMatrix,
-    std::shared_ptr<MeshRenderer> &mesh_renderer) const {
+    const std::shared_ptr<MeshRenderer> &mesh_renderer) {
 
   const auto material = mesh_renderer->material;
   const auto shader_struct = material->shader;
@@ -260,51 +266,11 @@ void Renderer::apply_uniforms(
   apply_lighting_uniforms(mesh_renderer->material->shader, shader);
 }
 void Renderer::draw_meshes(const mat4 &viewProjectionMatrix) const {
-  glEnable(GL_DEPTH_TEST);
-  glPolygonMode(GL_FRONT, GL_FILL_NV);
-  void *indexOffset = 0;
-  glBindVertexArray(mesh_buffer->vao);
-  for (auto &mesh_renderer : mesh_buffer->meshes) {
-    const auto &indexCount = mesh_renderer->mesh->indices.size();
-    apply_uniforms(viewProjectionMatrix, mesh_renderer);
-    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
-    indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
-  }
+  mesh_buffer->render(viewProjectionMatrix);
 }
 
 void Renderer::draw_gizmos(const mat4 &viewProjectionMatrix) const {
-  glDisable(GL_DEPTH_TEST);
-  glPolygonMode(GL_FRONT, GL_LINE);
-  glBindVertexArray(gizmo_buffer->VAO);
-  const auto shader = Gizmo::shader->program_id;
-  glUseProgram(shader);
-
-  const auto colorLocation = glGetUniformLocation(shader, "color");
-  const auto mmXLocation = glGetUniformLocation(shader, "modelMatrix");
-  const auto viewProjectionMatrixLocation =
-      glGetUniformLocation(shader, "viewProjectionMatrix");
-
-  void *indexOffset = 0;
-  for (auto &gizmo : gizmo_buffer->gizmos) {
-
-    const auto indexCount = gizmo.indices.size();
-    const auto node = gizmo.node.lock();
-    const auto transform_matrix = node->get_transform();
-
-    glUniform4fv(colorLocation, 1, glm::value_ptr(gizmo.color));
-
-    glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE,
-                       glm::value_ptr(viewProjectionMatrix));
-
-    glUniformMatrix4fv(mmXLocation, 1, GL_FALSE,
-                       glm::value_ptr(transform_matrix));
-
-    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, indexOffset);
-
-    indexOffset = (char *)indexOffset + indexCount * sizeof(unsigned int);
-  }
-
-  gizmo_buffer->gizmos.clear();
+  gizmo_buffer->render(viewProjectionMatrix);
 }
 void Renderer::add_gizmo(const Gizmo &gizmo) {
   gizmo_buffer->gizmos.push_back(gizmo);
@@ -404,4 +370,62 @@ void MeshBuffer::init() {
   glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride,
                         (void *)(5 * sizeof(float)));
   glEnableVertexAttribArray(2);
+}
+void MeshBuffer::render(const mat4 &viewProjectionMatrix) const {
+  glEnable(GL_DEPTH_TEST);
+  glPolygonMode(GL_FRONT, GL_FILL_NV);
+  size_t indexOffset = 0;
+  glBindVertexArray(vao);
+  for (const auto &mesh_renderer : meshes) {
+    const auto &indexCount = mesh_renderer->mesh->indices.size();
+    Renderer::apply_uniforms(viewProjectionMatrix, mesh_renderer);
+    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT,
+                   (const void *)indexOffset);
+    indexOffset = indexOffset + indexCount * sizeof(unsigned int);
+  }
+}
+
+void MeshBuffer::erase_mesh(const MeshRenderer *mesh) {
+  shared_ptr<MeshRenderer> renderer;
+  
+  int idx = -1;
+  for (size_t i= 0; i < meshes.size();++i) {
+    if (meshes[i].get() == mesh) {
+      renderer = meshes[i];
+      idx = i;
+      break;
+    }
+  }
+  
+  if (!renderer || idx == -1) return;
+  
+  auto it = std::ranges::find(meshes, renderer);
+  meshes.erase(it);
+  erase_interleaved_data(idx, renderer->mesh);
+  refresh();  
+}
+
+void MeshBuffer::erase_interleaved_data(const size_t index,
+                                        const shared_ptr<Mesh> &mesh) {
+  const size_t vertexCount = interleaved_data.size() / 8;
+  const size_t mesh_vert_count = mesh->vertices.size() / 3;
+  const size_t start_pos = index * 8 * mesh_vert_count;
+
+  // Erase interleaved data
+  interleaved_data.erase(interleaved_data.begin() + start_pos,
+                         interleaved_data.begin() + start_pos +
+                             8 * mesh_vert_count);
+
+  // Adjust indices
+  auto it = std::remove_if(indices.begin(), indices.end(),
+                           [index, vertexCount, mesh_vert_count](size_t i) {
+                             return i >= index * vertexCount &&
+                                    i < (index + 1) * vertexCount;
+                           });
+  indices.erase(it, indices.end());
+}
+void MeshBuffer::refresh() {
+  interleaved_data.clear();
+  for (const auto &mr : meshes)
+    interleave_mesh(mr->mesh);
 }

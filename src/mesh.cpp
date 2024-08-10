@@ -18,7 +18,10 @@ MeshRenderer::MeshRenderer(const shared_ptr<Material> &material,
     mesh = Mesh::cache[mesh_path];
   }
 }
-MeshRenderer::~MeshRenderer() {}
+MeshRenderer::~MeshRenderer() {
+  auto &mesh_buf = Engine::current().m_renderer.mesh_buffer;
+  mesh_buf->erase_mesh(this);
+}
 
 unordered_map<std::string, shared_ptr<Mesh>> Mesh::cache = {};
 
@@ -101,6 +104,7 @@ void MeshRenderer::awake() {
   auto exists = it != meshes.end();
   if (!exists) {
     meshes.push_back(self);
+    mesh_buffer->interleave_mesh(self->mesh);
     mesh_buffer->update_data();
   }
   instantiate_nodes_for_submeshes();

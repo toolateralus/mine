@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "component.hpp"
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/constants.hpp>
@@ -91,6 +92,13 @@ public:
         return;
       }
     }
+  }
+  template <typename T> void remove_component(shared_ptr<T> component) {
+    auto it = std::ranges::find(components, component);
+    if (it != components.end()) {
+      components.erase(it);
+    }
+    
   }
   template <typename T> shared_ptr<T> get_component() {
     for (int i = 0; i < components.size(); i++) {

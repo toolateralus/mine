@@ -16,9 +16,9 @@ void BlockPlacer::update(const float &dt) {
     placed = false;
   }
   if (!placed && input.mouse_button_down(MouseButton::Left)) {
-    placed = true;
+    placed = false;
 
-    if (placed_blocks.size() < 25) {
+    if (placed_blocks.size() < 250) {
       auto position = node->get_position() + (node->fwd() * -15.0f);
       auto new_node = Node::instantiate(position);
       
@@ -161,9 +161,12 @@ void Car::awake() {
     
   self->add_component<Player>();
   self->add_component<BlockPlacer>();
-  self->add_component<MeshRenderer>(
+  
+  auto mesh = self->add_component<MeshRenderer>(
       engine.m_material, Engine::RESOURCE_DIR_PATH + "/prim_mesh/car.obj");
-
+  
+  self->remove_component(mesh);   
+  
   auto camera = Node::instantiate();
   m_scene.camera = camera;
   camera->add_component<Camera>();

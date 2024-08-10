@@ -23,7 +23,7 @@ struct BlockPlacer : public Component {
   BlockPlacer() {
   }
   ~BlockPlacer() override {}
-  bool placed;
+  bool placed = false;
   vector<shared_ptr<Node>> placed_blocks = {};
   shared_ptr<Material> textured_material;
   optional<vec2> last_pos;
