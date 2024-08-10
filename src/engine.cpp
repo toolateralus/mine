@@ -1,5 +1,6 @@
 
 #include "../include/engine.hpp"
+#include <filesystem>
 #include <glm/fwd.hpp>
 #include <glm/gtx/quaternion.hpp>
 
@@ -10,7 +11,7 @@
       
       I just use VScode to right click the folder, get 'copy path' and paste it here.
   */
-std::string Engine::RESOURCE_DIR_PATH = "/home/josh/source/c++/mine/res";
+std::string Engine::RESOURCE_DIR_PATH = std::filesystem::current_path().string() + "/res";
 
 void Engine::update_loop(const float &dt) {
   auto &current = Engine::current();
