@@ -5,12 +5,13 @@
 #include <glm/gtx/quaternion.hpp>
 
 /*
-    IMPORTANT : 
-      if you intend to debug with RenderDoc or run the program from anywhere but the project root, you must adjust
-      this Engine::RESOURCE_DIR_PATH to the correct path to the resources directory.
+  IMPORTANT : 
+    if you intend to debug with RenderDoc or run the program from anywhere but the project root, you must adjust
+    this Engine::RESOURCE_DIR_PATH to the correct path to the resources directory.
       
-      I just use VScode to right click the folder, get 'copy path' and paste it here.
-  */
+    I just use VScode to right click the folder, get 'copy path' and paste it here.
+*/
+
 std::string Engine::RESOURCE_DIR_PATH = std::filesystem::current_path().string() + "/res";
 
 void Engine::update_loop(const float &dt) {
