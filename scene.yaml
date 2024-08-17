@@ -1,18 +1,8 @@
+
 nodes:
   - name: Node
     transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, -10.000000, 0.000000, 1.000000
-    children:
-      - name: Node
-        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
-        children:
-          []
-        components:
-          - type: MeshRenderer
-            material:
-              shader:
-                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
-                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
-            mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
+    children: []
     components:
       - type: MeshRenderer
         material:
@@ -21,7 +11,7 @@ nodes:
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
         mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
   - name: Node
-    transform: 0.957098, -0.000010, -0.292417, 0.000000, -0.127136, 0.900186, -0.416156, 0.000000, 0.263231, 0.435475, 0.861556, 0.000000, -1.551686, -1.992130, 1.780241, 1.000000
+    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
     children:
       - name: Node
         transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 1.000000, 5.000000, 1.000000
@@ -29,48 +19,23 @@ nodes:
           []
         components:
           - type: Camera
-            fov: 60
+            fov: 120
             aspect: 1.33333337
             near: 0.100000001
             far: 10000
-            sky_color: (0.100000, 0.300000, 0.800000)
+            sky_color: (0.000000, 0.000000, 0.000000)
       - name: Node
         transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 5.000000, 0.000000, 1.000000
         children:
           []
         components:
           - type: Light
-            color: (1.000000, 1.000000, 1.000000)
-            intensity: 1
-            range: 1
-            cast_shadows: false
-      - name: Node
-        transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
-        children:
-          []
-        components:
-          - type: MeshRenderer
-            material:
-              shader:
-                vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
-                frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
-            mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
+            color: (1, 1, 1)
+            intensity: 2.0
+            range: 1.0
+            cast_shadows: true
     components:
-      - type: Car
       - type: Player
-      - type: BlockPlacer
-        textured_material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
-          texture:
-            path: /home/josh/source/c++/mine/res/textures/conflag.jpg
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
   - name: Node
     transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
     children:
@@ -82,35 +47,3 @@ nodes:
             vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
             frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
         mesh: /home/josh/source/c++/mine/res/prim_mesh/rooms.obj
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 5.000000, 0.000000, 1.000000
-    children:
-      []
-    components:
-      - type: Light
-        color: (1.000000, 1.000000, 1.000000)
-        intensity: 1
-        range: 1
-        cast_shadows: false
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 1.000000, 5.000000, 1.000000
-    children:
-      []
-    components:
-      - type: Camera
-        fov: 60
-        aspect: 1.33333337
-        near: 0.100000001
-        far: 10000
-        sky_color: (0.100000, 0.300000, 0.800000)
-  - name: Node
-    transform: 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000
-    children:
-      []
-    components:
-      - type: MeshRenderer
-        material:
-          shader:
-            vertex_path: /home/josh/source/c++/mine/res/shaders/vertex.glsl
-            frag_path: /home/josh/source/c++/mine/res/shaders/fragment.glsl
-        mesh: /home/josh/source/c++/mine/res/prim_mesh/car.obj
